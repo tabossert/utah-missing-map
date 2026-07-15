@@ -2,6 +2,7 @@
 import { getSupabase, isConfigured } from './supabase.js';
 import { CONFIG } from './config.js';
 import { CATEGORY_STYLES } from './map.js';
+import { initTheme, wireThemeToggle } from './theme.js';
 
 const $ = (id) => document.getElementById(id);
 const VIEWS = ['view-unconfigured', 'view-login', 'view-denied', 'view-editor'];
@@ -15,6 +16,8 @@ let editorReady = false;
 init();
 
 async function init() {
+  initTheme();
+  wireThemeToggle();
   if (!isConfigured() || !sb) {
     show('view-unconfigured');
     return;

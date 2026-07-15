@@ -1,6 +1,7 @@
 // App entry: load data, wire the map + filters + scorecard + refresh.
 import { loadSnapshot, fetchExtras, attachExtras, deriveFacets } from './data.js';
-import { initMap, renderMarkers, focusPerson, CATEGORY_STYLES } from './map.js';
+import { initMap, renderMarkers, focusPerson, setMapTheme, CATEGORY_STYLES } from './map.js';
+import { initTheme, wireThemeToggle } from './theme.js';
 import { applyFilters } from './filters.js';
 import { initScorecard, openCard, closeCard, currentCardId } from './scorecard.js';
 import { refreshLive, relativeTime } from './refresh.js';
@@ -20,7 +21,9 @@ const $ = (id) => document.getElementById(id);
 const decadeFloor = (y) => Math.floor(y / 10) * 10;
 
 async function main() {
-  initMap();
+  const theme = initTheme();
+  initMap(theme);
+  wireThemeToggle((t) => setMapTheme(t));
   initScorecard();
   buildLegend();
 

@@ -3,6 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('umm-theme');
+          if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
     <title>Admin · Utah's Missing &amp; Unidentified</title>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
     <link rel="stylesheet" href="styles/main.css" />
@@ -10,9 +19,25 @@
   </head>
   <body class="admin-body">
     <header class="app-header">
-      <a class="brand" href="index.html"><img src="assets/logo.svg" class="logo" alt="Utah's Missing &amp; Unidentified" /></a>
+      <a class="brand" href="index.html">
+        <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" role="img" aria-label="Utah's Missing &amp; Unidentified">
+          <title>Utah's Missing &amp; Unidentified</title>
+          <g transform="translate(8,8)">
+            <path d="M32 57 C24 44 14 36 14 25 A18 18 0 1 1 50 25 C50 36 40 44 32 57 Z" fill="#4A6D6F" stroke="#3B5759" stroke-width="1.5" stroke-linejoin="round" />
+            <circle cx="32" cy="25" r="12.5" fill="#F7F4EF" />
+            <g fill="#7FA9D4"><circle cx="32" cy="18.5" r="5" /><circle cx="38.18" cy="22.99" r="5" /><circle cx="35.82" cy="30.26" r="5" /><circle cx="28.18" cy="30.26" r="5" /><circle cx="25.82" cy="22.99" r="5" /></g>
+            <g fill="#A9C7E6"><circle cx="32" cy="17" r="2.2" /><circle cx="39.61" cy="22.53" r="2.2" /><circle cx="36.70" cy="31.47" r="2.2" /><circle cx="27.30" cy="31.47" r="2.2" /><circle cx="24.39" cy="22.53" r="2.2" /></g>
+            <circle cx="32" cy="25" r="3.4" fill="#F0C560" />
+          </g>
+          <g fill="currentColor" font-family="'Iowan Old Style','Palatino Linotype',Georgia,serif" font-size="21" letter-spacing="0.3">
+            <text x="86" y="37">Utah's Missing &amp;</text>
+            <text x="86" y="60">Unidentified</text>
+          </g>
+        </svg>
+      </a>
       <div class="header-actions">
         <span id="admin-who" class="freshness"></span>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">☾</button>
         <a class="admin-link" href="index.html">← Back to map</a>
         <button id="signout-btn" class="refresh-btn" hidden>Sign out</button>
       </div>

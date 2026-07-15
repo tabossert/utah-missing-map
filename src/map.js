@@ -8,8 +8,14 @@ export const CATEGORY_STYLES = {
   'Unidentified Females': { color: '#A86C86', label: 'Unidentified · women' },
 };
 
+const TILE_URLS = {
+  light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+  dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+};
+
 let map;
 let cluster;
+let baseLayer;
 const markerById = new Map();
 
 function pinIcon(color) {
@@ -37,7 +43,7 @@ function clusterIcon(cluster) {
   });
 }
 
-export function initMap() {
+export function initMap(theme = 'light') {
   map = L.map('map', {
     center: [39.5, -111.7],
     zoom: 6,
@@ -45,7 +51,7 @@ export function initMap() {
     scrollWheelZoom: true,
     worldCopyJump: true,
   });
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  baseLayer = L.tileLayer(TILE_URLS[theme] || TILE_URLS.light, {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
@@ -94,4 +100,8 @@ export function focusPerson(id) {
 
 export function getMap() {
   return map;
+}
+
+export function setMapTheme(theme) {
+  if (baseLayer) baseLayer.setUrl(TILE_URLS[theme] || TILE_URLS.light);
 }
