@@ -256,6 +256,13 @@ select {
   font-size: 0.85rem;
   color: var(--ink-soft);
 }
+/* filters flow into the toolbar on desktop; collapse behind a button on mobile */
+.filters {
+  display: contents;
+}
+.filters-toggle {
+  display: none;
+}
 
 /* ---------- stage / map ---------- */
 .stage {
@@ -706,13 +713,44 @@ select {
     height: 38px;
   }
   .toolbar {
-    gap: 0.6rem 1rem;
+    gap: 0.6rem 0.8rem;
   }
   .result-count {
     width: 100%;
     margin-left: 0;
   }
+  .filters-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font: inherit;
+    font-size: 0.85rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface-2);
+    color: var(--ink-soft);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .filters-toggle[aria-expanded="true"] {
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+    border-color: var(--accent);
+  }
+  .filters {
+    display: none;
+    flex-basis: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+  .filters.open {
+    display: flex;
+  }
   .scorecard {
+    position: fixed; /* anchor to the viewport, not the (clipped) map container */
     width: 100%;
     height: 80dvh;
     top: auto;
@@ -726,10 +764,10 @@ select {
   .scorecard.open {
     transform: translateY(0);
   }
-  /* tap the dimmed map to dismiss */
+  /* tap the dimmed area to dismiss */
   .scorecard-backdrop {
     display: block;
-    position: absolute;
+    position: fixed;
     inset: 0;
     z-index: 700;
     background: rgba(0, 0, 0, 0.38);

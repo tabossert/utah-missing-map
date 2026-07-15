@@ -56,6 +56,10 @@
         <span class="search-icon" aria-hidden="true">🔍</span>
         <input id="search" type="search" placeholder="Search by name or year…" aria-label="Search by name or year" />
       </div>
+      <button id="filters-toggle" class="filters-toggle" type="button" aria-expanded="false" aria-controls="filters">
+        <span aria-hidden="true">⚙</span> Filters
+      </button>
+      <div class="filters" id="filters">
       <div class="filter-group" role="group" aria-label="Filter by type">
         <span class="filter-label">Type</span>
         <button class="chip active" data-type="Missing" aria-pressed="true">Missing</button>
@@ -73,6 +77,7 @@
         <select id="decade-to" aria-label="To decade"></select>
       </div>
       <span id="result-count" class="result-count" aria-live="polite"></span>
+      </div>
     </div>
 
     <main class="stage">

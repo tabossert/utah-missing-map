@@ -85,6 +85,14 @@ function wireControls() {
   });
 
   $('refresh-btn').addEventListener('click', () => doRefresh(false));
+
+  const ft = $('filters-toggle');
+  if (ft) {
+    ft.addEventListener('click', () => {
+      const open = $('filters').classList.toggle('open');
+      ft.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
 }
 
 function toggleChip(btn, set, value) {

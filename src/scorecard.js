@@ -53,41 +53,57 @@ export function initScorecard({ onClose } = {}) {
   });
 }
 
-// Swipe the bottom-sheet handle down to dismiss (mobile).
+// Swipe the bottom-sheet down to dismiss (mobile). Engages from anywhere on the
+// sheet as long as its content is scrolled to the top, so it never fights
+// content scrolling.
 function initSheetDrag() {
-  const handle = panelEl.querySelector('.sheet-handle');
-  if (!handle) return;
   let startY = 0;
   let dy = 0;
   let dragging = false;
-  handle.addEventListener(
+  let armed = false;
+  const isMobile = () => matchMedia('(max-width: 760px)').matches;
+
+  panelEl.addEventListener(
     'touchstart',
     (e) => {
-      dragging = true;
+      if (!isMobile() || e.touches.length !== 1) {
+        armed = false;
+        return;
+      }
       startY = e.touches[0].clientY;
       dy = 0;
-      panelEl.style.transition = 'none';
+      dragging = false;
+      armed = bodyEl.scrollTop <= 0; // only initiate a dismiss from the top
     },
     { passive: true },
   );
-  handle.addEventListener(
+
+  panelEl.addEventListener(
     'touchmove',
     (e) => {
-      if (!dragging) return;
-      dy = Math.max(0, e.touches[0].clientY - startY);
-      panelEl.style.transform = `translateY(${dy}px)`;
+      if (!armed) return;
+      dy = e.touches[0].clientY - startY;
+      if (dy <= 0) return; // moving up → let content scroll
+      if (!dragging && dy > 6) dragging = true;
+      if (dragging) {
+        e.preventDefault(); // take over from scrolling
+        panelEl.style.transition = 'none';
+        panelEl.style.transform = `translateY(${dy}px)`;
+      }
     },
-    { passive: true },
+    { passive: false },
   );
+
   const end = () => {
+    armed = false;
     if (!dragging) return;
     dragging = false;
     panelEl.style.transition = '';
     panelEl.style.transform = '';
     if (dy > 90) closeCard();
   };
-  handle.addEventListener('touchend', end);
-  handle.addEventListener('touchcancel', end);
+  panelEl.addEventListener('touchend', end);
+  panelEl.addEventListener('touchcancel', end);
 }
 
 function trapWithin(container, e) {
