@@ -35,6 +35,9 @@ export function initScorecard({ onClose } = {}) {
   lightboxEl = document.getElementById('lightbox');
   onCloseCb = onClose;
   document.getElementById('scorecard-close').addEventListener('click', closeCard);
+  const backdrop = document.getElementById('scorecard-backdrop');
+  if (backdrop) backdrop.addEventListener('click', closeCard);
+  initSheetDrag();
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (lightboxEl.classList.contains('open')) closeLightbox();
@@ -48,6 +51,43 @@ export function initScorecard({ onClose } = {}) {
   lightboxEl.addEventListener('click', (e) => {
     if (e.target === lightboxEl || e.target.classList.contains('lightbox-close')) closeLightbox();
   });
+}
+
+// Swipe the bottom-sheet handle down to dismiss (mobile).
+function initSheetDrag() {
+  const handle = panelEl.querySelector('.sheet-handle');
+  if (!handle) return;
+  let startY = 0;
+  let dy = 0;
+  let dragging = false;
+  handle.addEventListener(
+    'touchstart',
+    (e) => {
+      dragging = true;
+      startY = e.touches[0].clientY;
+      dy = 0;
+      panelEl.style.transition = 'none';
+    },
+    { passive: true },
+  );
+  handle.addEventListener(
+    'touchmove',
+    (e) => {
+      if (!dragging) return;
+      dy = Math.max(0, e.touches[0].clientY - startY);
+      panelEl.style.transform = `translateY(${dy}px)`;
+    },
+    { passive: true },
+  );
+  const end = () => {
+    if (!dragging) return;
+    dragging = false;
+    panelEl.style.transition = '';
+    panelEl.style.transform = '';
+    if (dy > 90) closeCard();
+  };
+  handle.addEventListener('touchend', end);
+  handle.addEventListener('touchcancel', end);
 }
 
 function trapWithin(container, e) {

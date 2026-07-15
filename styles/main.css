@@ -368,6 +368,12 @@ select {
   padding-bottom: 2rem;
 }
 
+/* mobile-only bottom-sheet affordances (shown in the max-width media query) */
+.sheet-handle,
+.scorecard-backdrop {
+  display: none;
+}
+
 /* gallery */
 .gallery {
   display: flex;
@@ -708,16 +714,55 @@ select {
   }
   .scorecard {
     width: 100%;
-    height: 78dvh;
+    height: 80dvh;
     top: auto;
     bottom: 0;
     border-left: none;
     border-top: 1px solid var(--line);
-    border-radius: var(--radius) var(--radius) 0 0;
+    border-radius: 16px 16px 0 0;
     transform: translateY(102%);
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.22);
   }
   .scorecard.open {
     transform: translateY(0);
+  }
+  /* tap the dimmed map to dismiss */
+  .scorecard-backdrop {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 700;
+    background: rgba(0, 0, 0, 0.38);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s ease;
+  }
+  body.panel-open .scorecard-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  /* drag handle (swipe down to dismiss) */
+  .sheet-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 26px;
+    flex-shrink: 0;
+    cursor: grab;
+    touch-action: none;
+  }
+  .sheet-grabber {
+    width: 42px;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--ink-faint);
+    opacity: 0.5;
+  }
+  .scorecard-close {
+    top: 0.35rem;
+    right: 0.5rem;
+    width: 40px;
+    height: 40px;
   }
   .legend {
     bottom: 12px;
