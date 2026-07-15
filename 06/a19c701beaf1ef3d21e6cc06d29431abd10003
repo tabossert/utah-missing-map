@@ -1,0 +1,23 @@
+src/admin.js
+  s_65a844aba81293::t_9df90091ec5775 51-52
+supabase/schema.sql
+  s_65a844aba81293::t_9bb0a0048b5e59 7,9,23,42-52,60,78,81,107,109-110
+src/config.js
+  s_65a844aba81293::t_93ec857867ee7c 7-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "06a19c701beaf1ef3d21e6cc06d29431abd10003",
+  "prompts": {},
+  "sessions": {
+    "s_65a844aba81293": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42789ba0-fcaa-4e07-bc60-0c966b47e723",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Trevor Bossert <alanboss@gmail.com>"
+    }
+  }
+}
