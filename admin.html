@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin · Utah's Missing &amp; Unidentified</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/admin.css" />
+  </head>
+  <body class="admin-body">
+    <header class="app-header">
+      <a class="brand" href="index.html"><img src="assets/logo.svg" class="logo" alt="Utah's Missing &amp; Unidentified" /></a>
+      <div class="header-actions">
+        <span id="admin-who" class="freshness"></span>
+        <a class="admin-link" href="index.html">← Back to map</a>
+        <button id="signout-btn" class="refresh-btn" hidden>Sign out</button>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <!-- not configured -->
+      <section id="view-unconfigured" class="admin-card" hidden>
+        <h1>Admin isn't configured yet</h1>
+        <p>
+          To enable the admin panel, create a free Supabase project, run
+          <code>supabase/schema.sql</code>, then add your project URL and anon key to
+          <code>src/config.js</code>. See the README for step-by-step setup.
+        </p>
+      </section>
+
+      <!-- login -->
+      <section id="view-login" class="admin-card" hidden>
+        <h1>Admin sign in</h1>
+        <p>Enter your email and we'll send you a one-time sign-in link.</p>
+        <form id="login-form" class="login-form">
+          <input id="login-email" type="email" required placeholder="you@example.com" autocomplete="email" />
+          <button type="submit" class="tip-cta">Send magic link</button>
+        </form>
+        <p id="login-msg" class="login-msg" aria-live="polite"></p>
+      </section>
+
+      <!-- not authorized -->
+      <section id="view-denied" class="admin-card" hidden>
+        <h1>You're signed in, but not an admin</h1>
+        <p>Your account isn't on the admin allowlist. Ask an existing admin to add you, then reload.</p>
+      </section>
+
+      <!-- editor -->
+      <section id="view-editor" class="editor" hidden>
+        <div class="editor-col picker-col">
+          <h2>Choose a case</h2>
+          <input id="marker-search" type="search" placeholder="Search 240 people…" aria-label="Search cases" />
+          <ul id="marker-list" class="marker-list"></ul>
+        </div>
+        <div class="editor-col detail-col">
+          <div id="editor-empty" class="editor-empty">Select a case on the left to add information.</div>
+          <div id="editor-detail" hidden>
+            <h2 id="editor-title"></h2>
+            <a id="editor-view-link" class="admin-link" target="_blank" rel="noopener">View on map ↗</a>
+
+            <h3>Existing additions</h3>
+            <ul id="extras-list" class="extras-list"></ul>
+
+            <h3>Add information</h3>
+            <form id="extra-form" class="extra-form">
+              <label>
+                Type
+                <select id="extra-kind">
+                  <option value="note">Note / text</option>
+                  <option value="link">Link</option>
+                  <option value="image">Image (upload)</option>
+                  <option value="video">Video (upload)</option>
+                  <option value="file">File (upload)</option>
+                </select>
+              </label>
+              <label id="field-title">
+                Title <span class="hint">(optional)</span>
+                <input id="extra-title" type="text" />
+              </label>
+              <label id="field-body">
+                Text
+                <textarea id="extra-body" rows="4"></textarea>
+              </label>
+              <label id="field-url" hidden>
+                URL
+                <input id="extra-url" type="url" placeholder="https://…" />
+              </label>
+              <label id="field-file" hidden>
+                File
+                <input id="extra-file" type="file" />
+                <span id="upload-progress" class="hint"></span>
+              </label>
+              <button type="submit" class="tip-cta" id="extra-submit">Add</button>
+              <p id="extra-msg" class="login-msg" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="vendor/supabase/supabase.js"></script>
+    <script type="module" src="src/admin.js"></script>
+  </body>
+</html>

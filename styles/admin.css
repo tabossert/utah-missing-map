@@ -1,0 +1,213 @@
+/* Admin page — builds on main.css tokens */
+.admin-body {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+}
+.admin-main {
+  flex: 1;
+  overflow: hidden;
+  padding: 1.2rem;
+  display: flex;
+  justify-content: center;
+}
+.admin-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.6rem 1.8rem;
+  max-width: 520px;
+  margin: auto;
+}
+.admin-card h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  margin-top: 0;
+}
+.admin-card code {
+  background: var(--accent-soft);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+.login-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+.login-form input {
+  flex: 1 1 220px;
+  font: inherit;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.login-msg {
+  color: var(--accent-deep);
+  font-size: 0.88rem;
+  min-height: 1.2em;
+}
+
+/* editor two-column */
+.editor {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1.2rem;
+  width: 100%;
+  max-width: 1100px;
+  overflow: hidden;
+}
+.editor-col {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  overflow-y: auto;
+}
+.editor-col h2 {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  margin: 0 0 0.7rem;
+}
+#marker-search {
+  width: 100%;
+  font: inherit;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  margin-bottom: 0.6rem;
+}
+.marker-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.marker-list li {
+  padding: 0.45rem 0.5rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.marker-list li:hover {
+  background: var(--accent-soft);
+}
+.marker-list li.active {
+  background: var(--accent);
+  color: #fff;
+}
+.marker-list .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.editor-empty {
+  color: var(--ink-faint);
+  padding: 2rem;
+  text-align: center;
+}
+#editor-title {
+  font-family: var(--serif);
+  margin: 0 0 0.2rem;
+}
+.detail-col h3 {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  margin: 1.4rem 0 0.5rem;
+}
+.extras-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.extras-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.7rem;
+  font-size: 0.9rem;
+}
+.extras-list .kind-tag {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+}
+.extras-list .grow {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.extras-list button {
+  font: inherit;
+  font-size: 0.82rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+}
+.extras-list button.del:hover {
+  border-color: #b3564e;
+  color: #b3564e;
+}
+.extra-form {
+  display: grid;
+  gap: 0.7rem;
+  max-width: 520px;
+}
+.extra-form label {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.extra-form input,
+.extra-form select,
+.extra-form textarea {
+  font: inherit;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+}
+.extra-form .hint {
+  color: var(--ink-faint);
+  font-weight: normal;
+}
+.extra-form .tip-cta {
+  justify-self: start;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .admin-main {
+    overflow-y: auto;
+  }
+  .editor {
+    grid-template-columns: 1fr;
+    overflow: visible;
+  }
+  .picker-col {
+    max-height: 40vh;
+  }
+}
