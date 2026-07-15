@@ -1,0 +1,23 @@
+test/kml-parser.test.mjs
+  s_65a844aba81293::t_b01b0415773dc5 1-104
+src/kml-parser.js
+  s_65a844aba81293::t_65ed57808a8e13 1-222
+test/fixtures/sample.kml
+  s_65a844aba81293::t_5b80be7616d76c 1-75
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "b83badc727fe307210a218fa1cf76446ac9e31a9",
+  "prompts": {},
+  "sessions": {
+    "s_65a844aba81293": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42789ba0-fcaa-4e07-bc60-0c966b47e723",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Trevor Bossert <alanboss@gmail.com>"
+    }
+  }
+}
