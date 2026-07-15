@@ -1,0 +1,19 @@
+supabase/schema.sql
+  s_65a844aba81293::t_93b90b05ec2fec 4,29-33,38,45-52,54,61,77,81,85,90,94-95,103,107,111
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "c6da88a06ae746c893315fd7a17ae13f2a80b958",
+  "prompts": {},
+  "sessions": {
+    "s_65a844aba81293": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42789ba0-fcaa-4e07-bc60-0c966b47e723",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Trevor Bossert <alanboss@gmail.com>"
+    }
+  }
+}
