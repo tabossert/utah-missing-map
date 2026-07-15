@@ -1,0 +1,21 @@
+README.md
+  s_65a844aba81293::t_f0ee9b4af0bbc7 1-71
+.github/workflows/deploy.yml
+  s_65a844aba81293::t_576e8411e56ab1 1-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "3ff73629f597842efa3c444e769d4a69f3096b74",
+  "prompts": {},
+  "sessions": {
+    "s_65a844aba81293": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42789ba0-fcaa-4e07-bc60-0c966b47e723",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Trevor Bossert <alanboss@gmail.com>"
+    }
+  }
+}
