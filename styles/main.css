@@ -8,7 +8,7 @@
   --surface-2: #ffffff;
   --ink: #2e3b3c;
   --ink-soft: #56635f;
-  --ink-faint: #8b948f;
+  --ink-faint: #626d68;
   --line: #e3ddce;
   --accent: #4a6d6f; /* slate-teal (matches logo) */
   --accent-deep: #3b5759;
@@ -296,13 +296,16 @@ select {
   border-left: 1px solid var(--line);
   box-shadow: var(--shadow);
   transform: translateX(102%);
-  transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+  visibility: hidden; /* keep the closed panel out of the tab order */
+  transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), visibility 0s 0.28s;
   z-index: 800;
   display: flex;
   flex-direction: column;
 }
 .scorecard.open {
   transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), visibility 0s 0s;
 }
 .scorecard-close {
   position: absolute;

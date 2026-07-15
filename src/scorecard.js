@@ -40,8 +40,9 @@ export function initScorecard({ onClose } = {}) {
       if (lightboxEl.classList.contains('open')) closeLightbox();
       else if (panelEl.classList.contains('open')) closeCard();
     }
-    if (e.key === 'Tab' && panelEl.classList.contains('open') && !lightboxEl.classList.contains('open')) {
-      trapTab(e);
+    if (e.key === 'Tab') {
+      if (lightboxEl.classList.contains('open')) trapWithin(lightboxEl, e);
+      else if (panelEl.classList.contains('open')) trapWithin(panelEl, e);
     }
   });
   lightboxEl.addEventListener('click', (e) => {
@@ -49,8 +50,10 @@ export function initScorecard({ onClose } = {}) {
   });
 }
 
-function trapTab(e) {
-  const focusable = panelEl.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"]), video, img[tabindex]');
+function trapWithin(container, e) {
+  const focusable = container.querySelectorAll(
+    'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"]), video, img[tabindex]',
+  );
   if (!focusable.length) return;
   const first = focusable[0];
   const last = focusable[focusable.length - 1];
@@ -66,17 +69,21 @@ function trapTab(e) {
 // ---- lightbox over the union of case photos + admin image extras ----
 let galleryImages = [];
 let galleryIndex = 0;
+let lbLastFocus = null;
 
 function openLightbox(images, index) {
   galleryImages = images;
   galleryIndex = index;
+  lbLastFocus = document.activeElement;
   renderLightbox();
   lightboxEl.classList.add('open');
   lightboxEl.setAttribute('aria-hidden', 'false');
+  lightboxEl.querySelector('.lightbox-close')?.focus();
 }
 function closeLightbox() {
   lightboxEl.classList.remove('open');
   lightboxEl.setAttribute('aria-hidden', 'true');
+  if (lbLastFocus && lbLastFocus.focus) lbLastFocus.focus();
 }
 function renderLightbox() {
   const img = galleryImages[galleryIndex];
@@ -93,7 +100,13 @@ function renderLightbox() {
           renderLightbox();
         },
       }),
-    h('img', { src: img.full, alt: img.alt || '' }),
+    h('img', {
+      src: img.full,
+      alt: img.alt || '',
+      onerror: (e) => {
+        if (img.fallback && e.target.src !== img.fallback) e.target.src = img.fallback;
+      },
+    }),
     galleryImages.length > 1 &&
       h('button', {
         class: 'lightbox-nav next',

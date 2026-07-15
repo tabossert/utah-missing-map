@@ -70,7 +70,10 @@ function wireControls() {
 
   $('decade-from').addEventListener('change', (e) => {
     state.yearFrom = Number(e.target.value);
-    if (state.yearFrom > state.yearTo) $('decade-to').value = String((state.yearTo = state.yearFrom + 9));
+    if (state.yearFrom > state.yearTo) {
+      state.yearTo = state.yearFrom + 9;
+      $('decade-to').value = String(state.yearFrom); // options are decade floors
+    }
     render();
   });
   $('decade-to').addEventListener('change', (e) => {
@@ -132,7 +135,11 @@ async function doRefresh(isAuto) {
   try {
     const fresh = await refreshLive(people);
     people = fresh;
-    attachExtras(people, await fetchExtras());
+    // refreshLive already carried prior admin extras onto known people; only
+    // overwrite when the fetch actually returned rows, so a transient Supabase
+    // failure (empty map) doesn't wipe them.
+    const extras = await fetchExtras();
+    if (extras.size) attachExtras(people, extras);
     lastUpdated = new Date().toISOString();
     render();
     const openId = currentCardId();
