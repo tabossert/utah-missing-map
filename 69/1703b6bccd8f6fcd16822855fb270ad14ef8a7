@@ -1,0 +1,42 @@
+src/map.js
+  s_65a844aba81293::t_8b090609e8a3b7 46,54
+  s_65a844aba81293::t_19d26f7ed0d9c8 11-15,18
+  s_65a844aba81293::t_7416530a6782f8 104-107
+styles/main.css
+  s_65a844aba81293::t_f881b21b823f7b 356
+  s_65a844aba81293::t_c8ebda4be6ce73 28-43
+  s_65a844aba81293::t_7340238bbb251e 671
+  s_65a844aba81293::t_54952be1214526 301
+  s_65a844aba81293::t_c22ea4021cd66e 131-151
+  s_65a844aba81293::t_828f65c7c5cec0 103
+src/app.js
+  s_65a844aba81293::t_04f493d6dcb49b 24-26
+  s_65a844aba81293::t_6e96b43d6c7a66 3-4
+admin.html
+  s_65a844aba81293::t_c751cd5b842d07 22-37,40
+  s_65a844aba81293::t_848e63800c6d96 6-14
+index.html
+  s_65a844aba81293::t_d05c5648c772de 6-15
+  s_65a844aba81293::t_321f7b1868feaf 30-43,47
+src/admin.js
+  s_65a844aba81293::t_6d57bf4f919ea1 19-20
+  s_65a844aba81293::t_99d483644f2721 5
+src/theme.js
+  s_65a844aba81293::t_9dcceb763c0eb7 1-50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "691703b6bccd8f6fcd16822855fb270ad14ef8a7",
+  "prompts": {},
+  "sessions": {
+    "s_65a844aba81293": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42789ba0-fcaa-4e07-bc60-0c966b47e723",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Trevor Bossert <alanboss@gmail.com>"
+    }
+  }
+}
