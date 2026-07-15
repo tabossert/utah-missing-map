@@ -1,0 +1,15 @@
+{
+  "name": "utah-missing-unidentified",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Interactive map of Utah's missing and unidentified persons, built from a Google My Map.",
+  "scripts": {
+    "build": "node build/build.mjs",
+    "test": "node --test",
+    "serve": "python3 -m http.server 8080"
+  },
+  "devDependencies": {
+    "@xmldom/xmldom": "^0.9.6"
+  }
+}
