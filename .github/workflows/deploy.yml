@@ -1,0 +1,63 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 * * * *" # hourly data refresh
+  workflow_dispatch:
+
+permissions:
+  contents: write # commit refreshed data/images
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # On the schedule / manual run, re-fetch the live map + new photos.
+      - name: Refresh snapshot
+        if: github.event_name != 'push'
+        run: |
+          npm ci
+          npm run build
+
+      - name: Commit refreshed data
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data images
+          if git diff --cached --quiet; then
+            echo "No data changes."
+          else
+            git commit -m "chore: hourly data refresh"
+            git push
+          fi
+
+      # Assemble only the files the site needs (excludes build/, test/, node_modules).
+      - name: Assemble site
+        run: |
+          mkdir _site
+          cp -r index.html admin.html styles src vendor assets data images .nojekyll _site/
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
