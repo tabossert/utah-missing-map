@@ -1,0 +1,24 @@
+.gitignore
+  s_65a844aba81293::t_43ef8910ace8e3 1-3
+package.json
+  s_65a844aba81293::t_dfc23314f0440c 1-12,14-15
+  s_65a844aba81293::t_9046c72670a46c 13
+package-lock.json
+  s_65a844aba81293::t_20cd583ac82fb9 1-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "061ab77c137a548b960398bc8734193c8b468648",
+  "prompts": {},
+  "sessions": {
+    "s_65a844aba81293": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42789ba0-fcaa-4e07-bc60-0c966b47e723",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Trevor Bossert <alanboss@gmail.com>"
+    }
+  }
+}
