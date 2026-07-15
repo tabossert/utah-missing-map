@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Forget-me-not map pin">
+  <title>Utah's Missing &amp; Unidentified</title>
+  <!-- Pin body: muted slate-teal teardrop -->
+  <path d="M32 57 C24 44 14 36 14 25 A18 18 0 1 1 50 25 C50 36 40 44 32 57 Z"
+        fill="#4A6D6F" stroke="#3B5759" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Paper well so the flower reads cleanly -->
+  <circle cx="32" cy="25" r="12.5" fill="#F7F4EF"/>
+  <!-- Forget-me-not: five rounded petals -->
+  <g fill="#7FA9D4">
+    <circle cx="32" cy="18.5" r="5"/>
+    <circle cx="38.18" cy="22.99" r="5"/>
+    <circle cx="35.82" cy="30.26" r="5"/>
+    <circle cx="28.18" cy="30.26" r="5"/>
+    <circle cx="25.82" cy="22.99" r="5"/>
+  </g>
+  <!-- Soft petal highlights -->
+  <g fill="#A9C7E6">
+    <circle cx="32" cy="17" r="2.2"/>
+    <circle cx="39.61" cy="22.53" r="2.2"/>
+    <circle cx="36.70" cy="31.47" r="2.2"/>
+    <circle cx="27.30" cy="31.47" r="2.2"/>
+    <circle cx="24.39" cy="22.53" r="2.2"/>
+  </g>
+  <!-- Warm center -->
+  <circle cx="32" cy="25" r="3.4" fill="#F0C560"/>
+</svg>

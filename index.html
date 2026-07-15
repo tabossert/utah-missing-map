@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Utah's Missing &amp; Unidentified</title>
+    <meta name="description" content="An interactive map of Utah's missing and unidentified persons — last known locations and where the unidentified were found." />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="vendor/markercluster/MarkerCluster.css" />
+    <link rel="stylesheet" href="vendor/markercluster/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#map">Skip to map</a>
+
+    <header class="app-header">
+      <div class="brand">
+        <img src="assets/logo.svg" class="logo" alt="Utah's Missing &amp; Unidentified" />
+      </div>
+      <div class="header-actions">
+        <span id="freshness" class="freshness" aria-live="polite"></span>
+        <button id="refresh-btn" class="refresh-btn" title="Check the live map for updates">
+          <span class="refresh-icon" aria-hidden="true">⟳</span> Refresh
+        </button>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <div class="search-wrap">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input id="search" type="search" placeholder="Search by name or year…" aria-label="Search by name or year" />
+      </div>
+      <div class="filter-group" role="group" aria-label="Filter by type">
+        <span class="filter-label">Type</span>
+        <button class="chip active" data-type="Missing" aria-pressed="true">Missing</button>
+        <button class="chip active" data-type="Unidentified" aria-pressed="true">Unidentified</button>
+      </div>
+      <div class="filter-group" role="group" aria-label="Filter by gender">
+        <span class="filter-label">Gender</span>
+        <button class="chip active" data-gender="Male" aria-pressed="true">Men</button>
+        <button class="chip active" data-gender="Female" aria-pressed="true">Women</button>
+      </div>
+      <div class="filter-group" aria-label="Filter by decade">
+        <span class="filter-label">Years</span>
+        <select id="decade-from" aria-label="From decade"></select>
+        <span class="dash" aria-hidden="true">–</span>
+        <select id="decade-to" aria-label="To decade"></select>
+      </div>
+      <span id="result-count" class="result-count" aria-live="polite"></span>
+    </div>
+
+    <main class="stage">
+      <div id="map" role="application" aria-label="Map of Utah's missing and unidentified persons"></div>
+      <div id="legend" class="legend" aria-label="Marker legend"></div>
+      <aside id="scorecard" class="scorecard" aria-hidden="true" aria-label="Case details">
+        <button id="scorecard-close" class="scorecard-close" aria-label="Close case details">×</button>
+        <div id="scorecard-body" class="scorecard-body"></div>
+      </aside>
+    </main>
+
+    <footer class="app-footer">
+      <span class="footer-note">
+        A community map of Utah's missing &amp; unidentified. Map tiles &copy; OpenStreetMap &amp; CARTO.
+      </span>
+      <a class="admin-link" href="admin.html">Admin</a>
+    </footer>
+
+    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Photo viewer"></div>
+
+    <script src="vendor/leaflet/leaflet.js"></script>
+    <script src="vendor/markercluster/leaflet.markercluster.js"></script>
+    <script src="vendor/supabase/supabase.js"></script>
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>

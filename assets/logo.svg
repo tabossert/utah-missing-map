@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" role="img"
+     aria-label="Utah's Missing &amp; Unidentified">
+  <title>Utah's Missing &amp; Unidentified</title>
+  <!-- Wordmark inherits currentColor; default adapts to light/dark, site can override -->
+  <style>
+    :root { color: #2E3B3C; }
+    @media (prefers-color-scheme: dark) { :root { color: #E8EDEC; } }
+  </style>
+  <!-- Glyph: forget-me-not map pin -->
+  <g transform="translate(8,8)">
+    <path d="M32 57 C24 44 14 36 14 25 A18 18 0 1 1 50 25 C50 36 40 44 32 57 Z"
+          fill="#4A6D6F" stroke="#3B5759" stroke-width="1.5" stroke-linejoin="round"/>
+    <circle cx="32" cy="25" r="12.5" fill="#F7F4EF"/>
+    <g fill="#7FA9D4">
+      <circle cx="32" cy="18.5" r="5"/>
+      <circle cx="38.18" cy="22.99" r="5"/>
+      <circle cx="35.82" cy="30.26" r="5"/>
+      <circle cx="28.18" cy="30.26" r="5"/>
+      <circle cx="25.82" cy="22.99" r="5"/>
+    </g>
+    <g fill="#A9C7E6">
+      <circle cx="32" cy="17" r="2.2"/>
+      <circle cx="39.61" cy="22.53" r="2.2"/>
+      <circle cx="36.70" cy="31.47" r="2.2"/>
+      <circle cx="27.30" cy="31.47" r="2.2"/>
+      <circle cx="24.39" cy="22.53" r="2.2"/>
+    </g>
+    <circle cx="32" cy="25" r="3.4" fill="#F0C560"/>
+  </g>
+  <!-- Wordmark: humanist serif, themable via currentColor -->
+  <g fill="currentColor" font-family="'Iowan Old Style','Palatino Linotype',Georgia,serif"
+     font-size="21" letter-spacing="0.3">
+    <text x="86" y="37">Utah's Missing &amp;</text>
+    <text x="86" y="60">Unidentified</text>
+  </g>
+</svg>
