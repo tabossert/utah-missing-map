@@ -4,10 +4,9 @@
 -- Safe to re-run (idempotent).
 -- ============================================================================
 
--- ---- admins allowlist -------------------------------------------------------
+-- ---- admins allowlist (by email, so it can be seeded before first login) ----
 create table if not exists public.admins (
-  user_id    uuid primary key references auth.users (id) on delete cascade,
-  email      text,
+  email      text primary key,
   created_at timestamptz not null default now()
 );
 
@@ -21,7 +20,7 @@ create table if not exists public.marker_extras (
   url          text,
   storage_path text,
   sort         int  not null default 0,
-  created_by   uuid references auth.users (id),
+  created_by   uuid references auth.users (id) default auth.uid(),
   created_at   timestamptz not null default now(),
   updated_at   timestamptz not null default now()
 );
@@ -40,10 +39,17 @@ create trigger marker_extras_updated
   before update on public.marker_extras
   for each row execute function public.set_updated_at();
 
--- ---- admin check (SECURITY DEFINER bypasses RLS → no recursion) --------------
-create or replace function public.is_admin() returns boolean as $$
-  select exists (select 1 from public.admins where user_id = auth.uid());
-$$ language sql security definer stable;
+-- ---- admin check: is the signed-in user's email on the allowlist? ----------
+-- SECURITY DEFINER so it can read public.admins without tripping that table's RLS.
+create or replace function public.is_admin() returns boolean
+  language sql security definer stable
+  set search_path = public
+as $$
+  select exists (
+    select 1 from public.admins
+    where lower(email) = lower(coalesce(auth.jwt() ->> 'email', ''))
+  );
+$$;
 
 -- ============================================================================
 -- Row Level Security
@@ -51,7 +57,7 @@ $$ language sql security definer stable;
 alter table public.marker_extras enable row level security;
 alter table public.admins        enable row level security;
 
--- everyone (including anonymous visitors) may READ extras
+-- everyone (including anonymous visitors) may READ extras (public case content)
 drop policy if exists "extras public read" on public.marker_extras;
 create policy "extras public read" on public.marker_extras
   for select using (true);
@@ -69,10 +75,10 @@ drop policy if exists "extras admin delete" on public.marker_extras;
 create policy "extras admin delete" on public.marker_extras
   for delete using (public.is_admin());
 
--- a signed-in user may read their own admins row (to learn they are an admin)
+-- a signed-in user may read their own allowlist row (to learn they are an admin)
 drop policy if exists "admins self read" on public.admins;
 create policy "admins self read" on public.admins
-  for select using (user_id = auth.uid() or public.is_admin());
+  for select using (lower(email) = lower(coalesce(auth.jwt() ->> 'email', '')) or public.is_admin());
 
 -- ============================================================================
 -- Storage bucket for uploaded images / videos / files
@@ -98,12 +104,10 @@ create policy "media admin delete" on storage.objects
   for delete using (bucket_id = 'marker-media' and public.is_admin());
 
 -- ============================================================================
--- Grant the first admin (run AFTER that person has signed in once via the
--- admin page, which creates their auth.users row):
+-- Grant an admin by email (they become admin the moment they first sign in):
 --
---   insert into public.admins (user_id, email)
---   select id, email from auth.users where email = 'you@example.com'
---   on conflict (user_id) do nothing;
+--   insert into public.admins (email) values ('you@example.com')
+--   on conflict (email) do nothing;
 --
 -- Repeat with another email to add more admins.
 -- ============================================================================

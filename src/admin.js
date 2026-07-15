@@ -48,8 +48,8 @@ async function route(session) {
   }
   const { data, error } = await sb
     .from('admins')
-    .select('user_id')
-    .eq('user_id', session.user.id)
+    .select('email')
+    .eq('email', (session.user.email || '').toLowerCase())
     .maybeSingle();
   if (error || !data) {
     $('admin-who').textContent = session.user.email;
