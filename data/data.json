@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-15T19:21:02.814Z",
-  "count": 240,
+  "generatedAt": "2026-07-16T16:13:42.878Z",
+  "count": 243,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -3680,6 +3680,32 @@
       "tipHotline": null
     },
     {
+      "id": "raymond-linn-shimer-2023",
+      "name": "Raymond Linn Shimer",
+      "year": 2023,
+      "category": "Missing Males",
+      "type": "Missing",
+      "gender": "Male",
+      "lat": 40.3850802,
+      "lng": -111.8531696,
+      "locationLabel": "Last known location",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/raymond-linn-shimer-2023/0.jpg"
+        }
+      ],
+      "narrative": "Last seen in May 2023. His daughter reported him missing. She believed he was camping in the Lehi area (exact location unknown/not released) and was concerned he was suicidal. Transient camps in the area were checked without locating Shimer.\n\nLehi Police Department Case #: 23LE08594",
+      "caseNumber": "23LE08594",
+      "links": [
+        {
+          "label": "Utah BCI Cold Cases",
+          "url": "https://bci.utah.gov/coldcases/raymond-linn-shimer/"
+        }
+      ],
+      "tipHotline": null
+    },
+    {
       "id": "gilberto-rubio-2023",
       "name": "Gilberto Rubio",
       "year": 2023,
@@ -3898,24 +3924,29 @@
       "tipHotline": null
     },
     {
-      "id": "joshua-elias-hunt-2026",
-      "name": "Joshua Elias Hunt",
-      "year": 2026,
+      "id": "billy-headley-2025",
+      "name": "Billy Headley",
+      "year": 2025,
       "category": "Missing Males",
       "type": "Missing",
       "gender": "Male",
-      "lat": 40.6907672,
-      "lng": -111.999591,
+      "lat": 39.5424105,
+      "lng": -110.7340924,
       "locationLabel": "Last known location",
       "photos": [
         {
           "src": null,
-          "local": "images/joshua-elias-hunt-2026/0.jpg"
+          "local": "images/billy-headley-2025/0.jpg"
         }
       ],
-      "narrative": "Last seen leaving his home on January 12, 2026, in West Valley City; exact location unknown/not released.",
-      "caseNumber": null,
-      "links": [],
+      "narrative": "Last seen October 12, 2025 when looking for work in Utah. He was last known to be in the Wellington area according to his Life360 app. Billy's Silver 2014 GMC Sierra 1500 with Arkansas license plate # ASU88V has not been located.\n\nMcCrory (AR) Police Department Case #: 25-00054",
+      "caseNumber": "25-00054",
+      "links": [
+        {
+          "label": "NamUs",
+          "url": "https://www.namus.gov/MissingPersons/Case#/151361/"
+        }
+      ],
       "tipHotline": null
     },
     {
@@ -7963,6 +7994,32 @@
       "tipHotline": null
     },
     {
+      "id": "janice-wadlington-2004",
+      "name": "Janice Wadlington",
+      "year": 2004,
+      "category": "Missing Females",
+      "type": "Missing",
+      "gender": "Female",
+      "lat": 37.0999083,
+      "lng": -113.5752956,
+      "locationLabel": "Last known location",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/janice-wadlington-2004/0.jpg"
+        }
+      ],
+      "narrative": "Last seen February 15, 2004 at DOVE Center, Saint George. Janice had been staying at the shelter for two months and checked out on the 15th to return on the 16th. Janice has not been seen or heard from since.\n\nSt. George Police Department Case #: 185434",
+      "caseNumber": "185434",
+      "links": [
+        {
+          "label": "Utah BCI Cold Cases",
+          "url": "https://bci.utah.gov/coldcases/janice-wadlington/"
+        }
+      ],
+      "tipHotline": null
+    },
+    {
       "id": "brenda-brendita-madrigal-gomez-2004",
       "name": "Brenda \"Brendita\" Madrigal Gomez",
       "year": 2004,
@@ -8419,6 +8476,32 @@
         {
           "label": "NamUs",
           "url": "https://www.namus.gov/MissingPersons/Case#/106603/"
+        }
+      ],
+      "tipHotline": null
+    },
+    {
+      "id": "chelsea-ansted-2023",
+      "name": "Chelsea Ansted",
+      "year": 2023,
+      "category": "Missing Females",
+      "type": "Missing",
+      "gender": "Female",
+      "lat": 40.3768954,
+      "lng": -111.7957645,
+      "locationLabel": "Last known location",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/chelsea-ansted-2023/0.jpg"
+        }
+      ],
+      "narrative": "Last seen January 3, 2023 in the American Fork area. She is a known drug user and may have been in a rehab center.\n\nAmerican Fork Police Department Case #: 23AF05811",
+      "caseNumber": "23AF05811",
+      "links": [
+        {
+          "label": "Utah BCI Cold Cases",
+          "url": "https://bci.utah.gov/coldcases/chelsea-ansted/"
         }
       ],
       "tipHotline": null
