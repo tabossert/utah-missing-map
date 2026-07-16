@@ -92,10 +92,11 @@ export function initMap(theme = 'light') {
   map = L.map('map', {
     center: [39.5, -111.7],
     zoom: 6,
-    zoomControl: true,
+    zoomControl: false,
     scrollWheelZoom: true,
     worldCopyJump: true,
   });
+  L.control.zoom({ position: 'topright' }).addTo(map); // right side, clear of the left-opening list
   baseLayer = L.tileLayer(TILE_URLS[theme] || TILE_URLS.light, {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
