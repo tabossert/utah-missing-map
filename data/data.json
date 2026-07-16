@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-16T16:13:42.878Z",
-  "count": 243,
+  "generatedAt": "2026-07-16T19:58:12.795Z",
+  "count": 246,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -1514,6 +1514,32 @@
         {
           "label": "NamUs",
           "url": "https://www.namus.gov/MissingPersons/Case#/15224/"
+        }
+      ],
+      "tipHotline": null
+    },
+    {
+      "id": "david-william-newman-2000",
+      "name": "David William Newman",
+      "year": 2000,
+      "category": "Missing Males",
+      "type": "Missing",
+      "gender": "Male",
+      "lat": 37.0463221,
+      "lng": -113.6052478,
+      "locationLabel": "Last known location",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/david-william-newman-2000/0.jpg"
+        }
+      ],
+      "narrative": "Last seen October 16, 2000, in the Bloomington area of St. George; exact location unknown/not released. He parked his vehicle in front of his brother's residence and walked away. Family stated he had been suicidal for some time.\n\nSt. George Police Department Case #: 98380",
+      "caseNumber": "98380",
+      "links": [
+        {
+          "label": "Utah BCI Cold Cases",
+          "url": "https://bci.utah.gov/coldcases/david-william-newman/"
         }
       ],
       "tipHotline": null
@@ -3341,6 +3367,32 @@
       "tipHotline": null
     },
     {
+      "id": "clayton-lee-harris-2020",
+      "name": "Clayton Lee Harris",
+      "year": 2020,
+      "category": "Missing Males",
+      "type": "Missing",
+      "gender": "Male",
+      "lat": 40.7560416,
+      "lng": -111.8826895,
+      "locationLabel": "Last known location",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/clayton-lee-harris-2020/0.jpg"
+        }
+      ],
+      "narrative": "Last seen in March 2020 when he left Idaho to go to Salt Lake City.\n\nSalt Lake City Police Department Case #: 23-255885",
+      "caseNumber": "23-255885",
+      "links": [
+        {
+          "label": "Utah BCI Cold Cases",
+          "url": "https://bci.utah.gov/coldcases/clayton-lee-harris/"
+        }
+      ],
+      "tipHotline": null
+    },
+    {
       "id": "eztli-ez-alt-cortez-trujillo-2020",
       "name": "Eztli \"Ez\" Alt Cortez-Trujillo",
       "year": 2020,
@@ -3488,6 +3540,32 @@
         {
           "label": "NamUs",
           "url": "https://www.namus.gov/MissingPersons/Case#/82360/"
+        }
+      ],
+      "tipHotline": null
+    },
+    {
+      "id": "dominic-sherril-walker-2021",
+      "name": "Dominic Sherril Walker",
+      "year": 2021,
+      "category": "Missing Males",
+      "type": "Missing",
+      "gender": "Male",
+      "lat": 40.7563342,
+      "lng": -111.8881826,
+      "locationLabel": "Last known location",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/dominic-sherril-walker-2021/0.jpg"
+        }
+      ],
+      "narrative": "Last seen July 26, 2021, in the Great Salt Lake area; exact location unknown/not released. He was wearing no shoes.\n\nNCIC Case #: M908846106, M908846106",
+      "caseNumber": "M908846106",
+      "links": [
+        {
+          "label": "Utah BCI Cold Cases",
+          "url": "https://bci.utah.gov/coldcases/dominic-sherril-walker/"
         }
       ],
       "tipHotline": null
@@ -8009,7 +8087,7 @@
           "local": "images/janice-wadlington-2004/0.jpg"
         }
       ],
-      "narrative": "Last seen February 15, 2004 at DOVE Center, Saint George. Janice had been staying at the shelter for two months and checked out on the 15th to return on the 16th. Janice has not been seen or heard from since.\n\nSt. George Police Department Case #: 185434",
+      "narrative": "Last seen February 15, 2004 at DOVE Center, St George. Janice had been staying at the shelter for two months and checked out on the 15th to return on the 16th. Janice has not been seen or heard from since.\n\nSt. George Police Department Case #: 185434",
       "caseNumber": "185434",
       "links": [
         {
