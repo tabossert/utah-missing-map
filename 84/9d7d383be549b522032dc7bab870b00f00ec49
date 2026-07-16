@@ -1,0 +1,70 @@
+src/app.js
+  s_65a844aba81293::t_df66f0b35451b0 3
+  s_65a844aba81293::t_554e3c71bf7a0e 18
+  s_65a844aba81293::t_d757cabd86ce18 52,55-98
+  s_65a844aba81293::t_32f9cf39920495 177,180-183
+  s_65a844aba81293::t_111166631814c4 204-211
+  s_65a844aba81293::t_81ea21d6bb2737 141-143
+src/map.js
+  s_65a844aba81293::t_1b379fdbf07fd3 5-8,11-35
+  s_65a844aba81293::t_2bca826543c965 72-90
+  s_65a844aba81293::t_bd71c5b7d445c3 112
+  s_65a844aba81293::t_cc5ec7f165a3e3 47,51
+  s_65a844aba81293::t_e45ef72e164c69 123
+  s_65a844aba81293::t_e0e8ba48175a89 136
+  s_65a844aba81293::t_b44ef86a962803 36
+styles/main.css
+  s_65a844aba81293::t_6ad66d901a9fda 529
+  s_65a844aba81293::t_3b21f89efeddc2 243-245,251
+  s_65a844aba81293::t_0b368382e52060 409-437
+  s_65a844aba81293::t_b1a2cda53b343d 812,815-824
+  s_65a844aba81293::t_3902af2cd5a0a1 288,290
+  s_65a844aba81293::t_42490ff61aa0d3 41
+  s_65a844aba81293::t_7b1eedea01cc98 200,206-209
+  s_65a844aba81293::t_566b663cd4aa96 347-408,438-442,825
+  s_65a844aba81293::t_4dfd9c488fa1cb 16
+  s_65a844aba81293::t_7edfcd5574f75e 304,308
+  s_65a844aba81293::t_05ad99644e0de1 228
+  s_65a844aba81293::t_8d4cdc01eb6f56 90-91
+  s_65a844aba81293::t_b68b56be0e1ef3 286-287,289
+  s_65a844aba81293::t_865072f5003e1e 341-345
+  s_65a844aba81293::t_8d780ea2bff99f 346
+index.html
+  s_65a844aba81293::t_dc68f8e31bd35f 47-50
+  s_65a844aba81293::t_24bb2c594a181f 88,90-96
+  s_65a844aba81293::t_75cdcff41726a6 58
+  s_65a844aba81293::t_e8e3f2e279fe49 98,102
+  s_65a844aba81293::t_5cf8bd16031d87 29
+styles/admin.css
+  s_65a844aba81293::t_a69d5a9b2d621b 88-95,103,106
+src/scorecard.js
+  s_65a844aba81293::t_7a9108ecdcc33c 31-39,46-48
+  s_65a844aba81293::t_d54cb5171049b5 264
+  s_65a844aba81293::t_181c6bfa7377e2 311-312
+  s_65a844aba81293::t_8c90321e9d5413 59-60,62
+  s_65a844aba81293::t_e0b9fae8c5a46d 292,294-301
+  s_65a844aba81293::t_9f3c404440a114 158,160-161,164,167,171-172,177,182,185,189-190,195-197
+admin.html
+  s_65a844aba81293::t_443203e6e83ab0 90
+  s_65a844aba81293::t_f4eade07f4a1f7 62
+  s_65a844aba81293::t_4f21ef0efef48a 119
+  s_65a844aba81293::t_3e2e9db286d82e 77
+src/admin.js
+  s_65a844aba81293::t_9f9d47088f1fc2 86-89,95-97
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "849d7d383be549b522032dc7bab870b00f00ec49",
+  "prompts": {},
+  "sessions": {
+    "s_65a844aba81293": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42789ba0-fcaa-4e07-bc60-0c966b47e723",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Trevor Bossert <alanboss@gmail.com>"
+    }
+  }
+}
