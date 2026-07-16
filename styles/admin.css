@@ -85,19 +85,25 @@
   margin: 0;
   padding: 0;
 }
-.marker-list li {
+.marker-btn {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: none;
+  border: none;
   padding: 0.45rem 0.5rem;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 0.9rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-.marker-list li:hover {
+.marker-btn:hover {
   background: var(--accent-soft);
 }
-.marker-list li.active {
+.marker-btn[aria-current="true"] {
   background: var(--accent);
   color: #fff;
 }

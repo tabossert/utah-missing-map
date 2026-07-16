@@ -1,6 +1,6 @@
 // App entry: load data, wire the map + filters + scorecard + refresh.
 import { loadSnapshot, fetchExtras, attachExtras, deriveFacets } from './data.js';
-import { initMap, renderMarkers, focusPerson, setMapTheme, CATEGORY_STYLES } from './map.js';
+import { initMap, renderMarkers, focusPerson, setMapTheme, CATEGORY_STYLES, markGlyph } from './map.js';
 import { initTheme, wireThemeToggle } from './theme.js';
 import { applyFilters } from './filters.js';
 import { initScorecard, openCard, closeCard, currentCardId } from './scorecard.js';
@@ -15,6 +15,7 @@ const state = {
 };
 
 let people = [];
+let filtered = [];
 let lastUpdated = null;
 
 const $ = (id) => document.getElementById(id);
@@ -48,9 +49,53 @@ async function main() {
 }
 
 function render() {
-  const filtered = applyFilters(people, state);
+  filtered = applyFilters(people, state);
   renderMarkers(filtered, (p) => openCard(p));
   $('result-count').textContent = `Showing ${filtered.length.toLocaleString()} of ${people.length.toLocaleString()}`;
+  if (!$('case-list').hidden) renderList();
+}
+
+// Keyboard + screen-reader accessible alternative to the map.
+function renderList() {
+  const ul = $('case-list-ul');
+  ul.replaceChildren(
+    ...filtered.map((p) => {
+      const style = CATEGORY_STYLES[p.category] || {};
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'case-list-btn';
+      btn.setAttribute('aria-label', `${p.name}${p.year ? `, ${p.year}` : ''} — ${style.label || p.category}`);
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      dot.style.background = style.color || '#888';
+      const name = document.createElement('span');
+      name.textContent = p.name;
+      const yr = document.createElement('span');
+      yr.className = 'yr';
+      yr.textContent = p.year || '';
+      btn.append(dot, name, yr);
+      btn.addEventListener('click', () => {
+        openCard(p);
+        focusPerson(p.id);
+      });
+      li.append(btn);
+      return li;
+    }),
+  );
+}
+
+function toggleList(force) {
+  const panel = $('case-list');
+  const open = force !== undefined ? force : panel.hidden;
+  panel.hidden = !open;
+  $('list-toggle').setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (open) {
+    renderList();
+    $('case-list-ul').querySelector('button')?.focus();
+  } else {
+    $('list-toggle').focus();
+  }
 }
 
 // ---- controls ----
@@ -93,6 +138,9 @@ function wireControls() {
       ft.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   }
+
+  $('list-toggle').addEventListener('click', () => toggleList());
+  $('case-list-close').addEventListener('click', () => toggleList(false));
 }
 
 function toggleChip(btn, set, value) {
@@ -126,13 +174,13 @@ function buildDecades(minYear, maxYear) {
 function buildLegend() {
   const legend = $('legend');
   legend.replaceChildren(
-    ...Object.values(CATEGORY_STYLES).map((s) => {
+    ...Object.entries(CATEGORY_STYLES).map(([cat, s]) => {
       const item = document.createElement('span');
       item.className = 'legend-item';
-      const dot = document.createElement('span');
-      dot.className = 'legend-dot';
-      dot.style.background = s.color;
-      item.append(dot, document.createTextNode(s.label));
+      const glyph = document.createElement('span');
+      glyph.className = 'legend-glyph';
+      glyph.innerHTML = markGlyph(cat);
+      item.append(glyph, document.createTextNode(s.label));
       return item;
     }),
   );
@@ -153,10 +201,14 @@ async function doRefresh(isAuto) {
     if (extras.size) attachExtras(people, extras);
     lastUpdated = new Date().toISOString();
     render();
-    const openId = currentCardId();
-    if (openId) {
-      const p = people.find((x) => x.id === openId);
-      if (p) openCard(p, { updateHash: false, focus: false });
+    // Only rebuild the open card on a user-initiated refresh — never on the
+    // hourly auto-refresh, which would destroy the reader's focus/scroll.
+    if (!isAuto) {
+      const openId = currentCardId();
+      if (openId) {
+        const p = people.find((x) => x.id === openId);
+        if (p) openCard(p, { updateHash: false, focus: false });
+      }
     }
     updateStamp();
     if (!isAuto) flash('Up to date');

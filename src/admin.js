@@ -83,14 +83,18 @@ function renderPicker() {
   $('marker-list').replaceChildren(
     ...items.map((p) => {
       const li = document.createElement('li');
-      if (selected === p.id) li.classList.add('active');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'marker-btn';
+      if (selected === p.id) btn.setAttribute('aria-current', 'true');
       const dot = document.createElement('span');
       dot.className = 'dot';
       dot.style.background = (CATEGORY_STYLES[p.category] || {}).color || '#888';
       const label = document.createElement('span');
       label.textContent = `${p.name}${p.year ? `, ${p.year}` : ''}`;
-      li.append(dot, label);
-      li.addEventListener('click', () => selectMarker(p));
+      btn.append(dot, label);
+      btn.addEventListener('click', () => selectMarker(p));
+      li.append(btn);
       return li;
     }),
   );

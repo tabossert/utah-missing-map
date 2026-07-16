@@ -28,12 +28,24 @@ function h(tag, props = {}, ...children) {
 }
 
 const safeHref = (url) => (/^https?:\/\//i.test(url || '') ? url : null);
+const onMobile = () => matchMedia('(max-width: 760px)').matches;
+const BG_SELECTORS = ['.app-header', '.toolbar', '.app-footer', '#map', '#legend', '#case-list'];
+function setBackgroundInert(on) {
+  for (const sel of BG_SELECTORS) {
+    const el = document.querySelector(sel);
+    if (el) on ? el.setAttribute('inert', '') : el.removeAttribute('inert');
+  }
+}
+let lbStatus;
 
 export function initScorecard({ onClose } = {}) {
   panelEl = document.getElementById('scorecard');
   bodyEl = document.getElementById('scorecard-body');
   lightboxEl = document.getElementById('lightbox');
   onCloseCb = onClose;
+  panelEl.setAttribute('role', 'dialog');
+  lbStatus = h('div', { class: 'sr-only', role: 'status', 'aria-live': 'polite' });
+  document.body.append(lbStatus);
   document.getElementById('scorecard-close').addEventListener('click', closeCard);
   const backdrop = document.getElementById('scorecard-backdrop');
   if (backdrop) backdrop.addEventListener('click', closeCard);
@@ -44,8 +56,10 @@ export function initScorecard({ onClose } = {}) {
       else if (panelEl.classList.contains('open')) closeCard();
     }
     if (e.key === 'Tab') {
+      // The lightbox is modal on all sizes; the scorecard is modal only as the
+      // mobile sheet — on desktop it's a non-modal side panel, so Tab may leave.
       if (lightboxEl.classList.contains('open')) trapWithin(lightboxEl, e);
-      else if (panelEl.classList.contains('open')) trapWithin(panelEl, e);
+      else if (panelEl.classList.contains('open') && onMobile()) trapWithin(panelEl, e);
     }
   });
   lightboxEl.addEventListener('click', (e) => {
@@ -141,41 +155,46 @@ function closeLightbox() {
   lightboxEl.setAttribute('aria-hidden', 'true');
   if (lbLastFocus && lbLastFocus.focus) lbLastFocus.focus();
 }
-function renderLightbox() {
+function renderLightbox(focusSel) {
   const img = galleryImages[galleryIndex];
+  const total = galleryImages.length;
+  const pos = `Photo ${galleryIndex + 1} of ${total}`;
   const lb = [
     h('button', { class: 'lightbox-close', 'aria-label': 'Close image', text: '×' }),
-    galleryImages.length > 1 &&
+    total > 1 &&
       h('button', {
         class: 'lightbox-nav prev',
-        'aria-label': 'Previous',
+        'aria-label': 'Previous photo',
         text: '‹',
         onclick: (e) => {
           e.stopPropagation();
-          galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
-          renderLightbox();
+          galleryIndex = (galleryIndex - 1 + total) % total;
+          renderLightbox('.lightbox-nav.prev');
         },
       }),
     h('img', {
       src: img.full,
-      alt: img.alt || '',
+      alt: img.alt ? `${img.alt} — ${pos}` : pos,
       onerror: (e) => {
         if (img.fallback && e.target.src !== img.fallback) e.target.src = img.fallback;
       },
     }),
-    galleryImages.length > 1 &&
+    total > 1 &&
       h('button', {
         class: 'lightbox-nav next',
-        'aria-label': 'Next',
+        'aria-label': 'Next photo',
         text: '›',
         onclick: (e) => {
           e.stopPropagation();
-          galleryIndex = (galleryIndex + 1) % galleryImages.length;
-          renderLightbox();
+          galleryIndex = (galleryIndex + 1) % total;
+          renderLightbox('.lightbox-nav.next');
         },
       }),
   ];
   lightboxEl.replaceChildren(...lb.filter((c) => c != null && c !== false));
+  if (lbStatus) lbStatus.textContent = pos;
+  // keep keyboard focus on the control the user activated (it was just rebuilt)
+  if (focusSel) lightboxEl.querySelector(focusSel)?.focus();
 }
 
 // photo object -> {thumb, full, alt}
@@ -242,7 +261,7 @@ export function openCard(person, { updateHash = true, focus = true } = {}) {
 
     h('div', { class: 'card-head' },
       h('span', { class: 'badge', style: `--dot:${style.color || '#888'}` }, h('span', { class: 'dot' }), style.label || person.category),
-      h('h2', { class: 'card-name' }, person.name, person.year ? h('span', { class: 'card-year', text: ` · ${person.year}` }) : null),
+      h('h2', { class: 'card-name', id: 'card-name-heading' }, person.name, person.year ? h('span', { class: 'card-year', text: ` · ${person.year}` }) : null),
     ),
 
     h('p', { class: 'card-location' }, h('span', { class: 'loc-label', text: person.locationLabel }), person.caseNumber ? h('span', { class: 'case', text: `Case #${person.caseNumber}` }) : null),
@@ -270,7 +289,16 @@ export function openCard(person, { updateHash = true, focus = true } = {}) {
 
   panelEl.classList.add('open');
   panelEl.setAttribute('aria-hidden', 'false');
+  panelEl.setAttribute('aria-labelledby', 'card-name-heading'); // name the dialog after the case
   document.body.classList.add('panel-open');
+  // Modal only as the mobile bottom sheet; a non-modal side panel on desktop.
+  if (onMobile()) {
+    panelEl.setAttribute('aria-modal', 'true');
+    setBackgroundInert(true);
+  } else {
+    panelEl.removeAttribute('aria-modal');
+    setBackgroundInert(false);
+  }
   bodyEl.scrollTop = 0;
   if (updateHash) history.replaceState(null, '', `#id=${encodeURIComponent(person.id)}`);
   if (focus) document.getElementById('scorecard-close').focus();
@@ -280,6 +308,8 @@ export function closeCard() {
   if (!panelEl.classList.contains('open')) return;
   panelEl.classList.remove('open');
   panelEl.setAttribute('aria-hidden', 'true');
+  panelEl.removeAttribute('aria-modal');
+  setBackgroundInert(false);
   document.body.classList.remove('panel-open');
   currentId = null;
   if (location.hash.startsWith('#id=')) history.replaceState(null, '', location.pathname + location.search);

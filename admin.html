@@ -59,6 +59,7 @@
         <h1>Admin sign in</h1>
         <p>Enter your email and we'll send you a one-time sign-in link.</p>
         <form id="login-form" class="login-form">
+          <label for="login-email" class="sr-only">Email address</label>
           <input id="login-email" type="email" required placeholder="you@example.com" autocomplete="email" />
           <button type="submit" class="tip-cta">Send magic link</button>
         </form>
@@ -73,6 +74,7 @@
 
       <!-- editor -->
       <section id="view-editor" class="editor" hidden>
+        <h1 class="sr-only">Case editor</h1>
         <div class="editor-col picker-col">
           <h2>Choose a case</h2>
           <input id="marker-search" type="search" placeholder="Search 240 people…" aria-label="Search cases" />
@@ -85,7 +87,7 @@
             <a id="editor-view-link" class="admin-link" target="_blank" rel="noopener">View on map ↗</a>
 
             <h3>Existing additions</h3>
-            <ul id="extras-list" class="extras-list"></ul>
+            <ul id="extras-list" class="extras-list" aria-live="polite"></ul>
 
             <h3>Add information</h3>
             <form id="extra-form" class="extra-form">
@@ -114,7 +116,7 @@
               <label id="field-file" hidden>
                 File
                 <input id="extra-file" type="file" />
-                <span id="upload-progress" class="hint"></span>
+                <span id="upload-progress" class="hint" aria-live="polite"></span>
               </label>
               <button type="submit" class="tip-cta" id="extra-submit">Add</button>
               <p id="extra-msg" class="login-msg" aria-live="polite"></p>

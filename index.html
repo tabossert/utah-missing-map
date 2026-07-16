@@ -26,6 +26,7 @@
     <a class="skip-link" href="#map">Skip to map</a>
 
     <header class="app-header">
+      <h1 class="sr-only">Utah's Missing &amp; Unidentified</h1>
       <div class="brand">
         <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" role="img" aria-label="Utah's Missing &amp; Unidentified">
           <title>Utah's Missing &amp; Unidentified</title>
@@ -43,7 +44,10 @@
         </svg>
       </div>
       <div class="header-actions">
-        <span id="freshness" class="freshness" aria-live="polite"></span>
+        <span id="freshness" class="freshness"></span>
+        <button id="list-toggle" class="list-toggle" type="button" aria-expanded="false" aria-controls="case-list">
+          <span aria-hidden="true">☰</span> List
+        </button>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">☾</button>
         <button id="refresh-btn" class="refresh-btn" title="Check the live map for updates">
           <span class="refresh-icon" aria-hidden="true">⟳</span> Refresh
@@ -51,7 +55,7 @@
       </div>
     </header>
 
-    <div class="toolbar">
+    <div class="toolbar" role="search">
       <div class="search-wrap">
         <span class="search-icon" aria-hidden="true">🔍</span>
         <input id="search" type="search" placeholder="Search by name or year…" aria-label="Search by name or year" />
@@ -81,14 +85,21 @@
     </div>
 
     <main class="stage">
-      <div id="map" role="application" aria-label="Map of Utah's missing and unidentified persons"></div>
+      <div id="map" aria-label="Map of Utah's missing and unidentified persons"></div>
       <div id="legend" class="legend" aria-label="Marker legend"></div>
+      <nav id="case-list" class="case-panel" aria-label="Filtered cases" hidden>
+        <div class="case-panel-head">
+          <h2>Cases</h2>
+          <button id="case-list-close" type="button" aria-label="Close list">×</button>
+        </div>
+        <ul id="case-list-ul" class="case-list-ul"></ul>
+      </nav>
       <div id="scorecard-backdrop" class="scorecard-backdrop"></div>
-      <aside id="scorecard" class="scorecard" aria-hidden="true" aria-label="Case details">
+      <div id="scorecard" class="scorecard" aria-hidden="true" aria-label="Case details">
         <div class="sheet-handle" aria-hidden="true"><span class="sheet-grabber"></span></div>
         <button id="scorecard-close" class="scorecard-close" aria-label="Close case details">×</button>
         <div id="scorecard-body" class="scorecard-body"></div>
-      </aside>
+      </div>
     </main>
 
     <footer class="app-footer">
