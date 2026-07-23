@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-16T19:58:12.795Z",
+  "generatedAt": "2026-07-23T15:51:07.241Z",
   "count": 246,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
@@ -877,6 +877,48 @@
       "tipHotline": null
     },
     {
+      "id": "jeffery-lynn-ocarroll-1986",
+      "name": "Jeffery Lynn O'Carroll",
+      "year": 1986,
+      "category": "Missing Males",
+      "type": "Missing",
+      "gender": "Male",
+      "lat": 40.7606461,
+      "lng": -111.8539632,
+      "locationLabel": "Last known location",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/jeffery-lynn-ocarroll-1986/0.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/jeffery-lynn-ocarroll-1986/1.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/jeffery-lynn-ocarroll-1986/2.jpg"
+        }
+      ],
+      "narrative": "Last seen August 27, 1986, in the area of 400 S 1300 E. His apartment was at 1310 E 200 S, Apt 104. He called his sister to meet him at the University of Utah hospital, but he never arrived. He does not drive and would have left on foot.\n\nSalt Lake City Police Department Case #: 86-86329",
+      "caseNumber": "86-86329",
+      "links": [
+        {
+          "label": "Utah BCI Cold Cases",
+          "url": "https://bci.utah.gov/coldcases/jeffrey-ocarrol/"
+        },
+        {
+          "label": "Doe Network",
+          "url": "https://www.doenetwork.org/cases/2011dmut.html"
+        },
+        {
+          "label": "NamUs",
+          "url": "https://www.namus.gov/MissingPersons/Case#/1356/"
+        }
+      ],
+      "tipHotline": null
+    },
+    {
       "id": "robert-lugo-1986",
       "name": "Robert Lugo",
       "year": 1986,
@@ -922,48 +964,6 @@
         {
           "label": "NamUs",
           "url": "https://www.namus.gov/MissingPersons/Case#/100365/"
-        }
-      ],
-      "tipHotline": null
-    },
-    {
-      "id": "jeffery-lynn-ocarroll-1986",
-      "name": "Jeffery Lynn O'Carroll",
-      "year": 1986,
-      "category": "Missing Males",
-      "type": "Missing",
-      "gender": "Male",
-      "lat": 40.7606461,
-      "lng": -111.8539632,
-      "locationLabel": "Last known location",
-      "photos": [
-        {
-          "src": null,
-          "local": "images/jeffery-lynn-ocarroll-1986/0.jpg"
-        },
-        {
-          "src": null,
-          "local": "images/jeffery-lynn-ocarroll-1986/1.jpg"
-        },
-        {
-          "src": null,
-          "local": "images/jeffery-lynn-ocarroll-1986/2.jpg"
-        }
-      ],
-      "narrative": "Last seen August 27, 1986, in the area of 400 S 1300 E. His apartment was at 1310 E 200 S, Apt 104. He called his sister to meet him at the University of Utah hospital, but he never arrived. He does not drive and would have left on foot.\n\nSalt Lake City Police Department Case #: 86-86329",
-      "caseNumber": "86-86329",
-      "links": [
-        {
-          "label": "Utah BCI Cold Cases",
-          "url": "https://bci.utah.gov/coldcases/jeffrey-ocarrol/"
-        },
-        {
-          "label": "Doe Network",
-          "url": "https://www.doenetwork.org/cases/2011dmut.html"
-        },
-        {
-          "label": "NamUs",
-          "url": "https://www.namus.gov/MissingPersons/Case#/1356/"
         }
       ],
       "tipHotline": null
