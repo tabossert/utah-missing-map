@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-23T15:51:07.241Z",
-  "count": 246,
+  "generatedAt": "2026-07-24T20:15:30.609Z",
+  "count": 245,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -2556,40 +2556,6 @@
       "tipHotline": null
     },
     {
-      "id": "isai-flores-garcia-2012",
-      "name": "Isai Flores Garcia",
-      "year": 2012,
-      "category": "Missing Males",
-      "type": "Missing",
-      "gender": "Male",
-      "lat": 40.6817206,
-      "lng": -112.0057708,
-      "locationLabel": "Last known location",
-      "photos": [
-        {
-          "src": null,
-          "local": "images/isai-flores-garcia-2012/0.jpg"
-        }
-      ],
-      "narrative": "Last seen August 20 2012, before he ran away from his home in West Valley City, exact location unknown/not released. His parent's stolen vehicle, a white 1995 Honda Accord with license place C950LR, was found abandoned in California. He may have attempted to cross the US/Mexico border with his girlfriend three months after his disappearance but were both denied entry.\n\nWest Valley City Police Department Case #: 12I038967",
-      "caseNumber": "12I038967",
-      "links": [
-        {
-          "label": "Utah BCI Cold Cases",
-          "url": "https://bci.utah.gov/coldcases/isai-garcia/"
-        },
-        {
-          "label": "DoeNetwork",
-          "url": "https://www.doenetwork.org/cases/software/mp-main.html?id=6294DMUT"
-        },
-        {
-          "label": "NamUs",
-          "url": "https://www.namus.gov/MissingPersons/Case#/40113/"
-        }
-      ],
-      "tipHotline": null
-    },
-    {
       "id": "robert-marcus-trujillo-2012",
       "name": "Robert Marcus Trujillo",
       "year": 2012,
@@ -3090,6 +3056,10 @@
         {
           "label": "Utah BCI Cold Cases",
           "url": "https://bci.utah.gov/coldcases/mark-richard-johnston/"
+        },
+        {
+          "label": "DoeNetwork",
+          "url": "https://www.doenetwork.org/cases/software/mp-main.html?id=6992dmut"
         },
         {
           "label": "NamUs",
