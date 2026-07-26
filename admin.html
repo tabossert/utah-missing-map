@@ -14,6 +14,7 @@
     </script>
     <title>Admin · Utah's Missing &amp; Unidentified</title>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/admin.css" />
   </head>
@@ -149,6 +150,10 @@
             <svg id="traffic-spark" class="spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true">
               <path id="traffic-spark-path" fill="none" stroke="currentColor" stroke-width="1.2" vector-effect="non-scaling-stroke" />
             </svg>
+            <h3 class="map-heading">Where visitors are</h3>
+            <div id="traffic-map" class="traffic-map" role="img" aria-label="Map of visitor cities"></div>
+            <p id="traffic-map-empty" class="bar-empty" hidden>No located visits yet.</p>
+
             <div class="breakdowns">
               <section><h3>Pages</h3><ul id="bd-pages" class="bar-list"></ul></section>
               <section><h3>Referrers</h3><ul id="bd-referrers" class="bar-list"></ul></section>
@@ -160,6 +165,7 @@
       </section>
     </main>
 
+    <script src="vendor/leaflet/leaflet.js"></script>
     <script src="vendor/supabase/supabase.js"></script>
     <script type="module" src="src/admin.js"></script>
     <script type="module" src="src/analytics.js"></script>

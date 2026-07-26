@@ -48,6 +48,14 @@ export function topRows(metrics, limit = 8, label = (x) => String(x ?? '')) {
   return rows.map((r) => ({ ...r, share: max ? r.value / max : 0 }));
 }
 
+// Bubble radius in px. Area (not radius) tracks the count, so a city with 4x
+// the visitors looks 4x bigger rather than 16x; sqrt keeps big cities readable.
+export function bubbleRadius(visitors, max, min = 5, cap = 26) {
+  const v = Math.max(0, Number(visitors) || 0);
+  const m = Math.max(1, Number(max) || 1);
+  return +(min + (cap - min) * Math.sqrt(Math.min(v, m) / m)).toFixed(1);
+}
+
 // Polyline through the series, scaled to fill a width x height viewBox.
 // Returns '' when there is nothing to draw.
 export function sparklinePath(series, width = 100, height = 30) {

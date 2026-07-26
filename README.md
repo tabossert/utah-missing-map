@@ -59,13 +59,19 @@ the base Google My Map data.
 ## Traffic stats
 
 The admin panel's **Traffic** tab shows visitors, views, visits, average visit, bounce rate, who's
-online, and top pages / referrers / countries / devices. There's no third-party analytics service —
-views are recorded straight into this project's own Supabase, so the data never leaves it and the
-requests aren't on any tracker blocklist.
+online, a map of where visitors are, and top pages / referrers / countries / devices. There's no
+third-party analytics service — views are recorded straight into this project's own Supabase, so the
+data never leaves it and the requests aren't on any tracker blocklist.
 
 **No cookies, no consent banner.** Nothing is written to a visitor's browser. Instead the collector
 hashes ip + user agent + a secret salt + today's date into a `visitor_hash`, which groups a visitor
 within a day and cannot be linked across days or back to an IP.
+
+**About the map.** Rows carry an approximate `city`, `lat`, and `lon`. Those coordinates are the geo
+provider's *city centroid*, not a visitor's position — everyone in a city resolves to the same point
+— and the panel plots one bubble per city, never one per view, so a dot is always a group. It is
+still the most identifying thing stored here; `GEO_LOOKUP=off` drops city, coordinates, and country
+in one go, and the rest of the panel is unaffected.
 
 Setup, once `supabase/schema.sql` has been re-run (it creates `page_views`, the geo cache, and the
 `traffic_stats` aggregate):

@@ -2,11 +2,12 @@
 import { getSupabase, isConfigured } from './supabase.js';
 import { CONFIG } from './config.js';
 import { CATEGORY_STYLES } from './map.js';
-import { initTheme, wireThemeToggle } from './theme.js';
+import { currentTheme, initTheme, wireThemeToggle } from './theme.js';
 import {
   RANGES,
   avgVisitSeconds,
   bounceRate,
+  bubbleRadius,
   formatCount,
   formatDuration,
   referrerLabel,
@@ -286,13 +287,76 @@ function renderTraffic(d) {
   $('stat-active').textContent = d.active == null ? '—' : formatCount(d.active);
 
   const path = sparklinePath(d.series);
-  $('traffic-spark').hidden = !path;
+  // <svg> is not an HTMLElement, so `.hidden` would set a dead expando and
+  // leave an empty 56px strip behind — toggle the real attribute instead.
+  $('traffic-spark').toggleAttribute('hidden', !path);
   $('traffic-spark-path').setAttribute('d', path);
 
+  renderMap(d.cities || []);
   renderBars('bd-pages', topRows(d.pages));
   renderBars('bd-referrers', topRows(d.referrers, 8, referrerLabel));
   renderBars('bd-countries', topRows(d.countries));
   renderBars('bd-devices', topRows(d.devices));
+}
+
+const TILES = {
+  light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+  dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+};
+let visitorMap = null;
+let bubbles = null;
+
+// One bubble per city, never per view — a point is always a group. The
+// coordinates are the geo provider's city centroid, not a visitor's position.
+function renderMap(cities) {
+  const located = cities.filter((c) => Number.isFinite(c.lat) && Number.isFinite(c.lon));
+  $('traffic-map').hidden = !located.length;
+  $('traffic-map-empty').hidden = Boolean(located.length);
+  if (!located.length) return;
+
+  if (!visitorMap) {
+    // Set a view up front: a Leaflet map without one renders nothing at all,
+    // so a failed fitBounds below would otherwise leave a blank container.
+    visitorMap = L.map('traffic-map', {
+      zoomControl: true,
+      scrollWheelZoom: false,
+      maxBounds: [[-85, -180], [85, 180]], // one world; bubbles can't land on a copy
+      maxBoundsViscosity: 1,
+      minZoom: 1,
+    }).setView([25, -30], 2);
+    L.tileLayer(TILES[currentTheme()] || TILES.light, {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      noWrap: true, // otherwise the globe tiles sideways at low zoom
+      maxZoom: 12, // city centroids; zooming past this implies precision we don't have
+    }).addTo(visitorMap);
+    bubbles = L.layerGroup().addTo(visitorMap);
+  }
+  bubbles.clearLayers();
+
+  const max = Math.max(...located.map((c) => c.visitors || 0));
+  located.forEach((c) => {
+    const where = [c.city, c.country].filter(Boolean).join(', ') || 'Unknown';
+    L.circleMarker([c.lat, c.lon], {
+      radius: bubbleRadius(c.visitors, max),
+      color: '#4A6D6F',
+      weight: 1.5,
+      fillColor: '#4A6D6F',
+      fillOpacity: 0.35,
+    })
+      .bindTooltip(`${where} — ${formatCount(c.visitors)} visitor${c.visitors === 1 ? '' : 's'}`)
+      .addTo(bubbles);
+  });
+
+  // Leaflet measures 0x0 while the tab is hidden, so size and fit after paint.
+  // Pad in pixels, not degrees — a ratio pad pushes worldwide bounds past
+  // ±180° longitude, which makes fitBounds a silent no-op and blanks the map.
+  requestAnimationFrame(() => {
+    visitorMap.invalidateSize();
+    const bounds = L.latLngBounds(located.map((c) => [c.lat, c.lon]));
+    if (bounds.isValid()) visitorMap.fitBounds(bounds, { padding: [24, 24], maxZoom: 8 });
+  });
 }
 
 function renderBars(id, rows) {
