@@ -312,6 +312,20 @@
   margin-top: 0.9rem;
   color: var(--accent-deep); /* flips light/dark, so the line stays legible */
 }
+.map-heading {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  margin: 1.4rem 0 0.5rem;
+}
+.traffic-map {
+  height: 300px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  z-index: 0; /* keep Leaflet panes under the page chrome */
+}
 .breakdowns {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

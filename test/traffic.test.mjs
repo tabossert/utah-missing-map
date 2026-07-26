@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   avgVisitSeconds,
   bounceRate,
+  bubbleRadius,
   formatCount,
   formatDuration,
   referrerLabel,
@@ -52,6 +53,16 @@ test('topRows tolerates an all-zero metric without dividing by zero', () => {
   const rows = topRows([{ x: '/a', y: 0 }, { x: '/b', y: 0 }]);
   assert.equal(rows.length, 2);
   assert.ok(rows.every((r) => r.share === 0));
+});
+
+test('bubbleRadius scales by area, stays within bounds, and survives junk', () => {
+  assert.equal(bubbleRadius(100, 100), 26); // the largest city hits the cap
+  assert.equal(bubbleRadius(0, 100), 5); // nothing shrinks below the floor
+  // area ∝ visitors: a quarter of the peak sits halfway up the radius range
+  assert.equal(bubbleRadius(25, 100), 15.5);
+  assert.equal(bubbleRadius(5, 0), 26); // max of 0 can't divide by zero
+  assert.equal(bubbleRadius(999, 10), 26); // clamped, never oversized
+  assert.equal(bubbleRadius(undefined, 10), 5);
 });
 
 test('sparklinePath spans the viewBox and needs two points', () => {

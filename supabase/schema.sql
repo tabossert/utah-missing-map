@@ -118,6 +118,8 @@ create policy "media admin delete" on storage.objects
 -- and is unlinkable across days. Nothing is written to visitors' browsers, so
 -- no consent banner is needed.
 -- ============================================================================
+-- lat/lon are the geo provider's *city centroid*, not a visitor's position —
+-- everyone in a city shares one coordinate, and the panel aggregates by city.
 create table if not exists public.page_views (
   id            bigint generated always as identity primary key,
   created_at    timestamptz not null default now(),
@@ -125,8 +127,14 @@ create table if not exists public.page_views (
   referrer_host text,
   visitor_hash  text not null,
   country       text,
-  device        text
+  device        text,
+  city          text,
+  lat           double precision,
+  lon           double precision
 );
+alter table public.page_views add column if not exists city text;
+alter table public.page_views add column if not exists lat  double precision;
+alter table public.page_views add column if not exists lon  double precision;
 create index if not exists page_views_created_at_idx on public.page_views (created_at desc);
 create index if not exists page_views_visitor_idx on public.page_views (visitor_hash, created_at);
 
@@ -135,8 +143,14 @@ create index if not exists page_views_visitor_idx on public.page_views (visitor_
 create table if not exists public.ip_geo_cache (
   ip_hash   text primary key,
   country   text,
+  city      text,
+  lat       double precision,
+  lon       double precision,
   cached_at timestamptz not null default now()
 );
+alter table public.ip_geo_cache add column if not exists city text;
+alter table public.ip_geo_cache add column if not exists lat  double precision;
+alter table public.ip_geo_cache add column if not exists lon  double precision;
 
 alter table public.page_views  enable row level security;
 alter table public.ip_geo_cache enable row level security;
@@ -222,7 +236,22 @@ begin
     'pages',     (select public.traffic_top('path', _start)),
     'referrers', (select public.traffic_top('referrer_host', _start)),
     'countries', (select public.traffic_top('country', _start)),
-    'devices',   (select public.traffic_top('device', _start))
+    'devices',   (select public.traffic_top('device', _start)),
+    -- One point per city, never per view, so a dot is always a group.
+    'cities', (
+      select coalesce(jsonb_agg(jsonb_build_object(
+               'city', city, 'country', country, 'lat', lat, 'lon', lon,
+               'visitors', visitors, 'views', views) order by visitors desc), '[]'::jsonb)
+      from (
+        select city, min(country) as country, lat, lon,
+               count(distinct visitor_hash) as visitors, count(*) as views
+        from public.page_views
+        where created_at >= _start and lat is not null and lon is not null
+        group by city, lat, lon
+        order by visitors desc
+        limit 200
+      ) c
+    )
   ) into _out;
 
   return _out;

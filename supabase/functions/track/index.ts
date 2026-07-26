@@ -50,35 +50,48 @@ function ipPrefix(ip: string): string {
   return p.length === 4 ? `${p[0]}.${p[1]}.${p[2]}` : ip;
 }
 
-async function country(ip: string): Promise<string | null> {
-  if (!GEO_ON || !ip) return null;
+type Geo = { country: string | null; city: string | null; lat: number | null; lon: number | null };
+const NO_GEO: Geo = { country: null, city: null, lat: null, lon: null };
+
+async function geo(ip: string): Promise<Geo> {
+  if (!GEO_ON || !ip) return NO_GEO;
   const key = await sha256(`${ipPrefix(ip)}|${SALT}`);
   try {
-    const hit = await rest(`ip_geo_cache?ip_hash=eq.${key}&select=country,cached_at`).then((r) => r.json());
+    const hit = await rest(`ip_geo_cache?ip_hash=eq.${key}&select=country,city,lat,lon,cached_at`).then((r) => r.json());
     if (Array.isArray(hit) && hit.length) {
       const age = Date.now() - Date.parse(hit[0].cached_at);
-      if (age < GEO_TTL_DAYS * 86_400_000) return hit[0].country;
+      if (age < GEO_TTL_DAYS * 86_400_000) {
+        const { country, city, lat, lon } = hit[0];
+        return { country, city, lat, lon };
+      }
     }
-    if (Date.now() < geoPausedUntil) return null;
+    if (Date.now() < geoPausedUntil) return NO_GEO;
 
-    // Free tier is HTTP-only; only the IP and a country code cross the wire.
-    const res = await fetch(`http://ip-api.com/json/${ip}?fields=status,countryCode`, {
+    // Free tier is HTTP-only. lat/lon come back as the city centroid, so this
+    // is a city, not a position — every visitor in one city shares a point.
+    const res = await fetch(`http://ip-api.com/json/${ip}?fields=status,countryCode,city,lat,lon`, {
       signal: AbortSignal.timeout(1500),
     });
     const left = Number(res.headers.get('X-Rl') ?? '1');
     if (left <= 0) geoPausedUntil = Date.now() + (Number(res.headers.get('X-Ttl') ?? '60') + 1) * 1000;
-    if (!res.ok) return null;
+    if (!res.ok) return NO_GEO;
 
     const body = await res.json();
-    const cc = body.status === 'success' ? String(body.countryCode || '').slice(0, 2) : null;
+    if (body.status !== 'success') return NO_GEO;
+    const out: Geo = {
+      country: String(body.countryCode || '').slice(0, 2) || null,
+      city: String(body.city || '').slice(0, 100) || null,
+      lat: Number.isFinite(body.lat) ? Number(body.lat) : null,
+      lon: Number.isFinite(body.lon) ? Number(body.lon) : null,
+    };
     await rest('ip_geo_cache?on_conflict=ip_hash', {
       method: 'POST',
       headers: { Prefer: 'resolution=merge-duplicates,return=minimal' },
-      body: JSON.stringify({ ip_hash: key, country: cc, cached_at: new Date().toISOString() }),
+      body: JSON.stringify({ ip_hash: key, ...out, cached_at: new Date().toISOString() }),
     });
-    return cc;
+    return out;
   } catch {
-    return null; // geo is decoration; never let it cost us the page view
+    return NO_GEO; // geo is decoration; never let it cost us the page view
   }
 }
 
@@ -114,8 +127,8 @@ Deno.serve(async (req) => {
       path,
       referrer_host: referrerHost,
       visitor_hash: visitorHash,
-      country: await country(ip),
       device,
+      ...(await geo(ip)),
     }),
   });
   if (!res.ok) console.error('insert failed', res.status, (await res.text()).slice(0, 200));
