@@ -1,5 +1,6 @@
 // Scorecard side panel: full case detail, photo lightbox, admin extras, deep-link.
 import { CATEGORY_STYLES } from './map.js';
+import { trackView } from './analytics.js';
 
 const TIP_LINE = { label: '833-DPS-SAFE', tel: '8333777233', pretty: '833-DPS-SAFE (833-377-7233)' };
 
@@ -301,6 +302,7 @@ export function openCard(person, { updateHash = true, focus = true } = {}) {
   }
   bodyEl.scrollTop = 0;
   if (updateHash) history.replaceState(null, '', `#id=${encodeURIComponent(person.id)}`);
+  trackView(`${location.pathname}#id=${encodeURIComponent(person.id)}`);
   if (focus) document.getElementById('scorecard-close').focus();
 }
 

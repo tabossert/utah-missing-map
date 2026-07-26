@@ -56,6 +56,47 @@ configure Supabase; the public map works without it.
 Admin additions are stored in Supabase and merged into each scorecard by marker id; they never modify
 the base Google My Map data.
 
+## Traffic stats
+
+The admin panel's **Traffic** tab shows visitors, views, visits, average visit, bounce rate, who's
+online, and top pages / referrers / countries / devices. There's no third-party analytics service —
+views are recorded straight into this project's own Supabase, so the data never leaves it and the
+requests aren't on any tracker blocklist.
+
+**No cookies, no consent banner.** Nothing is written to a visitor's browser. Instead the collector
+hashes ip + user agent + a secret salt + today's date into a `visitor_hash`, which groups a visitor
+within a day and cannot be linked across days or back to an IP.
+
+Setup, once `supabase/schema.sql` has been re-run (it creates `page_views`, the geo cache, and the
+`traffic_stats` aggregate):
+
+```bash
+supabase link --project-ref <your-project-ref>
+supabase secrets set TRACK_SALT="$(openssl rand -base64 32)"
+supabase functions deploy track --no-verify-jwt   # public endpoint: visitors aren't signed in
+```
+
+No Supabase CLI? Paste [`supabase/functions/track/index.ts`](supabase/functions/track/index.ts) into
+**Edge Functions → Deploy a new function**, turn **Verify JWT** off for it, and add `TRACK_SALT` under
+**Edge Functions → Secrets**.
+
+Writes go through that function using the service-role key and `page_views` has no insert policy, so
+the public anon key can't forge rows. Reads go through `traffic_stats`, which re-checks the `admins`
+allowlist in SQL — raw rows never reach the browser.
+
+### Country lookups
+
+Countries come from [ip-api.com](https://ip-api.com)'s free tier, which is **non-commercial only,
+HTTP-only (visitor IPs cross the network unencrypted), and bans callers over 45 requests/minute**.
+Results are cached per /24 for 30 days so the API sees a trickle, and the collector honours the
+`X-Rl` header. Set `GEO_LOOKUP=off` to skip it entirely — every other panel keeps working and the
+country column just stays empty.
+
+### Retention
+
+One row per view; the free tier's 500 MB holds a few million. Worth adding a scheduled
+`delete from page_views where created_at < now() - interval '24 months'` before that matters.
+
 ## Deployment
 
 Hosted on **GitHub Pages under the personal `tabossert` account only** (never an organization).

@@ -73,54 +73,88 @@
       </section>
 
       <!-- editor -->
-      <section id="view-editor" class="editor" hidden>
-        <h1 class="sr-only">Case editor</h1>
-        <div class="editor-col picker-col">
-          <h2>Choose a case</h2>
-          <input id="marker-search" type="search" placeholder="Search 240 people…" aria-label="Search cases" />
-          <ul id="marker-list" class="marker-list"></ul>
+      <section id="view-editor" class="workspace" hidden>
+        <h1 class="sr-only">Admin workspace</h1>
+        <nav class="admin-tabs" aria-label="Admin sections">
+          <button id="tab-cases" class="admin-tab" type="button" aria-selected="true" aria-controls="panel-cases">Cases</button>
+          <button id="tab-traffic" class="admin-tab" type="button" aria-selected="false" aria-controls="panel-traffic">Traffic</button>
+        </nav>
+
+        <div id="panel-cases" class="editor">
+          <div class="editor-col picker-col">
+            <h2>Choose a case</h2>
+            <input id="marker-search" type="search" placeholder="Search 240 people…" aria-label="Search cases" />
+            <ul id="marker-list" class="marker-list"></ul>
+          </div>
+          <div class="editor-col detail-col">
+            <div id="editor-empty" class="editor-empty">Select a case on the left to add information.</div>
+            <div id="editor-detail" hidden>
+              <h2 id="editor-title"></h2>
+              <a id="editor-view-link" class="admin-link" target="_blank" rel="noopener">View on map ↗</a>
+
+              <h3>Existing additions</h3>
+              <ul id="extras-list" class="extras-list" aria-live="polite"></ul>
+
+              <h3>Add information</h3>
+              <form id="extra-form" class="extra-form">
+                <label>
+                  Type
+                  <select id="extra-kind">
+                    <option value="note">Note / text</option>
+                    <option value="link">Link</option>
+                    <option value="image">Image (upload)</option>
+                    <option value="video">Video (upload)</option>
+                    <option value="file">File (upload)</option>
+                  </select>
+                </label>
+                <label id="field-title">
+                  Title <span class="hint">(optional)</span>
+                  <input id="extra-title" type="text" />
+                </label>
+                <label id="field-body">
+                  Text
+                  <textarea id="extra-body" rows="4"></textarea>
+                </label>
+                <label id="field-url" hidden>
+                  URL
+                  <input id="extra-url" type="url" placeholder="https://…" />
+                </label>
+                <label id="field-file" hidden>
+                  File
+                  <input id="extra-file" type="file" />
+                  <span id="upload-progress" class="hint" aria-live="polite"></span>
+                </label>
+                <button type="submit" class="tip-cta" id="extra-submit">Add</button>
+                <p id="extra-msg" class="login-msg" aria-live="polite"></p>
+              </form>
+            </div>
+          </div>
         </div>
-        <div class="editor-col detail-col">
-          <div id="editor-empty" class="editor-empty">Select a case on the left to add information.</div>
-          <div id="editor-detail" hidden>
-            <h2 id="editor-title"></h2>
-            <a id="editor-view-link" class="admin-link" target="_blank" rel="noopener">View on map ↗</a>
 
-            <h3>Existing additions</h3>
-            <ul id="extras-list" class="extras-list" aria-live="polite"></ul>
-
-            <h3>Add information</h3>
-            <form id="extra-form" class="extra-form">
-              <label>
-                Type
-                <select id="extra-kind">
-                  <option value="note">Note / text</option>
-                  <option value="link">Link</option>
-                  <option value="image">Image (upload)</option>
-                  <option value="video">Video (upload)</option>
-                  <option value="file">File (upload)</option>
-                </select>
-              </label>
-              <label id="field-title">
-                Title <span class="hint">(optional)</span>
-                <input id="extra-title" type="text" />
-              </label>
-              <label id="field-body">
-                Text
-                <textarea id="extra-body" rows="4"></textarea>
-              </label>
-              <label id="field-url" hidden>
-                URL
-                <input id="extra-url" type="url" placeholder="https://…" />
-              </label>
-              <label id="field-file" hidden>
-                File
-                <input id="extra-file" type="file" />
-                <span id="upload-progress" class="hint" aria-live="polite"></span>
-              </label>
-              <button type="submit" class="tip-cta" id="extra-submit">Add</button>
-              <p id="extra-msg" class="login-msg" aria-live="polite"></p>
-            </form>
+        <div id="panel-traffic" class="traffic" hidden>
+          <div class="traffic-head">
+            <h2>Site traffic</h2>
+            <div id="traffic-ranges" class="range-picker" role="group" aria-label="Time range"></div>
+          </div>
+          <p id="traffic-msg" class="login-msg" aria-live="polite"></p>
+          <div id="traffic-body" hidden>
+            <ul class="stat-tiles">
+              <li><span class="stat-label">Visitors</span><strong id="stat-visitors">—</strong></li>
+              <li><span class="stat-label">Views</span><strong id="stat-pageviews">—</strong></li>
+              <li><span class="stat-label">Visits</span><strong id="stat-visits">—</strong></li>
+              <li><span class="stat-label">Avg. visit</span><strong id="stat-duration">—</strong></li>
+              <li><span class="stat-label">Bounce</span><strong id="stat-bounce">—</strong></li>
+              <li><span class="stat-label">Online now</span><strong id="stat-active">—</strong></li>
+            </ul>
+            <svg id="traffic-spark" class="spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true">
+              <path id="traffic-spark-path" fill="none" stroke="currentColor" stroke-width="1.2" vector-effect="non-scaling-stroke" />
+            </svg>
+            <div class="breakdowns">
+              <section><h3>Pages</h3><ul id="bd-pages" class="bar-list"></ul></section>
+              <section><h3>Referrers</h3><ul id="bd-referrers" class="bar-list"></ul></section>
+              <section><h3>Countries</h3><ul id="bd-countries" class="bar-list"></ul></section>
+              <section><h3>Devices</h3><ul id="bd-devices" class="bar-list"></ul></section>
+            </div>
           </div>
         </div>
       </section>
@@ -128,5 +162,6 @@
 
     <script src="vendor/supabase/supabase.js"></script>
     <script type="module" src="src/admin.js"></script>
+    <script type="module" src="src/analytics.js"></script>
   </body>
 </html>
