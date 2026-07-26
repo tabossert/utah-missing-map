@@ -111,6 +111,149 @@ create policy "media admin delete" on storage.objects
   for delete using (bucket_id = 'marker-media' and private.is_admin());
 
 -- ============================================================================
+-- Site traffic
+-- One row per page view, written only by the `track` edge function (which holds
+-- the service-role key). No visitor identifier is stored: visitor_hash is a
+-- daily-rotating hash of ip + user agent, so it groups a visitor within a day
+-- and is unlinkable across days. Nothing is written to visitors' browsers, so
+-- no consent banner is needed.
+-- ============================================================================
+create table if not exists public.page_views (
+  id            bigint generated always as identity primary key,
+  created_at    timestamptz not null default now(),
+  path          text not null,
+  referrer_host text,
+  visitor_hash  text not null,
+  country       text,
+  device        text
+);
+create index if not exists page_views_created_at_idx on public.page_views (created_at desc);
+create index if not exists page_views_visitor_idx on public.page_views (visitor_hash, created_at);
+
+-- Country lookups are cached per /24 (hashed) so the geo API sees a trickle of
+-- requests rather than one per page view — it bans over 45/min.
+create table if not exists public.ip_geo_cache (
+  ip_hash   text primary key,
+  country   text,
+  cached_at timestamptz not null default now()
+);
+
+alter table public.page_views  enable row level security;
+alter table public.ip_geo_cache enable row level security;
+
+-- No insert/update policy at all: writes are service-role only, so the public
+-- anon key cannot forge or alter traffic. Admins may read the raw rows.
+-- ip_geo_cache deliberately gets no policy either — nothing outside the
+-- collector has any reason to read it, and service-role bypasses RLS.
+drop policy if exists "page_views admin read" on public.page_views;
+create policy "page_views admin read" on public.page_views
+  for select using (private.is_admin());
+
+-- ---- aggregate for the admin panel -----------------------------------------
+-- Sessions are derived at query time (a >30 min gap starts a new one) rather
+-- than stamped on the row, so the definition can change without a backfill.
+create or replace function public.traffic_stats(range_key text default '30d', tz text default 'UTC')
+  returns jsonb
+  language plpgsql security definer stable
+  set search_path = ''
+as $$
+declare
+  _start  timestamptz;
+  _bucket text;
+  _out    jsonb;
+begin
+  if not private.is_admin() then
+    raise exception 'not authorized' using errcode = '42501';
+  end if;
+
+  _start := now() - case range_key
+    when '24h'  then interval '24 hours'
+    when '7d'   then interval '7 days'
+    when '12mo' then interval '365 days'
+    else             interval '30 days'
+  end;
+  _bucket := case range_key when '24h' then 'hour' when '12mo' then 'month' else 'day' end;
+
+  with ev as (
+    select visitor_hash, created_at, path,
+           coalesce(referrer_host, '') as referrer_host,
+           coalesce(country, '')       as country,
+           coalesce(device, '')        as device,
+           case
+             when lag(created_at) over w is null
+               or created_at - lag(created_at) over w > interval '30 minutes'
+             then 1 else 0
+           end as new_session
+    from public.page_views
+    where created_at >= _start
+    window w as (partition by visitor_hash order by created_at)
+  ),
+  marked as (
+    select *, sum(new_session) over (
+      partition by visitor_hash order by created_at rows unbounded preceding
+    ) as session_no
+    from ev
+  ),
+  sessions as (
+    select visitor_hash, session_no, count(*) as views,
+           extract(epoch from max(created_at) - min(created_at)) as secs
+    from marked group by visitor_hash, session_no
+  )
+  select jsonb_build_object(
+    'range', range_key,
+    'stats', jsonb_build_object(
+      'pageviews', (select count(*) from ev),
+      'visitors',  (select count(distinct visitor_hash) from ev),
+      'visits',    (select count(*) from sessions),
+      'bounces',   (select count(*) from sessions where views = 1),
+      'totaltime', (select coalesce(sum(secs), 0) from sessions)
+    ),
+    'active', (
+      select count(distinct visitor_hash) from public.page_views
+      where created_at >= now() - interval '5 minutes'
+    ),
+    'series', (
+      select coalesce(jsonb_agg(jsonb_build_object('x', b, 'y', c) order by b), '[]'::jsonb)
+      from (
+        select date_trunc(_bucket, created_at at time zone tz) as b, count(*) as c
+        from ev group by 1
+      ) t
+    ),
+    'pages',     (select public.traffic_top('path', _start)),
+    'referrers', (select public.traffic_top('referrer_host', _start)),
+    'countries', (select public.traffic_top('country', _start)),
+    'devices',   (select public.traffic_top('device', _start))
+  ) into _out;
+
+  return _out;
+end;
+$$;
+
+-- Top 8 values of one column. Column name is whitelisted, never interpolated raw.
+create or replace function public.traffic_top(col text, since timestamptz)
+  returns jsonb
+  language plpgsql security definer stable
+  set search_path = ''
+as $$
+declare _out jsonb;
+begin
+  if col not in ('path', 'referrer_host', 'country', 'device') then
+    raise exception 'bad column %', col;
+  end if;
+  execute format(
+    'select coalesce(jsonb_agg(jsonb_build_object(''x'', v, ''y'', c) order by c desc), ''[]''::jsonb)
+       from (select coalesce(%I, '''') as v, count(*) as c from public.page_views
+             where created_at >= $1 group by 1 order by c desc limit 8) t', col)
+  into _out using since;
+  return _out;
+end;
+$$;
+
+revoke all on function public.traffic_stats(text, text) from public, anon;
+revoke all on function public.traffic_top(text, timestamptz) from public, anon, authenticated;
+grant execute on function public.traffic_stats(text, text) to authenticated;
+
+-- ============================================================================
 -- Grant an admin by email (they become admin the moment they first sign in):
 --
 --   insert into public.admins (email) values ('you@example.com')
