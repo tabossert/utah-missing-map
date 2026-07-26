@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-24T20:15:30.609Z",
-  "count": 245,
+  "generatedAt": "2026-07-26T02:10:07.488Z",
+  "count": 244,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -6068,60 +6068,6 @@
         {
           "label": "NamUs",
           "url": "https://www.namus.gov/UnidentifiedPersons/Case#/9718/"
-        }
-      ],
-      "tipHotline": null
-    },
-    {
-      "id": "john-doe-2012",
-      "name": "John Doe",
-      "year": 2012,
-      "category": "Unidentified Males",
-      "type": "Unidentified",
-      "gender": "Male",
-      "lat": 41.1703094,
-      "lng": -112.0204693,
-      "locationLabel": "Location found",
-      "photos": [
-        {
-          "src": null,
-          "local": "images/john-doe-2012/0.jpg"
-        },
-        {
-          "src": null,
-          "local": "images/john-doe-2012/1.jpg"
-        },
-        {
-          "src": null,
-          "local": "images/john-doe-2012/2.jpg"
-        },
-        {
-          "src": null,
-          "local": "images/john-doe-2012/3.jpg"
-        },
-        {
-          "src": null,
-          "local": "images/john-doe-2012/4.jpg"
-        },
-        {
-          "src": null,
-          "local": "images/john-doe-2012/5.jpg"
-        },
-        {
-          "src": null,
-          "local": "images/john-doe-2012/6.jpg"
-        }
-      ],
-      "narrative": "Found May 7, 2012, by Utah Department of Transportation workers doing maintenance on the freeway overpass near I-15 and Riverdale Rd, Roy. He was in what appeared to be a makeshift camp underneath the overpass. Location on map is approximate.\nMany locals recognized the man as local transient and some called him 'Terry.' A credible tip stated his name was Robert Terry Sant, and he was born in Florida, possibly near Kissimmee. Records in Florida were checked but nothing panned out.\nThe man was found wearing several articles of clothing: an 'Oakley' brand soft wear style jacket; a 'Timberlake' brand jacket (size L); a 'Port Authority' brand long sleeved shirt with 'Zupas' stitched on the pocket (size M); a 'Fruit of the Loom' brand shirt (size M); and 'Faded Glory' brand jeans (size 30x32).\nHe carried a newspaper dated March 8, 2012 and a UTA/Tracks pass dated March 21, 2012. An analog wrist watch with 'H-BAHGI' on the back was also found.\nJohn Doe was described as white/Caucasian, between the ages of 40 to 50, and about 5' 6\" tall. He had brown, wavy hair, approximately 16 cm long. A grey/brown, approximately 7 cm long, was also noted.\nHe had been dead about five weeks. No foul play is suspected. One thumbprint and dental charts are available for comparisons, but it should be noted the man did not receive dental work in the years prior to his death.\n\nState Bureau of Investigations (SBI) Case #: 12DPSO477",
-      "caseNumber": "12DPSO477",
-      "links": [
-        {
-          "label": "Utah BCI Cold Cases",
-          "url": "https://bci.utah.gov/coldcases/unidentified-male-roy-utah/"
-        },
-        {
-          "label": "NamUs",
-          "url": "https://www.namus.gov/UnidentifiedPersons/Case#/10461/"
         }
       ],
       "tipHotline": null
