@@ -20,6 +20,7 @@
   --radius-sm: 9px;
   --serif: "Iowan Old Style", "Palatino Linotype", "Palatino", "Book Antiqua", Georgia, serif;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --panel-w: min(420px, 92vw);
   --pin-mm: #5e86b0;
   --pin-um: #6b6da6;
   --pin-mf: #c4805a;
@@ -288,6 +289,14 @@ select {
 .leaflet-control-attribution a {
   color: #2c4a4c;
 }
+/* slide the right-hand map controls clear of the case panel instead of
+   letting them sit over it (Leaflet controls outrank the panel's stacking) */
+.leaflet-right {
+  transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+body.panel-open .leaflet-right {
+  transform: translateX(calc(-1 * var(--panel-w)));
+}
 
 /* pins */
 .pin-marker svg {
@@ -447,14 +456,14 @@ select {
   top: 0;
   right: 0;
   height: 100%;
-  width: min(420px, 92vw);
+  width: var(--panel-w);
   background: var(--surface);
   border-left: 1px solid var(--line);
   box-shadow: var(--shadow);
   transform: translateX(102%);
   visibility: hidden; /* keep the closed panel out of the tab order */
   transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), visibility 0s 0.28s;
-  z-index: 800;
+  z-index: 1100; /* above Leaflet's controls (1000) so the close button stays reachable */
   display: flex;
   flex-direction: column;
 }
@@ -871,6 +880,10 @@ select {
   }
   .filters.open {
     display: flex;
+  }
+  /* the sheet rises from the bottom — the controls are already clear of it */
+  body.panel-open .leaflet-right {
+    transform: none;
   }
   .scorecard {
     position: fixed; /* anchor to the viewport, not the (clipped) map container */
