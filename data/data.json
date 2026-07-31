@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-26T02:10:07.488Z",
-  "count": 244,
+  "generatedAt": "2026-07-31T20:58:22.498Z",
+  "count": 243,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -3536,40 +3536,6 @@
         {
           "label": "Utah BCI Cold Cases",
           "url": "https://bci.utah.gov/coldcases/dominic-sherril-walker/"
-        }
-      ],
-      "tipHotline": null
-    },
-    {
-      "id": "sacramento-cardona-gutierrez-2021",
-      "name": "Sacramento Cardona Gutierrez",
-      "year": 2021,
-      "category": "Missing Males",
-      "type": "Missing",
-      "gender": "Male",
-      "lat": 40.2338438,
-      "lng": -111.6585337,
-      "locationLabel": "Last known location",
-      "photos": [
-        {
-          "src": null,
-          "local": "images/sacramento-cardona-gutierrez-2021/0.jpg"
-        },
-        {
-          "src": null,
-          "local": "images/sacramento-cardona-gutierrez-2021/1.jpg"
-        }
-      ],
-      "narrative": "Last seen in late September/early October 2021 in Provo; exact location unknown/not released.\n\nProvo City Police Department Case #: 22PR25885",
-      "caseNumber": "22PR25885",
-      "links": [
-        {
-          "label": "Utah BCI Cold Cases",
-          "url": "https://bci.utah.gov/coldcases/sacramento-cardona-gutierrez/"
-        },
-        {
-          "label": "NamUs",
-          "url": "https://www.namus.gov/MissingPersons/Case#/103294/"
         }
       ],
       "tipHotline": null
