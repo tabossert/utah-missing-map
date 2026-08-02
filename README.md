@@ -56,6 +56,68 @@ configure Supabase; the public map works without it.
 Admin additions are stored in Supabase and merged into each scorecard by marker id; they never modify
 the base Google My Map data.
 
+## Contact form
+
+**Know something? Contact Us** appears in the header and under the tip line in every case panel.
+Opened from a case, the form records which case it's about; opened from the header, it's a general
+message. Submissions land in the admin panel's **Messages** tab, newest first, with unread ones
+flagged — and, if you set up email below, a copy arrives in your inbox.
+
+The form is explicit that it reaches the map's volunteers and **not** law enforcement, and points at
+the Utah Cold Case Tip Line and 911 alongside it.
+
+Setup, once `supabase/schema.sql` has been re-run (it adds `contact_messages`):
+
+```bash
+supabase secrets set CONTACT_SALT="$(openssl rand -base64 32)"
+supabase functions deploy contact --no-verify-jwt   # public endpoint: senders aren't signed in
+```
+
+Writes go through that function using the service-role key, and `contact_messages` has **no insert
+policy and no anon read policy** — so the public anon key can neither forge a message nor read one.
+A tip carries a name, an email, and a phone number; only allow-listed admins can see it.
+
+### Email notifications (optional)
+
+Add a mail key and each submission is also emailed out. Leave it unset and the form still works —
+messages just wait in the admin panel.
+
+```bash
+supabase secrets set RESEND_API_KEY="re_..." \
+                     CONTACT_EMAIL_FROM="Tips <tips@your-domain>"   # domain must be verified in Resend
+supabase secrets set CONTACT_ADMIN_URL="https://…/admin.html"       # optional link in the email
+```
+
+**Who gets the email** is the `contact_recipients` table, not a secret — so the list is editable from
+the admin panel (Messages tab → *Email notifications*) without redeploying the function. Addresses can
+be paused instead of removed. The table ships empty on purpose, so that no real address lives in this
+public repo: add the first recipient from the admin panel after signing in. Until one exists, messages
+are stored and simply not emailed.
+
+The database row is written first and the email is best effort, so a mail outage can't lose a tip.
+`reply_to` is set to the sender **only when they answered "yes"** to being contacted.
+
+Note that [Resend](https://resend.com) is a third party: the notification carries the sender's name,
+email, phone, and message through their infrastructure, and they disclosed a breach in January 2024
+that exposed customer metadata (not email content). If that trade isn't worth it, leave the mail
+secrets unset and read messages in the admin panel only.
+
+### Spam and duplicate submissions
+
+Five layers, all in the edge function except the last two:
+
+- a honeypot field that's off-screen and out of the tab order (deliberately *not* named `website`,
+  which password managers autofill);
+- a bot user-agent check, the same list the traffic collector uses;
+- a time trap — the real form reports how long it was open, and an instant fill is dropped;
+- a cap of five messages per sender per day, keyed on the same daily-rotating hash as `visitor_hash`;
+- an idempotency window: the same text from the same sender within ten minutes is treated as the
+  double submit it is, not a second tip. The submit button also disables while a send is in flight
+  and only re-arms on failure.
+
+Every bot rejection returns the same `204` a real send gets, so a probe can't tell which gate it
+tripped. Thresholds lean permissive on purpose — losing a real tip costs far more than a spam row.
+
 ## Traffic stats
 
 The admin panel's **Traffic** tab shows visitors, views, visits, average visit, bounce rate, who's

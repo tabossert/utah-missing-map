@@ -84,15 +84,208 @@ async function initEditor() {
   $('marker-search').addEventListener('input', renderPicker);
   $('extra-kind').addEventListener('change', updateFormFields);
   $('extra-form').addEventListener('submit', onAddExtra);
+  $('messages-refresh').addEventListener('click', loadMessages);
+  $('recipient-form').addEventListener('submit', onAddRecipient);
   wireTabs();
   updateFormFields();
   renderPicker();
+  loadMessages(); // so the unread badge is right before the tab is ever opened
+}
+
+/* ---- messages ----------------------------------------------------------- */
+// contact_messages has no anon policy at all — these rows are only readable
+// because this session's JWT passes the `admins` allowlist check in RLS.
+
+async function loadMessages() {
+  const msg = $('messages-msg');
+  msg.textContent = 'Loading…';
+  const { data, error } = await sb
+    .from('contact_messages')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(200);
+  if (error) {
+    msg.textContent =
+      error.code === '42P01'
+        ? 'The contact_messages table isn’t installed yet — re-run supabase/schema.sql (see the README).'
+        : `Couldn’t load messages: ${error.message}`;
+    $('messages-list').replaceChildren();
+    return;
+  }
+  msg.textContent = '';
+  renderMessages(data || []);
+}
+
+function renderMessages(rows) {
+  const unread = rows.filter((r) => !r.read_at).length;
+  const badge = $('messages-badge');
+  badge.hidden = !unread;
+  badge.textContent = String(unread);
+
+  if (!rows.length) {
+    $('messages-list').replaceChildren(
+      Object.assign(document.createElement('li'), { className: 'bar-empty', textContent: 'No messages yet.' }),
+    );
+    return;
+  }
+  $('messages-list').replaceChildren(...rows.map(messageItem));
+}
+
+function messageItem(row) {
+  const li = document.createElement('li');
+  li.className = row.read_at ? 'message-row' : 'message-row unread';
+
+  const head = document.createElement('div');
+  head.className = 'message-head';
+  const who = document.createElement('strong');
+  who.textContent = [row.first_name, row.last_name].filter(Boolean).join(' ') || '(no name)';
+  const when = document.createElement('span');
+  when.className = 'message-when';
+  when.textContent = new Date(row.created_at).toLocaleString();
+  head.append(who, when);
+
+  const meta = document.createElement('div');
+  meta.className = 'message-meta';
+  // The scheme is fixed, so these can't become javascript: links; the address
+  // itself already passed the edge function's format check.
+  const mail = document.createElement('a');
+  mail.href = `mailto:${row.email}`;
+  mail.textContent = row.email;
+  meta.append(mail);
+  if (row.phone) {
+    const tel = document.createElement('a');
+    tel.href = `tel:${String(row.phone).replace(/[^\d+]/g, '')}`;
+    tel.textContent = row.phone; // as typed; the href is the dialable form
+    meta.append(tel);
+  }
+  if (row.marker_name) {
+    const about = document.createElement('span');
+    about.className = 'kind-tag';
+    about.textContent = row.marker_name;
+    meta.append(about);
+  }
+  if (!row.may_contact) {
+    const no = document.createElement('span');
+    no.className = 'no-contact';
+    no.textContent = 'Asked not to be contacted';
+    meta.append(no);
+  }
+
+  const body = document.createElement('p');
+  body.className = 'message-body';
+  body.textContent = row.message;
+
+  const actions = document.createElement('div');
+  actions.className = 'message-actions';
+  const read = document.createElement('button');
+  read.type = 'button';
+  read.textContent = row.read_at ? 'Mark unread' : 'Mark read';
+  read.addEventListener('click', () => setRead(row, !row.read_at));
+  const del = document.createElement('button');
+  del.type = 'button';
+  del.className = 'del';
+  del.textContent = 'Delete';
+  del.addEventListener('click', () => deleteMessage(row));
+  actions.append(read, del);
+
+  li.append(head, meta, body, actions);
+  return li;
+}
+
+async function setRead(row, read) {
+  const { error } = await sb
+    .from('contact_messages')
+    .update({ read_at: read ? new Date().toISOString() : null })
+    .eq('id', row.id);
+  if (error) $('messages-msg').textContent = `Couldn’t update: ${error.message}`;
+  await loadMessages();
+}
+
+async function deleteMessage(row) {
+  if (!confirm('Delete this message? This cannot be undone.')) return;
+  const { error } = await sb.from('contact_messages').delete().eq('id', row.id);
+  if (error) $('messages-msg').textContent = `Couldn’t delete: ${error.message}`;
+  await loadMessages();
+}
+
+/* ---- notification recipients -------------------------------------------- */
+// The edge function reads this table with the service-role key, so editing it
+// here changes who gets emailed without redeploying the function.
+
+async function loadRecipients() {
+  const { data, error } = await sb.from('contact_recipients').select('*').order('email');
+  if (error) {
+    $('recipients-msg').textContent = `Couldn’t load recipients: ${error.message}`;
+    return;
+  }
+  $('recipients-msg').textContent = '';
+  const list = $('recipients-list');
+  if (!data.length) {
+    list.replaceChildren(
+      Object.assign(document.createElement('li'), {
+        className: 'bar-empty',
+        textContent: 'Nobody is being notified — new messages will only appear here.',
+      }),
+    );
+    return;
+  }
+  list.replaceChildren(...data.map(recipientItem));
+}
+
+function recipientItem(row) {
+  const li = document.createElement('li');
+  const email = document.createElement('span');
+  email.className = 'grow';
+  email.textContent = row.email;
+  if (!row.active) email.classList.add('inactive');
+
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.textContent = row.active ? 'Pause' : 'Resume';
+  toggle.addEventListener('click', () => setRecipientActive(row, !row.active));
+
+  const del = document.createElement('button');
+  del.type = 'button';
+  del.className = 'del';
+  del.textContent = 'Remove';
+  del.addEventListener('click', () => removeRecipient(row));
+
+  li.append(email, toggle, del);
+  return li;
+}
+
+async function onAddRecipient(e) {
+  e.preventDefault();
+  const input = $('recipient-email');
+  const email = input.value.trim().toLowerCase();
+  if (!email) return;
+  // Re-adding a paused address should switch it back on, not fail on the key.
+  const { error } = await sb
+    .from('contact_recipients')
+    .upsert({ email, active: true }, { onConflict: 'email' });
+  $('recipients-msg').textContent = error ? `Couldn’t add: ${error.message}` : '';
+  if (!error) input.value = '';
+  await loadRecipients();
+}
+
+async function setRecipientActive(row, active) {
+  const { error } = await sb.from('contact_recipients').update({ active }).eq('email', row.email);
+  if (error) $('recipients-msg').textContent = `Couldn’t update: ${error.message}`;
+  await loadRecipients();
+}
+
+async function removeRecipient(row) {
+  if (!confirm(`Stop emailing ${row.email}?`)) return;
+  const { error } = await sb.from('contact_recipients').delete().eq('email', row.email);
+  if (error) $('recipients-msg').textContent = `Couldn’t remove: ${error.message}`;
+  await loadRecipients();
 }
 
 function wireTabs() {
   const tabs = [
     ['tab-cases', 'panel-cases'],
     ['tab-traffic', 'panel-traffic'],
+    ['tab-messages', 'panel-messages'],
   ];
   tabs.forEach(([tabId, panelId]) =>
     $(tabId).addEventListener('click', () => {
@@ -101,6 +294,10 @@ function wireTabs() {
         $(p).hidden = p !== panelId;
       });
       if (panelId === 'panel-traffic') openTraffic();
+      if (panelId === 'panel-messages') {
+        loadMessages();
+        loadRecipients();
+      }
     }),
   );
 }

@@ -109,8 +109,10 @@ a {
 .header-actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.85rem;
   flex-shrink: 0;
+  flex-wrap: wrap; /* five controls: wrap rather than push past the viewport */
 }
 .freshness {
   color: var(--ink-faint);
@@ -722,6 +724,184 @@ body.panel-open .leaflet-right {
   color: var(--accent-deep);
 }
 
+/* ---------- contact form ---------- */
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--control-border);
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.contact-btn:hover {
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  border-color: var(--accent);
+}
+/* in the case panel it sits under the tip line, inside the accent band */
+.card-contact-btn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.6rem;
+  background: transparent;
+  border-color: var(--accent);
+  color: var(--accent-deep);
+}
+.card-contact-btn:hover {
+  background: var(--surface);
+}
+
+.contact-dialog {
+  width: min(560px, 94vw);
+  max-height: 92dvh;
+  overflow: auto;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+}
+.contact-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+.contact-form,
+.contact-done {
+  padding: 1.3rem 1.3rem 1.5rem;
+}
+.contact-form h2,
+.contact-done h2 {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  padding-right: 2.5rem; /* clear of the close button */
+}
+.contact-about {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  color: var(--accent-deep);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  display: inline-block;
+}
+.contact-intro {
+  margin: 0 0 1.1rem;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 0.9rem;
+}
+.contact-field {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+.contact-field input,
+.contact-field textarea {
+  font: inherit;
+  font-size: 0.92rem;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--control-border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.6rem;
+  width: 100%;
+}
+.contact-field textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+.contact-form > .contact-field {
+  margin-top: 0.9rem;
+}
+.req {
+  color: #a2452f;
+  text-decoration: none;
+}
+:root[data-theme="dark"] .req {
+  color: #e08a72;
+}
+.contact-field .hint {
+  color: var(--ink-faint);
+}
+.contact-consent {
+  margin: 1rem 0 0;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.contact-consent legend {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  padding: 0 0.3rem;
+}
+.contact-consent label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-right: 1.1rem;
+  font-size: 0.9rem;
+}
+/* off-screen rather than display:none — bots skip what is obviously hidden */
+.contact-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.contact-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 1.1rem;
+}
+.contact-actions button {
+  font: inherit;
+  border: none;
+  cursor: pointer;
+}
+.contact-actions button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.contact-msg {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.contact-msg.error {
+  color: #a2452f;
+}
+:root[data-theme="dark"] .contact-msg.error {
+  color: #e08a72;
+}
+.contact-done p {
+  margin: 0 0 1.1rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.contact-done button {
+  font: inherit;
+  border: none;
+  cursor: pointer;
+}
+
 /* ---------- lightbox ---------- */
 .lightbox {
   position: fixed;
@@ -843,6 +1023,16 @@ body.panel-open .leaflet-right {
 @media (max-width: 760px) {
   .logo {
     height: 38px;
+  }
+  .header-actions {
+    gap: 0.5rem;
+  }
+  /* the header is tight here — the label shortens to "✉ Contact Us" */
+  .contact-btn-long {
+    display: none;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
   }
   .toolbar {
     gap: 0.6rem 0.8rem;

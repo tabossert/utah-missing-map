@@ -5,6 +5,7 @@ import { initTheme, wireThemeToggle } from './theme.js';
 import { applyFilters } from './filters.js';
 import { initScorecard, openCard, closeCard, currentCardId } from './scorecard.js';
 import { refreshLive, relativeTime } from './refresh.js';
+import { initContact } from './contact.js';
 
 const state = {
   q: '',
@@ -26,6 +27,7 @@ async function main() {
   initMap(theme);
   wireThemeToggle((t) => setMapTheme(t));
   initScorecard();
+  initContact();
   buildLegend();
 
   const snap = await loadSnapshot();
