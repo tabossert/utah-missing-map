@@ -1,6 +1,6 @@
 {
   "name": "utah-missing-unidentified",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "private": true,
   "type": "module",
   "description": "Interactive map of Utah's missing and unidentified persons, built from a Google My Map.",

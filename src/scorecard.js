@@ -1,7 +1,7 @@
 // Scorecard side panel: full case detail, photo lightbox, admin extras, deep-link.
 import { CATEGORY_STYLES } from './map.js';
 import { trackView } from './analytics.js';
-import { contactAvailable, openContact } from './contact.js';
+import { contactAvailable, contactIcon, openContact } from './contact.js';
 
 const TIP_LINE = { label: '833-DPS-SAFE', tel: '8333777233', pretty: '833-DPS-SAFE (833-377-7233)' };
 
@@ -291,7 +291,7 @@ export function openCard(person, { updateHash = true, focus = true } = {}) {
           class: 'contact-btn card-contact-btn',
           type: 'button',
           onclick: () => openContact({ id: person.id, name: cardLabel(person) }),
-        }, h('span', { class: 'contact-icon', 'aria-hidden': 'true', text: '✉' }), ' Know something? Contact Us'),
+        }, contactIcon(), 'Know something? Contact Us'),
     ),
 
     h('div', { class: 'card-actions' },
