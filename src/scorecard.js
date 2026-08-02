@@ -1,6 +1,7 @@
 // Scorecard side panel: full case detail, photo lightbox, admin extras, deep-link.
 import { CATEGORY_STYLES } from './map.js';
 import { trackView } from './analytics.js';
+import { contactAvailable, openContact } from './contact.js';
 
 const TIP_LINE = { label: '833-DPS-SAFE', tel: '8333777233', pretty: '833-DPS-SAFE (833-377-7233)' };
 
@@ -29,6 +30,7 @@ function h(tag, props = {}, ...children) {
 }
 
 const safeHref = (url) => (/^https?:\/\//i.test(url || '') ? url : null);
+const cardLabel = (p) => `${p.name}${p.year ? `, ${p.year}` : ''}`;
 const onMobile = () => matchMedia('(max-width: 760px)').matches;
 const BG_SELECTORS = ['.app-header', '.toolbar', '.app-footer', '#map', '#legend', '#case-list'];
 function setBackgroundInert(on) {
@@ -52,6 +54,10 @@ export function initScorecard({ onClose } = {}) {
   if (backdrop) backdrop.addEventListener('click', closeCard);
   initSheetDrag();
   document.addEventListener('keydown', (e) => {
+    // A modal <dialog> is in the top layer and handles its own Escape and Tab —
+    // keys still bubble to us here, and acting on them would close the card
+    // underneath it or move focus into an inert panel.
+    if (document.querySelector('dialog[open]')) return;
     if (e.key === 'Escape') {
       if (lightboxEl.classList.contains('open')) closeLightbox();
       else if (panelEl.classList.contains('open')) closeCard();
@@ -280,6 +286,12 @@ export function openCard(person, { updateHash = true, focus = true } = {}) {
     h('section', { class: 'card-tip' },
       h('p', { text: 'Have information about this case?' }),
       h('a', { class: 'tip-cta', href: `tel:${TIP_LINE.tel}` }, '☎ Call the Utah Cold Case Tip Line — ', TIP_LINE.pretty),
+      contactAvailable() &&
+        h('button', {
+          class: 'contact-btn card-contact-btn',
+          type: 'button',
+          onclick: () => openContact({ id: person.id, name: cardLabel(person) }),
+        }, '✉ Know something? Contact Us'),
     ),
 
     h('div', { class: 'card-actions' },

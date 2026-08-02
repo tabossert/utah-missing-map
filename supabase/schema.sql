@@ -283,6 +283,81 @@ revoke all on function public.traffic_top(text, timestamptz) from public, anon, 
 grant execute on function public.traffic_stats(text, text) to authenticated;
 
 -- ============================================================================
+-- Contact / tip messages
+-- Written only by the `contact` edge function (which holds the service-role
+-- key), so the public anon key can neither forge a submission nor read one.
+-- submitter_hash is the same daily-rotating construction as visitor_hash — it
+-- only exists to cap how many messages one sender can file in a day.
+-- ============================================================================
+create table if not exists public.contact_messages (
+  id             bigint generated always as identity primary key,
+  created_at     timestamptz not null default now(),
+  first_name     text not null,
+  last_name      text,
+  email          text not null,
+  phone          text,
+  may_contact    boolean not null default true,
+  message        text not null,
+  marker_id      text,   -- set when the form was opened from a case panel
+  marker_name    text,   -- denormalised: the case may later leave the map
+  submitter_hash text,
+  read_at        timestamptz
+);
+create index if not exists contact_messages_created_at_idx on public.contact_messages (created_at desc);
+create index if not exists contact_messages_submitter_idx on public.contact_messages (submitter_hash);
+
+alter table public.contact_messages enable row level security;
+
+-- No insert policy at all: writes are service-role only. Admins read, mark
+-- read, and delete. Anonymous visitors can do none of the three — a tip
+-- carries a name, an email, and a phone number, so it must never be public.
+drop policy if exists "contact admin read" on public.contact_messages;
+create policy "contact admin read" on public.contact_messages
+  for select using (private.is_admin());
+
+drop policy if exists "contact admin update" on public.contact_messages;
+create policy "contact admin update" on public.contact_messages
+  for update using (private.is_admin());
+
+drop policy if exists "contact admin delete" on public.contact_messages;
+create policy "contact admin delete" on public.contact_messages
+  for delete using (private.is_admin());
+
+-- ---- who gets notified of a new message -------------------------------------
+-- The `contact` edge function reads this list with the service-role key and
+-- emails every active address. Manage it from the admin panel's Messages tab.
+create table if not exists public.contact_recipients (
+  email      text primary key,
+  active     boolean not null default true,
+  created_at timestamptz not null default now()
+);
+
+-- Deliberately unseeded — an address committed here would be a public one. Add
+-- recipients from the admin panel (Messages tab → Email notifications), or:
+--   insert into public.contact_recipients (email) values ('you@example.com')
+--   on conflict (email) do nothing;
+-- With nobody listed, messages are still stored; they just aren't emailed.
+
+alter table public.contact_recipients enable row level security;
+
+-- Admins only, in both directions: this list is who to reach, not public info.
+drop policy if exists "recipients admin read" on public.contact_recipients;
+create policy "recipients admin read" on public.contact_recipients
+  for select using (private.is_admin());
+
+drop policy if exists "recipients admin insert" on public.contact_recipients;
+create policy "recipients admin insert" on public.contact_recipients
+  for insert with check (private.is_admin());
+
+drop policy if exists "recipients admin update" on public.contact_recipients;
+create policy "recipients admin update" on public.contact_recipients
+  for update using (private.is_admin());
+
+drop policy if exists "recipients admin delete" on public.contact_recipients;
+create policy "recipients admin delete" on public.contact_recipients
+  for delete using (private.is_admin());
+
+-- ============================================================================
 -- Grant an admin by email (they become admin the moment they first sign in):
 --
 --   insert into public.admins (email) values ('you@example.com')

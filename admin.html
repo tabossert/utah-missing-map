@@ -79,6 +79,9 @@
         <nav class="admin-tabs" aria-label="Admin sections">
           <button id="tab-cases" class="admin-tab" type="button" aria-selected="true" aria-controls="panel-cases">Cases</button>
           <button id="tab-traffic" class="admin-tab" type="button" aria-selected="false" aria-controls="panel-traffic">Traffic</button>
+          <button id="tab-messages" class="admin-tab" type="button" aria-selected="false" aria-controls="panel-messages">
+            Messages <span id="messages-badge" class="tab-badge" hidden></span>
+          </button>
         </nav>
 
         <div id="panel-cases" class="editor">
@@ -161,6 +164,27 @@
               <section><h3>Devices</h3><ul id="bd-devices" class="bar-list"></ul></section>
             </div>
           </div>
+        </div>
+
+        <div id="panel-messages" class="messages" hidden>
+          <div class="traffic-head">
+            <h2>Messages</h2>
+            <button id="messages-refresh" class="admin-tab" type="button">Refresh</button>
+          </div>
+          <details class="recipients">
+            <summary>Email notifications — who gets a copy</summary>
+            <p class="hint">Every active address is emailed when a new message arrives.</p>
+            <form id="recipient-form" class="recipient-form">
+              <label class="sr-only" for="recipient-email">Email address to notify</label>
+              <input id="recipient-email" type="email" placeholder="name@example.com" required />
+              <button type="submit" class="tip-cta">Add</button>
+            </form>
+            <ul id="recipients-list" class="recipients-list" aria-live="polite"></ul>
+            <p id="recipients-msg" class="login-msg" aria-live="polite"></p>
+          </details>
+
+          <p id="messages-msg" class="login-msg" aria-live="polite"></p>
+          <ul id="messages-list" class="messages-list"></ul>
         </div>
       </section>
     </main>

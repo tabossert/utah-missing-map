@@ -49,6 +49,9 @@
           <span aria-hidden="true">☰</span> List
         </button>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">☾</button>
+        <button id="contact-btn" class="contact-btn" type="button">
+          <span aria-hidden="true">✉</span> <span class="contact-btn-long">Know something? </span>Contact Us
+        </button>
         <button id="refresh-btn" class="refresh-btn" title="Check the live map for updates">
           <span class="refresh-icon" aria-hidden="true">⟳</span> Refresh
         </button>
@@ -110,6 +113,68 @@
     </footer>
 
     <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Photo viewer"></div>
+
+    <dialog id="contact-dialog" class="contact-dialog" aria-labelledby="contact-title">
+      <button type="button" id="contact-close" class="scorecard-close" aria-label="Close contact form">×</button>
+
+      <form id="contact-form" class="contact-form" novalidate>
+        <h2 id="contact-title">Know something? Contact us</h2>
+        <p id="contact-about" class="contact-about" hidden></p>
+        <p class="contact-intro">
+          This form reaches the volunteers who maintain this map — it is not law enforcement. If you
+          have information about a case, please also call the Utah Cold Case Tip Line,
+          <a href="tel:8333777233">833-DPS-SAFE</a>. In an emergency, call 911.
+        </p>
+
+        <div class="contact-grid">
+          <label class="contact-field">
+            <span>First name <abbr class="req" title="required" aria-hidden="true">*</abbr></span>
+            <input id="contact-first" type="text" required maxlength="80" autocomplete="given-name" />
+          </label>
+          <label class="contact-field">
+            <span>Last name <span class="hint">(optional)</span></span>
+            <input id="contact-last" type="text" maxlength="80" autocomplete="family-name" />
+          </label>
+          <label class="contact-field">
+            <span>Email address <abbr class="req" title="required" aria-hidden="true">*</abbr></span>
+            <input id="contact-email" type="email" required maxlength="254" autocomplete="email" />
+          </label>
+          <label class="contact-field">
+            <span>Phone <span class="hint">(optional)</span></span>
+            <input id="contact-phone" type="tel" maxlength="40" autocomplete="tel" />
+          </label>
+        </div>
+
+        <fieldset class="contact-consent">
+          <legend>Can we contact you about this?</legend>
+          <label><input type="radio" name="may_contact" value="yes" checked /> Yes</label>
+          <label><input type="radio" name="may_contact" value="no" /> No</label>
+        </fieldset>
+
+        <label class="contact-field">
+          <span>Message <abbr class="req" title="required" aria-hidden="true">*</abbr></span>
+          <textarea id="contact-message" rows="5" required maxlength="5000"></textarea>
+        </label>
+
+        <!-- Honeypot: off-screen and out of the tab order, so only bots fill it.
+             Deliberately not named "website"/"url" — a password manager will
+             autofill those, and a filled honeypot silently drops the message. -->
+        <div class="contact-hp" aria-hidden="true">
+          <label>Leave this field blank <input id="contact-hp" type="text" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <div class="contact-actions">
+          <button type="submit" id="contact-submit" class="tip-cta">Send message</button>
+          <p id="contact-msg" class="contact-msg" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <div id="contact-done" class="contact-done" hidden>
+        <h2>Thank you</h2>
+        <p>Your message has been sent. If you asked us to, we'll be in touch at the address you gave.</p>
+        <button type="button" id="contact-done-close" class="tip-cta">Close</button>
+      </div>
+    </dialog>
 
     <script src="vendor/leaflet/leaflet.js"></script>
     <script src="vendor/markercluster/leaflet.markercluster.js"></script>
