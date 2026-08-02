@@ -739,6 +739,14 @@ body.panel-open .leaflet-right {
   cursor: pointer;
   white-space: nowrap;
 }
+/* U+2709 draws lighter and smaller than ☰ / ⟳ at the same size — scale it back
+   up to match, and nudge it onto the text's optical baseline. */
+.contact-icon {
+  font-size: 1.3em;
+  line-height: 1;
+  position: relative;
+  top: 0.055em;
+}
 .contact-btn:hover {
   background: var(--accent-soft);
   color: var(--accent-deep);
