@@ -94,19 +94,32 @@ async function notify(row: Record<string, unknown>) {
     ADMIN_URL ? `Manage: ${ADMIN_URL}` : null,
   ].filter(Boolean);
 
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${RESEND_KEY}`, 'content-type': 'application/json' },
-    body: JSON.stringify({
-      from: MAIL_FROM,
-      to,
-      subject: `New message from ${who} ${about}`,
-      text: lines.join('\n'),
-      // Replying must not be a way to ignore the sender's own answer.
-      ...(row.may_contact ? { reply_to: row.email } : {}),
+  const mail = {
+    from: MAIL_FROM,
+    subject: `New message from ${who} ${about}`,
+    text: lines.join('\n'),
+    // Replying must not be a way to ignore the sender's own answer.
+    ...(row.may_contact ? { reply_to: row.email } : {}),
+  };
+
+  // One request per recipient, never one request listing all of them: Resend
+  // rejects an entire multi-recipient send if any single address is disallowed
+  // (the shared onboarding@resend.dev sender may only mail the account owner),
+  // which silences everyone including the addresses that were fine. Sending
+  // separately also keeps the recipients from seeing each other.
+  const sent = await Promise.allSettled(
+    to.map(async (addr: string) => {
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${RESEND_KEY}`, 'content-type': 'application/json' },
+        body: JSON.stringify({ ...mail, to: [addr] }),
+      });
+      if (!res.ok) throw new Error(`${res.status} ${(await res.text()).slice(0, 200)}`);
     }),
+  );
+  sent.forEach((r, i) => {
+    if (r.status === 'rejected') console.error('notify failed', to[i], String(r.reason));
   });
-  if (!res.ok) console.error('notify failed', res.status, (await res.text()).slice(0, 200));
 }
 
 Deno.serve(async (req) => {
