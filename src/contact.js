@@ -18,6 +18,25 @@ export function contactAvailable() {
   return Boolean(endpoint);
 }
 
+// The envelope, built as SVG rather than set from a markup string, so callers
+// that forbid innerHTML can still use it. Styling lives in .contact-icon.
+export function contactIcon() {
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('class', 'contact-icon');
+  svg.setAttribute('viewBox', '0 0 20 20');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.setAttribute('focusable', 'false');
+  const rect = document.createElementNS(NS, 'rect');
+  for (const [k, v] of Object.entries({ x: 2, y: 4.5, width: 16, height: 11, rx: 1.8 })) {
+    rect.setAttribute(k, String(v));
+  }
+  const flap = document.createElementNS(NS, 'path');
+  flap.setAttribute('d', 'M2.8 5.6 L10 10.9 L17.2 5.6');
+  svg.append(rect, flap);
+  return svg;
+}
+
 // Mirrors the edge function's checks so the sender is corrected before a round
 // trip; the server still re-validates, since this runs on the client.
 export function validateContact({ first_name, email, message }) {
