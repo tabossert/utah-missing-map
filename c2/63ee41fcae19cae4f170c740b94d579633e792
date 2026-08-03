@@ -1,0 +1,19 @@
+index.html
+  s_fe79e75ee42210::t_5a9c2e20497603 122
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "c263ee41fcae19cae4f170c740b94d579633e792",
+  "prompts": {},
+  "sessions": {
+    "s_fe79e75ee42210": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8d4f4dae-b02c-4d7f-8124-d2d1a405be1f",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Trevor Bossert <alanboss@gmail.com>"
+    }
+  }
+}
