@@ -1041,10 +1041,6 @@ body.panel-open .leaflet-right {
   .header-actions {
     gap: 0.5rem;
   }
-  /* the header is tight here — the label shortens to "✉ Contact Us" */
-  .contact-btn-long {
-    display: none;
-  }
   .contact-grid {
     grid-template-columns: 1fr;
   }
