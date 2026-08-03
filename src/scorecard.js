@@ -291,7 +291,7 @@ export function openCard(person, { updateHash = true, focus = true } = {}) {
           class: 'contact-btn card-contact-btn',
           type: 'button',
           onclick: () => openContact({ id: person.id, name: cardLabel(person) }),
-        }, contactIcon(), 'Questions?'),
+        }, contactIcon(), 'Questions? Comments? Contact Us'),
     ),
 
     h('div', { class: 'card-actions' },
