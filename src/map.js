@@ -2,10 +2,10 @@
 const L = globalThis.L;
 
 export const CATEGORY_STYLES = {
-  'Missing Males': { color: '#5E86B0', label: 'Missing · men', type: 'Missing', gender: 'Male' },
-  'Unidentified Males': { color: '#6B6DA6', label: 'Unidentified · men', type: 'Unidentified', gender: 'Male' },
-  'Missing Females': { color: '#C4805A', label: 'Missing · women', type: 'Missing', gender: 'Female' },
-  'Unidentified Females': { color: '#A86C86', label: 'Unidentified · women', type: 'Unidentified', gender: 'Female' },
+  'Missing Males': { color: '#5E86B0', label: 'Missing · Male', type: 'Missing', gender: 'Male' },
+  'Unidentified Males': { color: '#6B6DA6', label: 'Unidentified · Male', type: 'Unidentified', gender: 'Male' },
+  'Missing Females': { color: '#C4805A', label: 'Missing · Female', type: 'Missing', gender: 'Female' },
+  'Unidentified Females': { color: '#A86C86', label: 'Unidentified · Female', type: 'Unidentified', gender: 'Female' },
 };
 
 // Non-color category cue (WCAG 1.4.1): shape encodes gender (circle = man,
