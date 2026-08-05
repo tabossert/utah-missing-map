@@ -148,12 +148,17 @@ function updateCardValues() {
 function renderCard(announce) {
   if (!card) return;
   document.body.classList.toggle('has-measurement', verts.length >= 2);
+  // Keep keyboard focus near where the user just acted — the control tree is
+  // about to be rebuilt, or removed entirely if the measurement is now empty.
+  const focused = card.contains(document.activeElement) ? document.activeElement.textContent : null;
   if (verts.length < 2) {
     card.hidden = true;
     card.replaceChildren();
     // State, not action — this branch is reached both by placing the first
     // point and by deleting back down to one.
     if (announce) live.textContent = verts.length ? 'One point placed.' : 'Measurement cleared.';
+    // The card is gone — return focus to the control that owns this surface.
+    if (focused) toggleBtn.focus();
     return;
   }
   const total = pathLengthMeters(closeRing(verts, closed));
@@ -175,11 +180,14 @@ function renderCard(announce) {
   if (!closed && verts.length >= 3) actions.append(actionBtn('Close shape', closeShape));
   actions.append(actionBtn('Clear', clearAll));
 
-  // Keep keyboard focus on the control the user activated (it's about to be rebuilt).
-  const focused = card.contains(document.activeElement) ? document.activeElement.textContent : null;
   card.replaceChildren(rows, units, actions);
   card.hidden = false;
-  if (focused) [...card.querySelectorAll('button')].find((b) => b.textContent === focused)?.focus();
+  if (focused) {
+    const btns = [...card.querySelectorAll('button')];
+    // The exact control may be gone (e.g. "Close shape" after closing) — land
+    // on Clear, its always-present neighbour, rather than dropping to <body>.
+    (btns.find((b) => b.textContent === focused) || btns.find((b) => b.textContent === 'Clear'))?.focus();
+  }
   if (announce) {
     live.textContent = closed ? `Perimeter ${distance}. Area ${area}.` : `Total distance ${distance}.`;
   }
