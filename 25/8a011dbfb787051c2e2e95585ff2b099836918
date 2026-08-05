@@ -1,0 +1,25 @@
+src/measure.js
+  s_b6b7dc7b07a5fb::t_7ed3837c2db01c 235
+  s_b6b7dc7b07a5fb::t_5242400da12e12 77-79,84-88
+  s_b6b7dc7b07a5fb::t_0ca8e3cf61fe78 199
+  s_b6b7dc7b07a5fb::t_a597d3bde25feb 106-107,109-113,121-123
+  s_b6b7dc7b07a5fb::t_362114c849ea08 124-125
+styles/main.css
+  s_b6b7dc7b07a5fb::t_696bc34306228d 1137-1144
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "258a011dbfb787051c2e2e95585ff2b099836918",
+  "prompts": {},
+  "sessions": {
+    "s_b6b7dc7b07a5fb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "716440fe-79eb-4bda-bc68-9c48b50a302b",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Trevor Bossert <alanboss@gmail.com>"
+    }
+  }
+}
