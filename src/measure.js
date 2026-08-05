@@ -6,6 +6,7 @@ import { pickDistanceUnit, formatDistance, formatLeg, formatArea } from './units
 const L = globalThis.L;
 
 const DEDUPE_PX = 10; // ignore a click landing this close to the last vertex
+const LABEL_PAD_PX = 8; // a leg must beat its label's width by this much to earn one
 const UNITS_KEY = 'umm-units';
 
 let map;
@@ -38,6 +39,7 @@ export function initMeasure(m) {
   document.body.append(live);
   buildToggle();
   map.on('click', onMapClick);
+  map.on('zoomend', () => refreshGeometry());
   document.addEventListener('keydown', onKeydown);
 }
 
@@ -120,14 +122,14 @@ function refreshGeometry({ announce = false } = {}) {
     for (let i = 1; i < line.length; i++) {
       const a = line[i - 1];
       const b = line[i];
+      const text = formatLeg(distanceMeters(a, b), unit);
+      const legPx = map.latLngToContainerPoint(a).distanceTo(map.latLngToContainerPoint(b));
+      // ~6.5px per character at 0.72rem semibold, plus the pill's horizontal padding
+      if (legPx < text.length * 6.5 + 12 + LABEL_PAD_PX) continue;
       L.marker(L.latLng((a.lat + b.lat) / 2, (a.lng + b.lng) / 2), {
         interactive: false,
         keyboard: false,
-        icon: L.divIcon({
-          className: 'measure-leg',
-          iconSize: [0, 0],
-          html: `<span>${formatLeg(distanceMeters(a, b), unit)}</span>`,
-        }),
+        icon: L.divIcon({ className: 'measure-leg', iconSize: [0, 0], html: `<span>${text}</span>` }),
       }).addTo(geomLayer);
     }
   }
@@ -135,11 +137,13 @@ function refreshGeometry({ announce = false } = {}) {
 }
 
 function renderCard(announce) {
+  document.body.classList.toggle('has-measurement', verts.length >= 2);
   if (verts.length < 2) {
     card.hidden = true;
     card.replaceChildren();
-    // One point is a start, not a clear — the same branch serves both.
-    if (announce) live.textContent = verts.length ? 'First point placed.' : 'Measurement cleared.';
+    // State, not action — this branch is reached both by placing the first
+    // point and by deleting back down to one.
+    if (announce) live.textContent = verts.length ? 'One point placed.' : 'Measurement cleared.';
     return;
   }
   const line = ring();

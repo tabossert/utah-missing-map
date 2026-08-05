@@ -1299,4 +1299,30 @@ body.panel-open .measure-card {
     font-size: 0.72rem;
     padding: 0.45rem 0.55rem;
   }
+  /* the card takes the bottom strip; the legend would collide with it */
+  .measure-card {
+    top: auto;
+    right: 12px;
+    left: 12px;
+    bottom: 12px;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  body.panel-open .measure-card {
+    transform: none;
+  }
+  .measure-row {
+    margin: 0;
+  }
+  .measure-units,
+  .measure-actions {
+    margin: 0;
+    width: auto;
+  }
+  body.has-measurement .legend {
+    display: none;
+  }
 }
