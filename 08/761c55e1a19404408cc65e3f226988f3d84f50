@@ -1,0 +1,21 @@
+package.json
+  s_b6b7dc7b07a5fb::t_405e3d2d33154a 3
+README.md
+  s_b6b7dc7b07a5fb::t_ec39ed3f8de39c 6-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "08761c55e1a19404408cc65e3f226988f3d84f50",
+  "prompts": {},
+  "sessions": {
+    "s_b6b7dc7b07a5fb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "716440fe-79eb-4bda-bc68-9c48b50a302b",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Trevor Bossert <alanboss@gmail.com>"
+    }
+  }
+}
