@@ -1,0 +1,38 @@
+README.md
+  s_b6b7dc7b07a5fb::t_e7052dfec2b020 7-8
+src/geo.js
+  s_b6b7dc7b07a5fb::t_bb48314a72d72c 24-29
+  s_b6b7dc7b07a5fb::t_69c74a250ce1de 39-42
+src/measure.js
+  s_b6b7dc7b07a5fb::t_b729262453a8eb 3-4
+  s_b6b7dc7b07a5fb::t_1ac82802ba131c 80,87-88,91
+  s_b6b7dc7b07a5fb::t_411e2e7ac95d5b 270
+  s_b6b7dc7b07a5fb::t_6e0d6cf7e6ba78 113,115,125,133-145,149,159,178-179,182
+test/geo.test.mjs
+  s_b6b7dc7b07a5fb::t_960ef587d93e86 90-119
+  s_b6b7dc7b07a5fb::t_e652f0a5a3da56 3
+src/units.js
+  s_b6b7dc7b07a5fb::t_2dbec4ce2dbadb 57-66
+  s_b6b7dc7b07a5fb::t_db1cb27ee2a39e 24-26
+src/scorecard.js
+  s_b6b7dc7b07a5fb::t_19d3af018e64d5 35
+test/units.test.mjs
+  s_b6b7dc7b07a5fb::t_451aa8edfa6f77 72-83
+  s_b6b7dc7b07a5fb::t_efedfa9944ac73 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "a5c72757f1e13eece0dd78de60c68ed6b5e15ed4",
+  "prompts": {},
+  "sessions": {
+    "s_b6b7dc7b07a5fb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "716440fe-79eb-4bda-bc68-9c48b50a302b",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Trevor Bossert <alanboss@gmail.com>"
+    }
+  }
+}
