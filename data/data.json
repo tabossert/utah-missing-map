@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T20:58:22.498Z",
+  "generatedAt": "2026-08-05T15:58:07.314Z",
   "count": 243,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
@@ -2919,12 +2919,20 @@
           "local": "images/harry-keser-jr-2016/0.jpg"
         }
       ],
-      "narrative": "Last seen about May 2016, in Vernal; exact location unknown/not released.\n\nUintah County Sheriff's Office Case #: S18-0140",
+      "narrative": "Last seen about May 2016, in Vernal; exact location unknown/not released although he was last in contact with family/friends in late 2014. There were rumors Harry was killed and burned on the reservation, but law enforcement have been unable to substantiate any info.\n\nUintah County Sheriff's Office Case #: S18-0140",
       "caseNumber": "S18-0140",
       "links": [
         {
+          "label": "Utah BCI Cold Cases",
+          "url": "https://bci.utah.gov/coldcases/harry-junior-keser/"
+        },
+        {
           "label": "NamUs",
           "url": "https://www.namus.gov/MissingPersons/Case#/83992/"
+        },
+        {
+          "label": "DoeNetwork",
+          "url": "https://www.doenetwork.org/cases/software/mp-main.html?id=6966DMUT"
         }
       ],
       "tipHotline": null
@@ -7855,7 +7863,7 @@
           "local": "images/stephanie-michele-smith-2003/1.jpg"
         }
       ],
-      "narrative": "Last seen in early 2003 in Salt Lake City; exact location unknown/not released. The exact date she went missing is also unknown.\n\nUnified Police Department of Greater Salt Lake Case #: CO17-122159",
+      "narrative": "Last seen in early 2003 in Salt Lake City; exact location unknown/not released. The exact date she went missing is also unknown.\n\nSalt Lake County Sheriff Office Case #: CO17-122159",
       "caseNumber": "CO17-122159",
       "links": [
         {
@@ -8049,7 +8057,7 @@
           "local": "images/lark-loraine-montague-2007/2.jpg"
         }
       ],
-      "narrative": "Last seen September 21, 2007, driving in the vicinity of 8400 W and 3500 S, Magna, after drinking at a neighbor's house. She was pulling into her driveway but hit a fence causing minor damage. She then drove away. Her vehicle, a pewter-colored 2002 Chevrolet TrailBlazer with Utah plate #215LTE, has never been located.\n\nUnified Police Department of Greater Salt Lake Case #: CO2007-87849",
+      "narrative": "Last seen September 21, 2007, driving in the vicinity of 8400 W and 3500 S, Magna, after drinking at a neighbor's house. She was pulling into her driveway but hit a fence causing minor damage. She then drove away. Her vehicle, a pewter-colored 2002 Chevrolet TrailBlazer with Utah plate #215LTE, has never been located.\n\nSalt Lake County Sheriff Office Case #: CO2007-87849",
       "caseNumber": "CO2007-87849",
       "links": [
         {
