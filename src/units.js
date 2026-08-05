@@ -23,7 +23,7 @@ function decimalsFor(value) {
 
 // Rounds, strips trailing zeros, and adds thousands separators.
 function num(value, decimals) {
-  return Number(value.toFixed(decimals)).toLocaleString(undefined, {
+  return Number(value.toFixed(decimals)).toLocaleString('en-US', {
     maximumFractionDigits: decimals,
   });
 }
