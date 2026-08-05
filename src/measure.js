@@ -13,6 +13,8 @@ let toggleBtn;
 let card;
 let live;
 let geomLayer;   // polylines + leg labels, rebuilt on every change
+let handleLayer; // draggable vertex handles, rebuilt only when the list changes
+let justDragged = false; // suppresses the synthetic click Leaflet fires after a drag
 let verts = [];
 let system = 'us';
 
@@ -24,6 +26,7 @@ const RULER_SVG = `<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"
 export function initMeasure(m) {
   map = m;
   geomLayer = L.layerGroup().addTo(map);
+  handleLayer = L.layerGroup().addTo(map);
   card = document.getElementById('measure-card');
   live = document.createElement('div');
   live.className = 'sr-only';
@@ -53,7 +56,49 @@ export function addVertex(latlng) {
     return;
   }
   verts.push(point);
-  refreshGeometry({ announce: true });
+  redraw({ announce: true });
+}
+
+// Handles are rebuilt only when the vertex list itself changes — never mid-drag.
+function redraw(opts) {
+  rebuildHandles();
+  refreshGeometry(opts);
+}
+
+function rebuildHandles() {
+  handleLayer.clearLayers();
+  verts.forEach((pt, i) => {
+    const handle = L.marker(pt, {
+      draggable: true,
+      keyboard: false,
+      icon: L.divIcon({ className: 'measure-handle', iconSize: [14, 14] }),
+    }).addTo(handleLayer);
+    handle.on('dragstart', () => {
+      justDragged = true;
+    });
+    // Only the geometry is rebuilt mid-drag — rebuilding handles here would
+    // destroy the marker Leaflet is currently dragging.
+    handle.on('drag', (e) => {
+      verts[i] = e.target.getLatLng();
+      refreshGeometry();
+    });
+    handle.on('dragend', () => {
+      refreshGeometry({ announce: true });
+      setTimeout(() => {
+        justDragged = false;
+      }, 0);
+    });
+    handle.on('click', (e) => {
+      L.DomEvent.stop(e);
+      if (justDragged) return;
+      removeVertex(i);
+    });
+  });
+}
+
+function removeVertex(i) {
+  verts.splice(i, 1);
+  redraw({ announce: true });
 }
 
 function refreshGeometry({ announce = false } = {}) {

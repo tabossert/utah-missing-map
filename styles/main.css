@@ -1121,6 +1121,19 @@ body.panel-open .measure-card {
 .measure-val {
   font-size: 0.95rem;
 }
+.measure-handle {
+  border-radius: 50%;
+  background: var(--surface);
+  border: 3px solid var(--accent);
+  box-shadow: var(--shadow-sm);
+  cursor: grab;
+}
+:root[data-theme="dark"] .measure-handle {
+  border-color: var(--accent-deep);
+}
+.measure-handle:active {
+  cursor: grabbing;
+}
 
 /* ---------- responsive: scorecard as bottom sheet ---------- */
 @media (max-width: 760px) {
