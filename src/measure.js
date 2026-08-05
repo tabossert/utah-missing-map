@@ -6,6 +6,7 @@ import { pickDistanceUnit, formatDistance, formatLeg, formatArea } from './units
 const L = globalThis.L;
 
 const DEDUPE_PX = 10; // ignore a click landing this close to the last vertex
+const UNITS_KEY = 'umm-units';
 
 let map;
 let active = false;
@@ -26,6 +27,7 @@ const RULER_SVG = `<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"
 
 export function initMeasure(m) {
   map = m;
+  system = readUnits();
   geomLayer = L.layerGroup().addTo(map);
   handleLayer = L.layerGroup().addTo(map);
   card = document.getElementById('measure-card');
@@ -149,12 +151,18 @@ function renderCard(announce) {
   rows.append(readoutRow(closed ? 'Perimeter' : 'Total', distance));
   if (closed) rows.append(readoutRow('Area', area));
 
+  const units = document.createElement('div');
+  units.className = 'measure-units';
+  units.setAttribute('role', 'group');
+  units.setAttribute('aria-label', 'Measurement units');
+  units.append(unitBtn('us', 'US'), unitBtn('metric', 'Metric'));
+
   const actions = document.createElement('div');
   actions.className = 'measure-actions';
   if (!closed && verts.length >= 3) actions.append(actionBtn('Close shape', closeShape));
   actions.append(actionBtn('Clear', clearAll));
 
-  card.replaceChildren(rows, actions);
+  card.replaceChildren(rows, units, actions);
   card.hidden = false;
   if (announce) {
     live.textContent = closed ? `Perimeter ${distance}. Area ${area}.` : `Total distance ${distance}.`;
@@ -167,6 +175,16 @@ function actionBtn(label, fn) {
   b.className = 'measure-action';
   b.textContent = label;
   b.addEventListener('click', fn);
+  return b;
+}
+
+function unitBtn(value, label) {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'measure-unit';
+  b.textContent = label;
+  b.setAttribute('aria-pressed', system === value ? 'true' : 'false');
+  b.addEventListener('click', () => setSystem(value));
   return b;
 }
 
@@ -233,6 +251,25 @@ function setActive(next) {
   if (active) map.doubleClickZoom.disable();
   else map.doubleClickZoom.enable();
   renderToggle();
+}
+
+function readUnits() {
+  try {
+    return localStorage.getItem(UNITS_KEY) === 'metric' ? 'metric' : 'us';
+  } catch {
+    return 'us'; // private mode — fall back to the default
+  }
+}
+
+function setSystem(next) {
+  if (system === next) return;
+  system = next;
+  try {
+    localStorage.setItem(UNITS_KEY, next);
+  } catch {
+    /* private mode — ignore */
+  }
+  refreshGeometry({ announce: true });
 }
 
 // scorecard.js owns Escape for dialog -> lightbox -> case card; measure sits at

@@ -1154,6 +1154,33 @@ body.panel-open .measure-card {
 .measure-action:hover {
   background: var(--accent-soft);
 }
+.measure-units {
+  display: flex;
+  margin-top: 0.2rem;
+}
+.measure-unit {
+  flex: 1;
+  font: inherit;
+  font-size: 0.72rem;
+  padding: 0.25rem 0.4rem;
+  border: 1px solid var(--control-border);
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.measure-unit:first-child {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+.measure-unit:last-child {
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  border-left: none;
+}
+.measure-unit[aria-pressed="true"] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-deep);
+  font-weight: 600;
+}
 
 /* ---------- responsive: scorecard as bottom sheet ---------- */
 @media (max-width: 760px) {
