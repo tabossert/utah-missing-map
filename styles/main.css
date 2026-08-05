@@ -1036,6 +1036,34 @@ body.panel-open .leaflet-right {
   }
 }
 
+/* ---------- measure tool ---------- */
+body.measuring .leaflet-container {
+  cursor: crosshair;
+}
+.measure-toggle {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  background: var(--surface-2);
+  color: var(--ink);
+  cursor: pointer;
+}
+.measure-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.measure-toggle.is-active {
+  background: var(--accent);
+  color: #fff;
+}
+
 /* ---------- responsive: scorecard as bottom sheet ---------- */
 @media (max-width: 760px) {
   .logo {

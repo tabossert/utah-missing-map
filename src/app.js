@@ -1,11 +1,12 @@
 // App entry: load data, wire the map + filters + scorecard + refresh.
 import { loadSnapshot, fetchExtras, attachExtras, deriveFacets } from './data.js';
-import { initMap, renderMarkers, focusPerson, setMapTheme, CATEGORY_STYLES, markGlyph } from './map.js';
+import { initMap, renderMarkers, focusPerson, setMapTheme, getMap, CATEGORY_STYLES, markGlyph } from './map.js';
 import { initTheme, wireThemeToggle } from './theme.js';
 import { applyFilters } from './filters.js';
 import { initScorecard, openCard, closeCard, currentCardId } from './scorecard.js';
 import { refreshLive, relativeTime } from './refresh.js';
 import { initContact } from './contact.js';
+import { initMeasure } from './measure.js';
 
 const state = {
   q: '',
@@ -28,6 +29,7 @@ async function main() {
   wireThemeToggle((t) => setMapTheme(t));
   initScorecard();
   initContact();
+  initMeasure(getMap());
   buildLegend();
 
   const snap = await loadSnapshot();
