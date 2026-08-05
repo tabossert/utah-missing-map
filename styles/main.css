@@ -1134,6 +1134,26 @@ body.panel-open .measure-card {
 .measure-handle:active {
   cursor: grabbing;
 }
+.measure-actions {
+  display: flex;
+  gap: 0.35rem;
+  margin-top: 0.45rem;
+}
+.measure-action {
+  flex: 1;
+  font: inherit;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--control-border);
+  background: var(--surface-2);
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.measure-action:hover {
+  background: var(--accent-soft);
+}
 
 /* ---------- responsive: scorecard as bottom sheet ---------- */
 @media (max-width: 760px) {

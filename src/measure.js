@@ -1,7 +1,7 @@
 // Measure tool: click points to build a path, read per-leg and total distance,
 // close the ring for area. Units auto-scale to the size of what's drawn.
-import { distanceMeters, pathLengthMeters } from './geo.js';
-import { pickDistanceUnit, formatDistance, formatLeg } from './units.js';
+import { distanceMeters, pathLengthMeters, ringAreaM2 } from './geo.js';
+import { pickDistanceUnit, formatDistance, formatLeg, formatArea } from './units.js';
 
 const L = globalThis.L;
 
@@ -17,6 +17,7 @@ let handleLayer; // draggable vertex handles, rebuilt only when the list changes
 let justDragged = false; // suppresses the synthetic click Leaflet fires after a drag
 let verts = [];
 let system = 'us';
+let closed = false;
 
 const RULER_SVG = `<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
   <rect x="1.5" y="6.5" width="17" height="7" rx="1.3" transform="rotate(-45 10 10)" />
@@ -47,7 +48,7 @@ function onMapClick(e) {
 }
 
 export function addVertex(latlng) {
-  if (!active) return;
+  if (!active || closed) return;
   const point = L.latLng(latlng);
   const last = verts[verts.length - 1];
   // Screen-space, not meters — a metric threshold would behave differently at
@@ -98,18 +99,25 @@ function rebuildHandles() {
 
 function removeVertex(i) {
   verts.splice(i, 1);
+  if (verts.length < 3) closed = false;
   redraw({ announce: true });
+}
+
+// The drawn line — the vertex list, wired back to the first point when closed.
+function ring() {
+  return closed && verts.length >= 3 ? verts.concat([verts[0]]) : verts;
 }
 
 function refreshGeometry({ announce = false } = {}) {
   geomLayer.clearLayers();
-  if (verts.length >= 2) {
-    L.polyline(verts, { className: 'measure-casing', interactive: false }).addTo(geomLayer);
-    L.polyline(verts, { className: 'measure-line', interactive: false }).addTo(geomLayer);
-    const unit = pickDistanceUnit(pathLengthMeters(verts), system);
-    for (let i = 1; i < verts.length; i++) {
-      const a = verts[i - 1];
-      const b = verts[i];
+  const line = ring();
+  if (line.length >= 2) {
+    L.polyline(line, { className: 'measure-casing', interactive: false }).addTo(geomLayer);
+    L.polyline(line, { className: 'measure-line', interactive: false }).addTo(geomLayer);
+    const unit = pickDistanceUnit(pathLengthMeters(line), system);
+    for (let i = 1; i < line.length; i++) {
+      const a = line[i - 1];
+      const b = line[i];
       L.marker(L.latLng((a.lat + b.lat) / 2, (a.lng + b.lng) / 2), {
         interactive: false,
         keyboard: false,
@@ -128,13 +136,51 @@ function renderCard(announce) {
   if (verts.length < 2) {
     card.hidden = true;
     card.replaceChildren();
+    if (announce) live.textContent = 'Measurement cleared.';
     return;
   }
-  const total = pathLengthMeters(verts);
+  const line = ring();
+  const total = pathLengthMeters(line);
   const distance = formatDistance(total, pickDistanceUnit(total, system));
-  card.replaceChildren(readoutRow('Total', distance));
+  const area = closed ? formatArea(ringAreaM2(verts), system) : '';
+
+  const rows = document.createElement('div');
+  rows.append(readoutRow(closed ? 'Perimeter' : 'Total', distance));
+  if (closed) rows.append(readoutRow('Area', area));
+
+  const actions = document.createElement('div');
+  actions.className = 'measure-actions';
+  if (!closed && verts.length >= 3) actions.append(actionBtn('Close shape', closeShape));
+  actions.append(actionBtn('Clear', clearAll));
+
+  card.replaceChildren(rows, actions);
   card.hidden = false;
-  if (announce) live.textContent = `Total distance ${distance}.`;
+  if (announce) {
+    live.textContent = closed ? `Perimeter ${distance}. Area ${area}.` : `Total distance ${distance}.`;
+  }
+}
+
+function actionBtn(label, fn) {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'measure-action';
+  b.textContent = label;
+  b.addEventListener('click', fn);
+  return b;
+}
+
+function closeShape() {
+  if (verts.length < 3) return;
+  closed = true;
+  redraw({ announce: true });
+}
+
+// Clears the drawing but stays in measure mode, so the obvious next action —
+// start another one — needs no extra click.
+function clearAll() {
+  verts = [];
+  closed = false;
+  redraw({ announce: true });
 }
 
 function readoutRow(label, value) {
