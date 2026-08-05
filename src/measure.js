@@ -1,10 +1,20 @@
 // Measure tool: click points to build a path, read per-leg and total distance,
 // close the ring for area. Units auto-scale to the size of what's drawn.
+import { distanceMeters, pathLengthMeters } from './geo.js';
+import { pickDistanceUnit, formatDistance, formatLeg } from './units.js';
+
 const L = globalThis.L;
+
+const DEDUPE_PX = 10; // ignore a click landing this close to the last vertex
 
 let map;
 let active = false;
 let toggleBtn;
+let card;
+let live;
+let geomLayer;   // polylines + leg labels, rebuilt on every change
+let verts = [];
+let system = 'us';
 
 const RULER_SVG = `<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
   <rect x="1.5" y="6.5" width="17" height="7" rx="1.3" transform="rotate(-45 10 10)" />
@@ -13,12 +23,86 @@ const RULER_SVG = `<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"
 
 export function initMeasure(m) {
   map = m;
+  geomLayer = L.layerGroup().addTo(map);
+  card = document.getElementById('measure-card');
+  live = document.createElement('div');
+  live.className = 'sr-only';
+  live.setAttribute('role', 'status');
+  live.setAttribute('aria-live', 'polite');
+  document.body.append(live);
   buildToggle();
+  map.on('click', onMapClick);
   document.addEventListener('keydown', onKeydown);
 }
 
 export function isMeasuring() {
   return active;
+}
+
+function onMapClick(e) {
+  if (active) addVertex(e.latlng);
+}
+
+export function addVertex(latlng) {
+  if (!active) return;
+  const point = L.latLng(latlng);
+  const last = verts[verts.length - 1];
+  // Screen-space, not meters — a metric threshold would behave differently at
+  // every zoom level.
+  if (last && map.latLngToContainerPoint(last).distanceTo(map.latLngToContainerPoint(point)) < DEDUPE_PX) {
+    return;
+  }
+  verts.push(point);
+  refreshGeometry({ announce: true });
+}
+
+function refreshGeometry({ announce = false } = {}) {
+  geomLayer.clearLayers();
+  if (verts.length >= 2) {
+    L.polyline(verts, { className: 'measure-casing', interactive: false }).addTo(geomLayer);
+    L.polyline(verts, { className: 'measure-line', interactive: false }).addTo(geomLayer);
+    const unit = pickDistanceUnit(pathLengthMeters(verts), system);
+    for (let i = 1; i < verts.length; i++) {
+      const a = verts[i - 1];
+      const b = verts[i];
+      L.marker(L.latLng((a.lat + b.lat) / 2, (a.lng + b.lng) / 2), {
+        interactive: false,
+        keyboard: false,
+        icon: L.divIcon({
+          className: 'measure-leg',
+          iconSize: [0, 0],
+          html: `<span>${formatLeg(distanceMeters(a, b), unit)}</span>`,
+        }),
+      }).addTo(geomLayer);
+    }
+  }
+  renderCard(announce);
+}
+
+function renderCard(announce) {
+  if (verts.length < 2) {
+    card.hidden = true;
+    card.replaceChildren();
+    return;
+  }
+  const total = pathLengthMeters(verts);
+  const distance = formatDistance(total, pickDistanceUnit(total, system));
+  card.replaceChildren(readoutRow('Total', distance));
+  card.hidden = false;
+  if (announce) live.textContent = `Total distance ${distance}.`;
+}
+
+function readoutRow(label, value) {
+  const row = document.createElement('p');
+  row.className = 'measure-row';
+  const k = document.createElement('span');
+  k.className = 'measure-key';
+  k.textContent = label;
+  const v = document.createElement('strong');
+  v.className = 'measure-val';
+  v.textContent = value;
+  row.append(k, v);
+  return row;
 }
 
 function buildToggle() {

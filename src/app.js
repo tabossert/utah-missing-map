@@ -6,7 +6,7 @@ import { applyFilters } from './filters.js';
 import { initScorecard, openCard, closeCard, currentCardId } from './scorecard.js';
 import { refreshLive, relativeTime } from './refresh.js';
 import { initContact } from './contact.js';
-import { initMeasure } from './measure.js';
+import { initMeasure, isMeasuring, addVertex } from './measure.js';
 
 const state = {
   q: '',
@@ -54,7 +54,10 @@ async function main() {
 
 function render() {
   filtered = applyFilters(people, state);
-  renderMarkers(filtered, (p) => openCard(p));
+  renderMarkers(filtered, (p, latlng) => {
+    if (isMeasuring()) addVertex(latlng);
+    else openCard(p);
+  });
   $('result-count').textContent = `Showing ${filtered.length.toLocaleString()} of ${people.length.toLocaleString()}`;
   if (!$('case-list').hidden) renderList();
 }

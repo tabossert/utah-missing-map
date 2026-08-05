@@ -21,6 +21,7 @@
   --serif: "Iowan Old Style", "Palatino Linotype", "Palatino", "Book Antiqua", Georgia, serif;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --panel-w: min(420px, 92vw);
+  --map-ctl-stack-h: 127px; /* zoom bar + ruler button — the measure card clears them */
   --pin-mm: #5e86b0;
   --pin-um: #6b6da6;
   --pin-mf: #c4805a;
@@ -1062,6 +1063,63 @@ body.measuring .leaflet-container {
 .measure-toggle.is-active {
   background: var(--accent);
   color: #fff;
+}
+.measure-line {
+  stroke: var(--accent);
+  stroke-width: 3;
+  fill: none;
+}
+:root[data-theme="dark"] .measure-line {
+  stroke: var(--accent-deep);
+}
+.measure-casing {
+  stroke: var(--surface);
+  stroke-width: 7;
+  fill: none;
+}
+.measure-leg span {
+  display: inline-block;
+  transform: translate(-50%, -50%);
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+}
+.measure-card {
+  position: absolute;
+  top: var(--map-ctl-stack-h);
+  right: 12px;
+  z-index: 500;
+  min-width: 150px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.7rem;
+  box-shadow: var(--shadow-sm);
+  font-size: 0.8rem;
+  color: var(--ink);
+  transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+body.panel-open .measure-card {
+  transform: translateX(calc(-1 * var(--panel-w)));
+}
+.measure-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin: 0 0 0.3rem;
+}
+.measure-key {
+  color: var(--ink-soft);
+}
+.measure-val {
+  font-size: 0.95rem;
 }
 
 /* ---------- responsive: scorecard as bottom sheet ---------- */

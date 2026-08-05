@@ -126,9 +126,9 @@ export function renderMarkers(people, onClick) {
       title: `${p.name}${p.year ? `, ${p.year}` : ''}`,
       alt: `${p.name}${p.year ? `, ${p.year}` : ''} — ${style.label}`,
     });
-    marker.on('click', () => onClick(p));
+    marker.on('click', (e) => onClick(p, e.latlng));
     marker.on('keypress', (e) => {
-      if (e.originalEvent.key === 'Enter' || e.originalEvent.key === ' ') onClick(p);
+      if (e.originalEvent.key === 'Enter' || e.originalEvent.key === ' ') onClick(p, marker.getLatLng());
     });
     markerById.set(p.id, marker);
     markers.push(marker);
