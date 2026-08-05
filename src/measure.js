@@ -136,7 +136,8 @@ function renderCard(announce) {
   if (verts.length < 2) {
     card.hidden = true;
     card.replaceChildren();
-    if (announce) live.textContent = 'Measurement cleared.';
+    // One point is a start, not a clear — the same branch serves both.
+    if (announce) live.textContent = verts.length ? 'First point placed.' : 'Measurement cleared.';
     return;
   }
   const line = ring();
