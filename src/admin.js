@@ -48,11 +48,20 @@ async function onLogin(e) {
   e.preventDefault();
   const email = $('login-email').value.trim();
   $('login-msg').textContent = 'Sending…';
+  // No link for anyone off the allowlist, and the same reply either way so the
+  // form never says who is on it. A failed check counts as "no".
+  const sent = 'Check your email for the sign-in link.';
+  const { data: allowed, error: checkError } = await sb.rpc('is_admin_email', { addr: email });
+  if (checkError) console.error('Admin allowlist check failed:', checkError.message);
+  if (!allowed) {
+    $('login-msg').textContent = sent;
+    return;
+  }
   const { error } = await sb.auth.signInWithOtp({
     email,
     options: { emailRedirectTo: location.href.split('#')[0] },
   });
-  $('login-msg').textContent = error ? `Error: ${error.message}` : 'Check your email for the sign-in link.';
+  $('login-msg').textContent = error ? `Error: ${error.message}` : sent;
 }
 
 async function route(session) {

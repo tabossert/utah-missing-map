@@ -60,6 +60,21 @@ as $$
 $$;
 grant execute on function private.is_admin() to anon, authenticated;
 
+-- The sign-in form's pre-flight check, so a magic link is never mailed to an
+-- address that isn't allow-listed. This one IS reachable as an RPC — it has to
+-- be, the caller has no session yet — but it only ever answers true/false, so
+-- the allowlist itself stays unreadable.
+create or replace function public.is_admin_email(addr text) returns boolean
+  language sql security definer stable
+  set search_path = ''
+as $$
+  select exists (
+    select 1 from public.admins
+    where lower(email) = lower(trim(coalesce(addr, '')))
+  );
+$$;
+grant execute on function public.is_admin_email(text) to anon, authenticated;
+
 -- ============================================================================
 -- Row Level Security
 -- ============================================================================

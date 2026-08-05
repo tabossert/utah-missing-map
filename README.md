@@ -46,14 +46,13 @@ configure Supabase; the public map works without it.
 4. In **Authentication → URL Configuration**, add your site URL (e.g.
    `https://tabossert.github.io/utah-missing-unidentified/`) and `http://localhost:8080` to the
    redirect allowlist so magic-link sign-in works.
-5. Open `/admin.html`, sign in once with your email (this creates your `auth.users` row), then grant
-   yourself admin in the SQL editor:
+5. In the SQL editor, add yourself to the allowlist. Do this **before** your first sign-in — the
+   form only mails a link to an allow-listed address:
    ```sql
-   insert into public.admins (user_id, email)
-   select id, email from auth.users where email = 'you@example.com'
-   on conflict (user_id) do nothing;
+   insert into public.admins (email) values ('you@example.com')
+   on conflict (email) do nothing;
    ```
-   Reload — you now have the editor. Repeat step 5 with another email to add more admins.
+   Now open `/admin.html` and sign in with that email. Repeat with another address to add more admins.
 
 Admin additions are stored in Supabase and merged into each scorecard by marker id; they never modify
 the base Google My Map data.
