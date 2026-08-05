@@ -40,7 +40,9 @@ export function initMeasure(m) {
   buildToggle();
   map.on('click', onMapClick);
   map.on('zoomend', () => refreshGeometry());
-  document.addEventListener('keydown', onKeydown);
+  // Capture phase: scorecard.js clears body.panel-open in its own bubble-phase
+  // Escape handler, so bubbling here would read state it has already torn down.
+  document.addEventListener('keydown', onKeydown, true);
 }
 
 export function isMeasuring() {
