@@ -1,0 +1,25 @@
+index.html
+  s_078ffdc6524c4a::t_6480cd5f983ac2 78-79
+src/map.js
+  s_078ffdc6524c4a::t_5b04d8103dce1c 5-8
+package.json
+  s_078ffdc6524c4a::t_2d13eee8a95ed7 3
+package-lock.json
+  s_078ffdc6524c4a::t_cd3f62fda69c1a 3,9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "83b36feb6610ba3f79d29b98c9517dbe07d24205",
+  "prompts": {},
+  "sessions": {
+    "s_078ffdc6524c4a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "db870665-b2d8-4a3a-a5cb-b4eaf805833d",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Trevor Bossert <alanboss@gmail.com>"
+    }
+  }
+}
