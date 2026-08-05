@@ -74,11 +74,18 @@ function redraw(opts) {
 function rebuildHandles() {
   handleLayer.clearLayers();
   verts.forEach((pt, i) => {
+    // Clicking the first point closes the ring, the way Google Maps does; the
+    // handle grows a halo so the target is visible before you commit to it.
+    const closes = canClose() && i === 0;
     const handle = L.marker(pt, {
       draggable: true,
       keyboard: false,
       interactive: active, // inert once measure mode is off, so a pin underneath stays clickable
-      icon: L.divIcon({ className: 'measure-handle', iconSize: [14, 14] }),
+      icon: L.divIcon({
+        className: closes ? 'measure-handle measure-handle-close' : 'measure-handle',
+        iconSize: [14, 14],
+      }),
+      title: closes ? 'Click to close the shape' : 'Double-click to remove this point',
     }).addTo(handleLayer);
     handle.on('dragstart', () => {
       justDragged = true;
@@ -96,12 +103,24 @@ function rebuildHandles() {
         justDragged = false;
       }, 0);
     });
+    // Single click closes on the first point; removal is a double click, so
+    // neither gesture can be mistaken for the other.
     handle.on('click', (e) => {
+      L.DomEvent.stop(e);
+      if (justDragged) return;
+      if (canClose() && i === 0) closeShape();
+    });
+    handle.on('dblclick', (e) => {
       L.DomEvent.stop(e);
       if (justDragged) return;
       removeVertex(i);
     });
   });
+}
+
+// A ring can be closed once it has three points and isn't closed already.
+function canClose() {
+  return !closed && verts.length >= 3;
 }
 
 function removeVertex(i) {
@@ -177,7 +196,7 @@ function renderCard(announce) {
 
   const actions = document.createElement('div');
   actions.className = 'measure-actions';
-  if (!closed && verts.length >= 3) actions.append(actionBtn('Close shape', closeShape));
+  if (canClose()) actions.append(actionBtn('Close shape', closeShape));
   actions.append(actionBtn('Clear', clearAll));
 
   card.replaceChildren(rows, units, actions);
@@ -213,7 +232,7 @@ function unitBtn(value, label) {
 }
 
 function closeShape() {
-  if (verts.length < 3) return;
+  if (!canClose()) return;
   closed = true;
   redraw({ announce: true });
 }

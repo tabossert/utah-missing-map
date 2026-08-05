@@ -1134,6 +1134,14 @@ body.panel-open .measure-card {
 .measure-handle:active {
   cursor: grabbing;
 }
+/* the first point, once the ring can be closed: a halo marks the target */
+.measure-handle-close {
+  cursor: pointer;
+  box-shadow: 0 0 0 4px var(--accent-soft), var(--shadow-sm);
+}
+.measure-handle-close:hover {
+  box-shadow: 0 0 0 6px var(--accent-soft), var(--shadow-sm);
+}
 .measure-actions {
   display: flex;
   gap: 0.35rem;
