@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { pickDistanceUnit, formatDistance, formatLeg, formatArea } from '../src/units.js';
+import { pickDistanceUnit, formatDistance, formatLeg, formatArea, legLabelFits } from '../src/units.js';
 
 const M_PER_FT = 0.3048;
 const M_PER_MI = 1609.344;
@@ -68,4 +68,16 @@ test('metric area ladder', () => {
 test('acre is singular only at exactly one', () => {
   assert.equal(formatArea(M2_PER_ACRE, 'us'), '1 acre');
   assert.equal(formatArea(M2_PER_ACRE * 2, 'us'), '2 acres');
+});
+
+test('legLabelFits at the threshold, just below, and just above', () => {
+  // '5 ft' is 4 chars: 4*6.5 + 12 + 8 = 46
+  assert.equal(legLabelFits(46, '5 ft'), true);
+  assert.equal(legLabelFits(45.99, '5 ft'), false);
+  assert.equal(legLabelFits(46.01, '5 ft'), true);
+});
+
+test('a longer label needs more room than a shorter one at the same width', () => {
+  assert.equal(legLabelFits(46, '5 ft'), true);
+  assert.equal(legLabelFits(46, '1,240 ft'), false);
 });

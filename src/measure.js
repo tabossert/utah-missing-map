@@ -1,12 +1,11 @@
 // Measure tool: click points to build a path, read per-leg and total distance,
 // close the ring for area. Units auto-scale to the size of what's drawn.
-import { distanceMeters, pathLengthMeters, ringAreaM2 } from './geo.js';
-import { pickDistanceUnit, formatDistance, formatLeg, formatArea } from './units.js';
+import { distanceMeters, pathLengthMeters, ringAreaM2, closeRing } from './geo.js';
+import { pickDistanceUnit, formatDistance, formatLeg, formatArea, legLabelFits } from './units.js';
 
 const L = globalThis.L;
 
 const DEDUPE_PX = 10; // ignore a click landing this close to the last vertex
-const LABEL_PAD_PX = 8; // a leg must beat its label's width by this much to earn one
 const UNITS_KEY = 'umm-units';
 
 let map;
@@ -78,16 +77,18 @@ function rebuildHandles() {
     const handle = L.marker(pt, {
       draggable: true,
       keyboard: false,
+      interactive: active, // inert once measure mode is off, so a pin underneath stays clickable
       icon: L.divIcon({ className: 'measure-handle', iconSize: [14, 14] }),
     }).addTo(handleLayer);
     handle.on('dragstart', () => {
       justDragged = true;
     });
     // Only the geometry is rebuilt mid-drag — rebuilding handles here would
-    // destroy the marker Leaflet is currently dragging.
+    // destroy the marker Leaflet is currently dragging, and rebuilding the
+    // card's control tree every frame would destroy its buttons too.
     handle.on('drag', (e) => {
       verts[i] = e.target.getLatLng();
-      refreshGeometry();
+      refreshGeometry({ valuesOnly: true });
     });
     handle.on('dragend', () => {
       refreshGeometry({ announce: true });
@@ -109,14 +110,9 @@ function removeVertex(i) {
   redraw({ announce: true });
 }
 
-// The drawn line — the vertex list, wired back to the first point when closed.
-function ring() {
-  return closed && verts.length >= 3 ? verts.concat([verts[0]]) : verts;
-}
-
-function refreshGeometry({ announce = false } = {}) {
+function refreshGeometry({ announce = false, valuesOnly = false } = {}) {
   geomLayer.clearLayers();
-  const line = ring();
+  const line = closeRing(verts, closed);
   if (line.length >= 2) {
     L.polyline(line, { className: 'measure-casing', interactive: false }).addTo(geomLayer);
     L.polyline(line, { className: 'measure-line', interactive: false }).addTo(geomLayer);
@@ -126,8 +122,7 @@ function refreshGeometry({ announce = false } = {}) {
       const b = line[i];
       const text = formatLeg(distanceMeters(a, b), unit);
       const legPx = map.latLngToContainerPoint(a).distanceTo(map.latLngToContainerPoint(b));
-      // ~6.5px per character at 0.72rem semibold, plus the pill's horizontal padding
-      if (legPx < text.length * 6.5 + 12 + LABEL_PAD_PX) continue;
+      if (!legLabelFits(legPx, text)) continue;
       L.marker(L.latLng((a.lat + b.lat) / 2, (a.lng + b.lng) / 2), {
         interactive: false,
         keyboard: false,
@@ -135,10 +130,23 @@ function refreshGeometry({ announce = false } = {}) {
       }).addTo(geomLayer);
     }
   }
-  renderCard(announce);
+  if (valuesOnly) updateCardValues();
+  else renderCard(announce);
+}
+
+// Readout values only — no DOM rebuild, so a drag doesn't tear down the card's
+// buttons (and any focus on one of them) on every mousemove frame.
+function updateCardValues() {
+  if (!card || verts.length < 2) return;
+  const total = pathLengthMeters(closeRing(verts, closed));
+  const distance = formatDistance(total, pickDistanceUnit(total, system));
+  const [distanceEl, areaEl] = card.querySelectorAll('.measure-val');
+  if (distanceEl) distanceEl.textContent = distance;
+  if (closed && areaEl) areaEl.textContent = formatArea(ringAreaM2(verts), system);
 }
 
 function renderCard(announce) {
+  if (!card) return;
   document.body.classList.toggle('has-measurement', verts.length >= 2);
   if (verts.length < 2) {
     card.hidden = true;
@@ -148,8 +156,7 @@ function renderCard(announce) {
     if (announce) live.textContent = verts.length ? 'One point placed.' : 'Measurement cleared.';
     return;
   }
-  const line = ring();
-  const total = pathLengthMeters(line);
+  const total = pathLengthMeters(closeRing(verts, closed));
   const distance = formatDistance(total, pickDistanceUnit(total, system));
   const area = closed ? formatArea(ringAreaM2(verts), system) : '';
 
@@ -168,8 +175,11 @@ function renderCard(announce) {
   if (!closed && verts.length >= 3) actions.append(actionBtn('Close shape', closeShape));
   actions.append(actionBtn('Clear', clearAll));
 
+  // Keep keyboard focus on the control the user activated (it's about to be rebuilt).
+  const focused = card.contains(document.activeElement) ? document.activeElement.textContent : null;
   card.replaceChildren(rows, units, actions);
   card.hidden = false;
+  if (focused) [...card.querySelectorAll('button')].find((b) => b.textContent === focused)?.focus();
   if (announce) {
     live.textContent = closed ? `Perimeter ${distance}. Area ${area}.` : `Total distance ${distance}.`;
   }
@@ -257,6 +267,7 @@ function setActive(next) {
   if (active) map.doubleClickZoom.disable();
   else map.doubleClickZoom.enable();
   renderToggle();
+  rebuildHandles(); // apply the interactive/inert state immediately on toggle
 }
 
 function readUnits() {

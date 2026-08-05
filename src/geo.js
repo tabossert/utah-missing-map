@@ -21,6 +21,12 @@ export function pathLengthMeters(points) {
   return total;
 }
 
+// The drawn line — points wired back to the first when closed and long enough
+// to be a ring. Leaves the input array untouched either way.
+export function closeRing(points, closed) {
+  return closed && points.length >= 3 ? points.concat([points[0]]) : points;
+}
+
 // Spherical excess over the ring implied by `points` (last wired back to the
 // first). The sign follows the winding direction, so take the magnitude.
 export function ringAreaM2(points) {
@@ -30,7 +36,10 @@ export function ringAreaM2(points) {
   for (let i = 0; i < n; i++) {
     const p1 = points[i];
     const p2 = points[(i + 1) % n];
-    sum += rad(p2.lng - p1.lng) * (2 + Math.sin(rad(p1.lat)) + Math.sin(rad(p2.lat)));
+    // Normalised to (-180, 180] so an edge spanning the antimeridian goes the
+    // short way around instead of wrapping the wrong way past the pole.
+    const dLng = ((p2.lng - p1.lng + 540) % 360) - 180;
+    sum += rad(dLng) * (2 + Math.sin(rad(p1.lat)) + Math.sin(rad(p2.lat)));
   }
   return Math.abs((sum * EARTH_R * EARTH_R) / 2);
 }

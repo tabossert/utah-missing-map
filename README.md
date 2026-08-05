@@ -4,7 +4,8 @@ An interactive, calming map of Utah's missing and unidentified persons — built
 [Google My Map](https://www.google.com/maps/d/u/0/viewer?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU).
 Click any marker to open a scorecard with the person's photos, case details, links, and a cold-case
 tip line. Search and filter by type, gender, and decade. A measure tool draws distances and
-areas on the map in US or metric units. An optional admin panel lets approved
+areas on the map in US or metric units — drawing requires a pointer, with no keyboard
+path to place a vertex. An optional admin panel lets approved
 editors attach extra notes, links, images, videos, and files to any case.
 
 Static site — no server required. Hosted on GitHub Pages; the admin layer uses Supabase.

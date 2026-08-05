@@ -32,7 +32,7 @@ function h(tag, props = {}, ...children) {
 const safeHref = (url) => (/^https?:\/\//i.test(url || '') ? url : null);
 const cardLabel = (p) => `${p.name}${p.year ? `, ${p.year}` : ''}`;
 const onMobile = () => matchMedia('(max-width: 760px)').matches;
-const BG_SELECTORS = ['.app-header', '.toolbar', '.app-footer', '#map', '#legend', '#case-list'];
+const BG_SELECTORS = ['.app-header', '.toolbar', '.app-footer', '#map', '#legend', '#case-list', '#measure-card'];
 function setBackgroundInert(on) {
   for (const sel of BG_SELECTORS) {
     const el = document.querySelector(sel);

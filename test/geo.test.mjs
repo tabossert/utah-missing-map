@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { EARTH_R, distanceMeters, pathLengthMeters, ringAreaM2 } from '../src/geo.js';
+import { EARTH_R, distanceMeters, pathLengthMeters, ringAreaM2, closeRing } from '../src/geo.js';
 
 // One degree of arc is exactly EARTH_R * (pi/180) on a sphere — an exact check
 // of the haversine rather than a fuzzy real-world comparison.
@@ -86,4 +86,34 @@ test('a ring needs three points', () => {
   assert.equal(ringAreaM2([]), 0);
   assert.equal(ringAreaM2([{ lat: 0, lng: 0 }]), 0);
   assert.equal(ringAreaM2([{ lat: 0, lng: 0 }, { lat: 1, lng: 1 }]), 0);
+});
+
+test('ring area wraps longitude across the antimeridian', () => {
+  const box = (lng0, lng1) => [
+    { lat: 0, lng: lng0 },
+    { lat: 0, lng: lng1 },
+    { lat: 1, lng: lng1 },
+    { lat: 1, lng: lng0 },
+  ];
+  const normal = ringAreaM2(box(10, 11));
+  const wrapped = ringAreaM2(box(179.5, -179.5)); // same 1-degree width, crossing 180
+  assert.ok(Math.abs(wrapped - normal) / normal < 1e-9, `expected ~${normal}, got ${wrapped}`);
+});
+
+test('closeRing leaves an open path unchanged', () => {
+  const pts = [{ lat: 0, lng: 0 }, { lat: 1, lng: 1 }];
+  assert.equal(closeRing(pts, false), pts);
+});
+
+test('closeRing wires the last point back to the first when closed with 3+ points', () => {
+  const pts = [{ lat: 0, lng: 0 }, { lat: 1, lng: 0 }, { lat: 1, lng: 1 }];
+  const result = closeRing(pts, true);
+  assert.equal(result.length, 4);
+  assert.equal(result[3], pts[0]);
+  assert.equal(pts.length, 3); // original array not mutated
+});
+
+test('closeRing leaves a too-short closed path unchanged', () => {
+  const pts = [{ lat: 0, lng: 0 }, { lat: 1, lng: 1 }];
+  assert.equal(closeRing(pts, true), pts);
 });

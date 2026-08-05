@@ -21,7 +21,9 @@ function decimalsFor(value) {
   return 0;
 }
 
-// Rounds, strips trailing zeros, and adds thousands separators.
+// Rounds, strips trailing zeros, and adds thousands separators. Locale is
+// pinned to en-US on purpose — the spec fixes these exact output strings, and
+// a different locale's separators (e.g. de-DE renders "2,4 mi") would break them.
 function num(value, decimals) {
   return Number(value.toFixed(decimals)).toLocaleString('en-US', {
     maximumFractionDigits: decimals,
@@ -50,6 +52,16 @@ export function formatLeg(meters, unit) {
   if (unit === 'mi' && meters < LEG_FLOOR_MI_M) return formatDistance(meters, 'ft');
   if (unit === 'km' && meters < 100) return formatDistance(meters, 'm');
   return formatDistance(meters, unit);
+}
+
+// A leg's label is a pill of text riding its midpoint — it only earns a label
+// if the leg is wide enough on screen to hold it without crowding.
+const LABEL_CHAR_PX = 6.5; // ~6.5px per character at 0.72rem semibold
+const LABEL_PILL_PX = 12; // pill's horizontal padding + border
+const LABEL_SLACK_PX = 8; // a leg must beat the label's width by this much to earn one
+
+export function legLabelFits(legPx, text) {
+  return legPx >= text.length * LABEL_CHAR_PX + LABEL_PILL_PX + LABEL_SLACK_PX;
 }
 
 export function formatArea(m2, system) {
