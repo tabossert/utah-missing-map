@@ -49,7 +49,7 @@ async function main() {
 
   updateStamp();
   setInterval(updateStamp, 30_000);
-  setInterval(() => doRefresh(true), 3_600_000); // hourly auto-refresh
+  setInterval(doRefresh, 3_600_000); // hourly auto-refresh
 }
 
 function render() {
@@ -136,8 +136,6 @@ function wireControls() {
     render();
   });
 
-  $('refresh-btn').addEventListener('click', () => doRefresh(false));
-
   const ft = $('filters-toggle');
   if (ft) {
     ft.addEventListener('click', () => {
@@ -194,10 +192,10 @@ function buildLegend() {
 }
 
 // ---- refresh ----
-async function doRefresh(isAuto) {
-  const btn = $('refresh-btn');
-  btn.disabled = true;
-  btn.classList.add('spinning');
+// Silent and hourly: the manual button lives in the admin panel. The open card
+// is deliberately left alone — rebuilding it would destroy the reader's
+// focus/scroll mid-read.
+async function doRefresh() {
   try {
     const fresh = await refreshLive(people);
     people = fresh;
@@ -208,35 +206,14 @@ async function doRefresh(isAuto) {
     if (extras.size) attachExtras(people, extras);
     lastUpdated = new Date().toISOString();
     render();
-    // Only rebuild the open card on a user-initiated refresh — never on the
-    // hourly auto-refresh, which would destroy the reader's focus/scroll.
-    if (!isAuto) {
-      const openId = currentCardId();
-      if (openId) {
-        const p = people.find((x) => x.id === openId);
-        if (p) openCard(p, { updateHash: false, focus: false });
-      }
-    }
     updateStamp();
-    if (!isAuto) flash('Up to date');
   } catch (err) {
     console.warn('refresh failed', err);
-    if (!isAuto) flash("Couldn't refresh — showing saved data");
-  } finally {
-    btn.disabled = false;
-    btn.classList.remove('spinning');
   }
 }
 
 function updateStamp() {
   if (lastUpdated) $('freshness').textContent = `Updated ${relativeTime(lastUpdated)}`;
-}
-
-function flash(msg) {
-  const el = $('freshness');
-  const prev = el.textContent;
-  el.textContent = msg;
-  setTimeout(() => (el.textContent = prev), 2500);
 }
 
 // ---- deep linking ----
