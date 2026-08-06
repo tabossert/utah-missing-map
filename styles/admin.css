@@ -105,6 +105,25 @@
   font-size: 1.15rem;
   margin: 0 0 0.7rem;
 }
+.picker-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+}
+.picker-head h2 {
+  margin: 0;
+}
+.picker-head .refresh-btn {
+  font-size: 0.82rem;
+  padding: 0.35rem 0.8rem;
+}
+#refresh-msg {
+  margin: 0 0 0.5rem;
+  min-height: 0; /* blank almost always — don't hold a line open */
+}
 #marker-search {
   width: 100%;
   font: inherit;

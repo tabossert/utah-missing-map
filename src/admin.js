@@ -3,6 +3,7 @@ import { getSupabase, isConfigured } from './supabase.js';
 import { CONFIG } from './config.js';
 import { CATEGORY_STYLES } from './map.js';
 import { currentTheme, initTheme, wireThemeToggle } from './theme.js';
+import { refreshLive } from './refresh.js';
 import {
   RANGES,
   avgVisitSeconds,
@@ -91,6 +92,7 @@ async function initEditor() {
   editorReady = true;
   people = (await fetch('data/data.json', { cache: 'no-cache' }).then((r) => r.json())).people;
   $('marker-search').addEventListener('input', renderPicker);
+  $('refresh-btn').addEventListener('click', refreshCases);
   $('extra-kind').addEventListener('change', updateFormFields);
   $('extra-form').addEventListener('submit', onAddExtra);
   $('messages-refresh').addEventListener('click', loadMessages);
@@ -309,6 +311,27 @@ function wireTabs() {
       }
     }),
   );
+}
+
+// data/data.json is only rebuilt hourly, so a case added to the Google map
+// minutes ago is missing from the picker until this pulls the live KML over it.
+async function refreshCases() {
+  const btn = $('refresh-btn');
+  const msg = $('refresh-msg');
+  btn.disabled = true;
+  btn.classList.add('spinning');
+  msg.textContent = 'Checking the live map…';
+  try {
+    people = await refreshLive(people);
+    renderPicker();
+    msg.textContent = 'Up to date';
+  } catch (err) {
+    console.warn('refresh failed', err);
+    msg.textContent = 'Couldn’t refresh — showing saved data';
+  } finally {
+    btn.disabled = false;
+    btn.classList.remove('spinning');
+  }
 }
 
 function renderPicker() {

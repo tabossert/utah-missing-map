@@ -86,7 +86,13 @@
 
         <div id="panel-cases" class="editor">
           <div class="editor-col picker-col">
-            <h2>Choose a case</h2>
+            <div class="picker-head">
+              <h2>Choose a case</h2>
+              <button id="refresh-btn" class="refresh-btn" type="button" title="Check the live map for updates">
+                <span class="refresh-icon" aria-hidden="true">⟳</span> Refresh
+              </button>
+            </div>
+            <p id="refresh-msg" class="login-msg" aria-live="polite"></p>
             <input id="marker-search" type="search" placeholder="Search 240 people…" aria-label="Search cases" />
             <ul id="marker-list" class="marker-list"></ul>
           </div>
