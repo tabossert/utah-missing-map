@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T15:58:07.314Z",
+  "generatedAt": "2026-08-06T22:32:46.096Z",
   "count": 243,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
@@ -2381,12 +2381,16 @@
           "local": "images/larkin-winter-baker-2011/0.jpg"
         }
       ],
-      "narrative": "Last seen January 25, 2011, after being arrested in Cedar City; exact location unknown/not released. Larkin requires medication for severe schizophrenia.\n\nCedar City Police Department Case #: C24-00300",
+      "narrative": "Last seen January 25, 2011, after being arrested in Cedar City; exact location unknown/not released. Larkin requires medication for severe schizophrenia. He may be experiencing homelessness.\nCedar City Police Department Case #: C24-00300",
       "caseNumber": "C24-00300",
       "links": [
         {
           "label": "Utah BCI Cold Cases",
           "url": "https://bci.utah.gov/coldcases/larkin-winter-baker/"
+        },
+        {
+          "label": "NamUs",
+          "url": "https://www.namus.gov/MissingPersons/Case#/160024/"
         }
       ],
       "tipHotline": null
