@@ -15,10 +15,14 @@ export async function refreshLive(currentPeople) {
   const byId = new Map(currentPeople.map((p) => [p.id, p]));
   for (const p of fresh) {
     const prev = byId.get(p.id);
+    // The snapshot files are keyed by photo position and carry no identity, so
+    // they only line up while the photo count is unchanged. Once it differs, a
+    // photo was added, removed, or moved and every position is suspect —
+    // hotlink the whole set rather than show a file under the wrong photo.
+    const aligned = prev && prev.photos.length === p.photos.length;
     p.photos = p.photos.map((ph, i) => ({
       src: sizedUrl(ph.src),
-      // reuse the self-hosted file from the snapshot when this person already existed
-      local: prev && prev.photos[i] ? prev.photos[i].local : null,
+      local: aligned ? prev.photos[i].local : null,
     }));
     p.extras = prev ? prev.extras || [] : [];
   }

@@ -2,12 +2,15 @@
 // download every photo (sized down) into /images/<id>/, and write /data/data.json.
 //
 // NOTE: Google's `hostedimage` URLs rotate a fresh token on every KML fetch, so
-// the URL is NOT a stable cache key. Photos are named by (id, index) — the
-// person + photo position, both stable across fetches — so unchanged photos are
-// skipped and the hourly rebuild only pulls genuinely new ones. The rotating
-// `src` is dropped from the snapshot for self-hosted photos (kept only as a
-// last-resort fallback when a download failed), which also keeps data.json
-// byte-stable across runs → an unchanged rebuild produces no git diff.
+// the URL is NOT a stable cache key, and the KML carries no image id, ETag, or
+// HEAD content-length to ask with instead — a photo's identity is unknowable
+// without its bytes. So every photo is re-fetched and re-encoded each run, and
+// written only when the result differs from the file already on disk: a photo
+// swapped in place on the map is picked up, while an unchanged rebuild touches
+// nothing → no git diff. (Google re-renders a photo slightly differently now and
+// then, which costs an occasional spurious rewrite.) The rotating `src` is
+// dropped from the snapshot for self-hosted photos (kept only as a last-resort
+// fallback when a download failed), keeping data.json byte-stable across runs.
 import { writeFileSync, mkdirSync, existsSync, readdirSync, readFileSync, rmSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -43,10 +46,12 @@ async function fetchWithRetry(url, opts = {}, tries = 3) {
   throw lastErr;
 }
 
+let photosWritten = 0;
+
 // Returns the self-hosted relative path, or null on failure (client falls back to src).
 async function downloadPhoto(id, index, url) {
   const rel = localPath(id, index);
-  if (existsSync(join(ROOT, rel))) return rel; // stable (id,index) → already have it
+  const abs = join(ROOT, rel);
   try {
     const res = await fetchWithRetry(url);
     const raw = Buffer.from(await res.arrayBuffer());
@@ -55,10 +60,18 @@ async function downloadPhoto(id, index, url) {
       .resize(MAX_DIM, MAX_DIM, { fit: 'inside', withoutEnlargement: true })
       .jpeg({ quality: JPEG_QUALITY, mozjpeg: true })
       .toBuffer();
-    mkdirSync(join(IMAGES_DIR, id), { recursive: true });
-    writeFileSync(join(ROOT, rel), jpeg);
+    if (!existsSync(abs) || !readFileSync(abs).equals(jpeg)) {
+      mkdirSync(join(IMAGES_DIR, id), { recursive: true });
+      writeFileSync(abs, jpeg);
+      photosWritten++;
+    }
     return rel;
   } catch (err) {
+    // Never downgrade a photo we already hold to a hotlink over a transient failure.
+    if (existsSync(abs)) {
+      console.warn(`  ! photo ${id}#${index} refetch failed: ${err.message} (keeping the stored copy)`);
+      return rel;
+    }
     console.warn(`  ! photo ${id}#${index} failed: ${err.message} (will hotlink at runtime)`);
     return null;
   }
@@ -121,6 +134,7 @@ async function main() {
   }
   console.log(`Downloading ${jobs.length} photos (concurrency ${CONCURRENCY})...`);
   await pool(jobs, CONCURRENCY);
+  console.log(`${photosWritten} photo(s) new or changed on disk.`);
   pruneOrphans(people);
 
   // Only rewrite data.json when the parsed content actually changed.
