@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-07T03:45:45.668Z",
-  "count": 244,
+  "generatedAt": "2026-08-07T14:08:26.905Z",
+  "count": 245,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -5145,6 +5145,31 @@
         }
       ],
       "tipHotline": null
+    },
+    {
+      "id": "john-doe-1970",
+      "name": "John Doe",
+      "year": 1970,
+      "category": "Unidentified Males",
+      "type": "Unidentified",
+      "gender": "Male",
+      "lat": 39.340596,
+      "lng": -112.6234161,
+      "locationLabel": "Location found",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/john-doe-1970/0.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1970/1.jpg"
+        }
+      ],
+      "narrative": "Found September 27, 1970, at Sherwood Shores, southwest of Delta; location on map is approximate. Only a skull was recovered. It appeared to be very old. It was sent to the FBI for investigation.\nIt is unknown what happened to these remains.",
+      "caseNumber": null,
+      "links": [],
+      "tipHotline": "833-DPS-SAFE (833-377-7233)"
     },
     {
       "id": "john-doe-1973",
