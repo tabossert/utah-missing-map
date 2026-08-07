@@ -1,0 +1,25 @@
+package.json
+  s_61883d821fcb4d::t_e6393400f9f5b8 3
+build/build.mjs
+  s_61883d821fcb4d::t_2b6311ce3b4f24 87
+  s_61883d821fcb4d::t_500e392a1e2267 8-10
+  s_61883d821fcb4d::t_42ec4c50cf7ddd 50-74
+package-lock.json
+  s_61883d821fcb4d::t_89d5513e8bbf9a 3,9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "b3a9468e236461cb3c215fd2aa57590cf60fed97",
+  "prompts": {},
+  "sessions": {
+    "s_61883d821fcb4d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fb45bf0a-6061-45ea-869f-703083886621",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Trevor Bossert <alanboss@gmail.com>"
+    }
+  }
+}
