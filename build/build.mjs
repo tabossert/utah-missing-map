@@ -5,10 +5,9 @@
 // the URL is NOT a stable cache key, and the KML carries no image id, ETag, or
 // HEAD content-length to ask with instead — a photo's identity is unknowable
 // without its bytes. So every photo is re-fetched and re-encoded each run, and
-// written only when the result differs from the file already on disk: a photo
-// swapped in place on the map is picked up, while an unchanged rebuild touches
-// nothing → no git diff. (Google re-renders a photo slightly differently now and
-// then, which costs an occasional spurious rewrite.) The rotating `src` is
+// written only when it is a different picture from the one already on disk: a
+// photo swapped in place on the map is picked up, while an unchanged rebuild
+// touches nothing → no git diff, even across Google's re-render drift. The `src` is
 // dropped from the snapshot for self-hosted photos (kept only as a last-resort
 // fallback when a download failed), keeping data.json byte-stable across runs.
 import { writeFileSync, mkdirSync, existsSync, readdirSync, readFileSync, rmSync } from 'node:fs';
@@ -48,6 +47,31 @@ async function fetchWithRetry(url, opts = {}, tries = 3) {
 
 let photosWritten = 0;
 
+// Google re-renders a photo slightly differently now and then, which byte equality
+// would read as a new photo and churn the repo. Measured, that drift is a mean
+// absolute difference of 0.0001 per channel, while a swapped photo changes its
+// dimensions outright — so the tolerance sits orders of magnitude clear of both.
+const RERENDER_TOLERANCE = 0.01; // mean absolute difference per channel, 0-255
+
+// Only consulted once the encoded bytes already differ, i.e. for the odd photo or
+// two per build rather than all of them.
+async function picturesDiffer(abs, jpeg) {
+  try {
+    const [stored, fresh] = await Promise.all([
+      sharp(abs).raw().toBuffer({ resolveWithObject: true }),
+      sharp(jpeg).raw().toBuffer({ resolveWithObject: true }),
+    ]);
+    const a = stored.info;
+    const b = fresh.info;
+    if (a.width !== b.width || a.height !== b.height || a.channels !== b.channels) return true;
+    let sum = 0;
+    for (let i = 0; i < stored.data.length; i++) sum += Math.abs(stored.data[i] - fresh.data[i]);
+    return sum / stored.data.length > RERENDER_TOLERANCE;
+  } catch {
+    return true; // unreadable stored file — replace it
+  }
+}
+
 // Returns the self-hosted relative path, or null on failure (client falls back to src).
 async function downloadPhoto(id, index, url) {
   const rel = localPath(id, index);
@@ -60,7 +84,7 @@ async function downloadPhoto(id, index, url) {
       .resize(MAX_DIM, MAX_DIM, { fit: 'inside', withoutEnlargement: true })
       .jpeg({ quality: JPEG_QUALITY, mozjpeg: true })
       .toBuffer();
-    if (!existsSync(abs) || !readFileSync(abs).equals(jpeg)) {
+    if (!existsSync(abs) || (!readFileSync(abs).equals(jpeg) && (await picturesDiffer(abs, jpeg)))) {
       mkdirSync(join(IMAGES_DIR, id), { recursive: true });
       writeFileSync(abs, jpeg);
       photosWritten++;
