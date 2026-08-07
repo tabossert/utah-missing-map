@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-07T00:01:46.960Z",
-  "count": 243,
+  "generatedAt": "2026-08-07T03:45:45.668Z",
+  "count": 244,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -5331,8 +5331,41 @@
       "tipHotline": null
     },
     {
-      "id": "john-doe-1979",
-      "name": "John Doe",
+      "id": "john-doe-washington-county-1979",
+      "name": "John Doe - Washington County",
+      "year": 1979,
+      "category": "Unidentified Males",
+      "type": "Unidentified",
+      "gender": "Male",
+      "lat": 37.5067635,
+      "lng": -113.4990741,
+      "locationLabel": "Location found",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/john-doe-washington-county-1979/0.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-washington-county-1979/1.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-washington-county-1979/2.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-washington-county-1979/3.jpg"
+        }
+      ],
+      "narrative": "Found early May 1979 by two people digging an irrigation ditch about 2.5 miles south of Pinto; location on map is approximate. Nearly a complete skeleton was recovered and no other materials were found with the remains. The medical examiner determined he was a young Native American male between 25 to 35 years old and 5'1 1/4\" to 5'3 3/4\" tall.\nIt is unknown what happened to these remains.",
+      "caseNumber": null,
+      "links": [],
+      "tipHotline": "833-DPS-SAFE (833-377-7233)"
+    },
+    {
+      "id": "john-doe-salt-lake-county-1979",
+      "name": "John Doe - Salt Lake County",
       "year": 1979,
       "category": "Unidentified Males",
       "type": "Unidentified",
@@ -5343,11 +5376,11 @@
       "photos": [
         {
           "src": null,
-          "local": "images/john-doe-1979/0.jpg"
+          "local": "images/john-doe-salt-lake-county-1979/0.jpg"
         },
         {
           "src": null,
-          "local": "images/john-doe-1979/1.jpg"
+          "local": "images/john-doe-salt-lake-county-1979/1.jpg"
         }
       ],
       "narrative": "Found June 9, 1979 by railroad crews laying beside the railroad tracks near the 2100 S railroad overpass at 670 W, Salt Lake City. Location on map is approximate.\nThe man was found with his trousers around his ankles and had been stabbed in the back of his thighs. An autopsy determined the man died of blood loss and shock and estimated the man had been dead approximately 3 hours before he was found.\nDetectives stated the man was likely a transient who had been hanging around the railroad tracks. Documents found on the body and his fingerprints were sent to the FBI for comparison. But the FBI found that the man’s fingerprints did not match the name on the documents. The man was never identified and was buried on June 22, 1979 in the Taylorsville Cemetery.",
