@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-07T14:08:26.905Z",
-  "count": 245,
+  "generatedAt": "2026-08-08T15:23:30.770Z",
+  "count": 246,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -3861,6 +3861,27 @@
           "url": "https://www.namus.gov/MissingPersons/Case#/135940/"
         }
       ],
+      "tipHotline": null
+    },
+    {
+      "id": "howard-stone-2024",
+      "name": "Howard Stone",
+      "year": 2024,
+      "category": "Missing Males",
+      "type": "Missing",
+      "gender": "Male",
+      "lat": 39.4863422,
+      "lng": -112.254109,
+      "locationLabel": "Last known location",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/howard-stone-2024/0.jpg"
+        }
+      ],
+      "narrative": "Last seen August 10, 2024, hiking in the area of Little Wild Horse Canyon near Goblin Valley State Park; location on map is approximate. His vehicle was located at the trailhead the next day. Despite searches with airplanes, helicopters, ATVs, dirt bikes, and K-9s, Howard has not been located.\n\nEmery County Sheriff's Office Case\n\nPlease call the Emery County Sheriff's Office at 435-381-2112 with any information.",
+      "caseNumber": null,
+      "links": [],
       "tipHotline": null
     },
     {
