@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-08T16:25:17.079Z",
-  "count": 246,
+  "generatedAt": "2026-08-09T01:13:05.629Z",
+  "count": 247,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -4162,6 +4162,47 @@
       "caseNumber": null,
       "links": [],
       "tipHotline": null
+    },
+    {
+      "id": "john-doe-1938",
+      "name": "John Doe",
+      "year": 1938,
+      "category": "Unidentified Males",
+      "type": "Unidentified",
+      "gender": "Male",
+      "lat": 41.2542343,
+      "lng": -111.8410748,
+      "locationLabel": "Location found",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/john-doe-1938/0.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1938/1.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1938/2.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1938/3.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1938/4.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1938/5.jpg"
+        }
+      ],
+      "narrative": "Found September 9, 1938, about 200 feet east of the Pine View reservoir dam and about 15 feet from the south shore. He had likely been in the water 7 to 14 days. He was described as a white male between the ages of 50 and 55. He stood about 5' 11 to 6' tall and weighed between 190-225 pounds. He had an enormous chest and broad shoulders. \"He could have been a wrestler.\" He was wearing only a blue dress shirt, an undershirt and socks. A coat and shoes were located on shore.",
+      "caseNumber": null,
+      "links": [],
+      "tipHotline": "833-DPS-SAFE (833-377-7233)"
     },
     {
       "id": "john-doe-box-elder-1939",
