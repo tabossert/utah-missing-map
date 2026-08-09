@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-09T01:13:05.629Z",
-  "count": 247,
+  "generatedAt": "2026-08-09T20:24:28.788Z",
+  "count": 248,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -4797,6 +4797,39 @@
         }
       ],
       "narrative": "Found in early June 1956 by children and their teacher out on a field trip in Pleasant Valley near Myton, Duchesne County; location on map is approximate. The remains were not a complete skeleton but were described as being those of a white adult male, 35 to 40 years old, and 63 to 67 inches tall.",
+      "caseNumber": null,
+      "links": [],
+      "tipHotline": "833-DPS-SAFE (833-377-7233)"
+    },
+    {
+      "id": "john-doe-1958",
+      "name": "John Doe",
+      "year": 1958,
+      "category": "Unidentified Males",
+      "type": "Unidentified",
+      "gender": "Male",
+      "lat": 41.3233364,
+      "lng": -113.7111117,
+      "locationLabel": "Location found",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/john-doe-1958/0.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1958/1.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1958/2.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1958/3.jpg"
+        }
+      ],
+      "narrative": "Found later afternoon June 23, 1958, by a railroad worker along the Southern Pacific Railroad right-of-way about 10 miles east of Lucin; location on map is approximate.  He laid in a barren area and had died from injuries sustained from an apparent fall or jump from a westbound train. He was about 30 to 35 years old with sandy to red hair in a crew cut. He stook about 6 feet tall and weighed between 175 to 200 pounds. He wore a light jacket, size 33-34\" denim pants, and blue canvas shoes. He was buried in the Brigham City Cemetery.",
       "caseNumber": null,
       "links": [],
       "tipHotline": "833-DPS-SAFE (833-377-7233)"
