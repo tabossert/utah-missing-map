@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-10T14:17:57.685Z",
-  "count": 248,
+  "generatedAt": "2026-08-12T14:18:06.386Z",
+  "count": 247,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -1514,32 +1514,6 @@
         {
           "label": "NamUs",
           "url": "https://www.namus.gov/MissingPersons/Case#/15224/"
-        }
-      ],
-      "tipHotline": null
-    },
-    {
-      "id": "david-william-newman-2000",
-      "name": "David William Newman",
-      "year": 2000,
-      "category": "Missing Males",
-      "type": "Missing",
-      "gender": "Male",
-      "lat": 37.0463221,
-      "lng": -113.6052478,
-      "locationLabel": "Last known location",
-      "photos": [
-        {
-          "src": null,
-          "local": "images/david-william-newman-2000/0.jpg"
-        }
-      ],
-      "narrative": "Last seen October 16, 2000, in the Bloomington area of St. George; exact location unknown/not released. He parked his vehicle in front of his brother's residence and walked away. Family stated he had been suicidal for some time.\n\nSt. George Police Department Case #: 98380",
-      "caseNumber": "98380",
-      "links": [
-        {
-          "label": "Utah BCI Cold Cases",
-          "url": "https://bci.utah.gov/coldcases/david-william-newman/"
         }
       ],
       "tipHotline": null
