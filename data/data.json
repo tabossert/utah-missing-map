@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-12T14:18:06.386Z",
-  "count": 247,
+  "generatedAt": "2026-08-13T15:53:51.479Z",
+  "count": 248,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -4112,6 +4112,39 @@
         }
       ],
       "narrative": "Found August 26th, 1934, buried in a box in a field near Thirteenth East and Social Ave in Union; location on map is approximate. He was badly decomposed and may have been dead up to 8 weeks.",
+      "caseNumber": null,
+      "links": [],
+      "tipHotline": "833-DPS-SAFE (833-377-7233)"
+    },
+    {
+      "id": "john-doe-1936",
+      "name": "John Doe",
+      "year": 1936,
+      "category": "Unidentified Males",
+      "type": "Unidentified",
+      "gender": "Male",
+      "lat": 40.7649176,
+      "lng": -111.8915267,
+      "locationLabel": "Location found",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/john-doe-1936/0.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1936/1.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1936/2.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1936/3.jpg"
+        }
+      ],
+      "narrative": "At about 11 a.m. on June 27, 1936, an unidentified man broke the window of the 13th story of the Continental Bank and Trust Building and then jumped. He was killed instantaneously. He carried no identification. Fingerprints were taken and sent to the FBI. Investigators traced his hat and coat to Los Angeles, but theorized they came from a second-hand store. The man was between 52 to 64 years old, stood about 5’ 6” tall and weighed 160 pounds. He was buried in the Salt Lake City Cemetery on June 29, 1936.",
       "caseNumber": null,
       "links": [],
       "tipHotline": "833-DPS-SAFE (833-377-7233)"
