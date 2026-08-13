@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-13T15:53:51.479Z",
-  "count": 248,
+  "generatedAt": "2026-08-13T23:35:25.344Z",
+  "count": 249,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -4117,8 +4117,8 @@
       "tipHotline": "833-DPS-SAFE (833-377-7233)"
     },
     {
-      "id": "john-doe-1936",
-      "name": "John Doe",
+      "id": "john-doe-salt-lake-city-1936",
+      "name": "John Doe - Salt Lake City",
       "year": 1936,
       "category": "Unidentified Males",
       "type": "Unidentified",
@@ -4129,22 +4129,38 @@
       "photos": [
         {
           "src": null,
-          "local": "images/john-doe-1936/0.jpg"
+          "local": "images/john-doe-salt-lake-city-1936/0.jpg"
         },
         {
           "src": null,
-          "local": "images/john-doe-1936/1.jpg"
+          "local": "images/john-doe-salt-lake-city-1936/1.jpg"
         },
         {
           "src": null,
-          "local": "images/john-doe-1936/2.jpg"
+          "local": "images/john-doe-salt-lake-city-1936/2.jpg"
         },
         {
           "src": null,
-          "local": "images/john-doe-1936/3.jpg"
+          "local": "images/john-doe-salt-lake-city-1936/3.jpg"
         }
       ],
       "narrative": "At about 11 a.m. on June 27, 1936, an unidentified man broke the window of the 13th story of the Continental Bank and Trust Building and then jumped. He was killed instantaneously. He carried no identification. Fingerprints were taken and sent to the FBI. Investigators traced his hat and coat to Los Angeles, but theorized they came from a second-hand store. The man was between 52 to 64 years old, stood about 5’ 6” tall and weighed 160 pounds. He was buried in the Salt Lake City Cemetery on June 29, 1936.",
+      "caseNumber": null,
+      "links": [],
+      "tipHotline": "833-DPS-SAFE (833-377-7233)"
+    },
+    {
+      "id": "john-doe-salt-lake-county-1936",
+      "name": "John Doe - Salt Lake County",
+      "year": 1936,
+      "category": "Unidentified Males",
+      "type": "Unidentified",
+      "gender": "Male",
+      "lat": 40.8075759,
+      "lng": -111.9180068,
+      "locationLabel": "Location found",
+      "photos": [],
+      "narrative": "Found September 29, 1936 about 300 feet north of Beck's Hot Springs, on the side of the highway to Ogden; location on map is approximate. He had been dead for about 6 months and was badly decomposed. He was described as an African American, about 65 years old, and had a clubfoot. He was buried in the Salt Lake City Cemetery on Oct 3, 1936",
       "caseNumber": null,
       "links": [],
       "tipHotline": "833-DPS-SAFE (833-377-7233)"
