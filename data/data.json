@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-14T04:01:45.970Z",
-  "count": 249,
+  "generatedAt": "2026-08-14T20:25:24.360Z",
+  "count": 250,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -4112,6 +4112,43 @@
         }
       ],
       "narrative": "Found August 26th, 1934, buried in a box in a field near Thirteenth East and Social Ave in Union; location on map is approximate. He was badly decomposed and may have been dead up to 8 weeks.",
+      "caseNumber": null,
+      "links": [],
+      "tipHotline": "833-DPS-SAFE (833-377-7233)"
+    },
+    {
+      "id": "john-doe-1935",
+      "name": "John Doe",
+      "year": 1935,
+      "category": "Unidentified Males",
+      "type": "Unidentified",
+      "gender": "Male",
+      "lat": 41.341655,
+      "lng": -112.0241335,
+      "locationLabel": "Location found",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/john-doe-1935/0.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1935/1.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1935/2.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1935/3.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-1935/4.jpg"
+        }
+      ],
+      "narrative": "On October 15, 1935, a surveying crew found the body of an unidentified man hanging from a rocky ledge just across the Weber-Box Elder County line in the hills east of Utah Hot Springs; location on map is approximate. The man had been dead for about a day. He was described as white, between 30 to 40 years old, 6’1” tall with dark brown hair. A shopkeeper in Ogden remembered selling the man several clothing items he was found wearing. He was buried in the Brigham City Cemetery.",
       "caseNumber": null,
       "links": [],
       "tipHotline": "833-DPS-SAFE (833-377-7233)"
