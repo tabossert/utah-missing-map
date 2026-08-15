@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-14T20:25:24.360Z",
-  "count": 250,
+  "generatedAt": "2026-08-15T02:11:03.131Z",
+  "count": 251,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -5344,8 +5344,24 @@
       "tipHotline": "833-DPS-SAFE (833-377-7233)"
     },
     {
-      "id": "john-doe-1973",
-      "name": "John Doe",
+      "id": "john-doe-tooele-county-1973",
+      "name": "John Doe - Tooele County",
+      "year": 1973,
+      "category": "Unidentified Males",
+      "type": "Unidentified",
+      "gender": "Male",
+      "lat": 40.7288419,
+      "lng": -112.5807764,
+      "locationLabel": "Location found",
+      "photos": [],
+      "narrative": "",
+      "caseNumber": null,
+      "links": [],
+      "tipHotline": null
+    },
+    {
+      "id": "john-doe-box-elder-county-1973",
+      "name": "John Doe - Box Elder County",
       "year": 1973,
       "category": "Unidentified Males",
       "type": "Unidentified",
@@ -5356,43 +5372,43 @@
       "photos": [
         {
           "src": null,
-          "local": "images/john-doe-1973/0.jpg"
+          "local": "images/john-doe-box-elder-county-1973/0.jpg"
         },
         {
           "src": null,
-          "local": "images/john-doe-1973/1.jpg"
+          "local": "images/john-doe-box-elder-county-1973/1.jpg"
         },
         {
           "src": null,
-          "local": "images/john-doe-1973/2.jpg"
+          "local": "images/john-doe-box-elder-county-1973/2.jpg"
         },
         {
           "src": null,
-          "local": "images/john-doe-1973/3.jpg"
+          "local": "images/john-doe-box-elder-county-1973/3.jpg"
         },
         {
           "src": null,
-          "local": "images/john-doe-1973/4.jpg"
+          "local": "images/john-doe-box-elder-county-1973/4.jpg"
         },
         {
           "src": null,
-          "local": "images/john-doe-1973/5.jpg"
+          "local": "images/john-doe-box-elder-county-1973/5.jpg"
         },
         {
           "src": null,
-          "local": "images/john-doe-1973/6.jpg"
+          "local": "images/john-doe-box-elder-county-1973/6.jpg"
         },
         {
           "src": null,
-          "local": "images/john-doe-1973/7.jpg"
+          "local": "images/john-doe-box-elder-county-1973/7.jpg"
         },
         {
           "src": null,
-          "local": "images/john-doe-1973/8.jpg"
+          "local": "images/john-doe-box-elder-county-1973/8.jpg"
         },
         {
           "src": null,
-          "local": "images/john-doe-1973/9.jpg"
+          "local": "images/john-doe-box-elder-county-1973/9.jpg"
         }
       ],
       "narrative": "Found August 13, 1973, on a sandbar in the Bear River about a mile north of the SR102 crossing near Deweyville.\nThe man was only wearing a pair of shorts.\nHe was described as possibly Native American or Hispanic/Latino and about 20-35 years old although one newspaper article says he could be from 12 to 40 years old. The man had black hair, stood 5' 2\" to 5' 3\" tall, and weighed around 130 pounds. His teeth were in perfect condition with no cavities or restorations. There were no tattoos, scars, or marks on the body.\nAn autopsy determined the man likely drowned and there were no signs of foul play. It was estimated he was dead more than a week.\nHe was badly decomposed, but authorities were able to take two fingerprints that were sent to the FBI. However, there were no matches found. A lead was uncovered when an East Tremonton woman said a man matching John Doe's description came to her door asking for a drink of water.  He was never identified and was buried in the Brigham City Cemetery on August 17, 1973.\n\nBox Elder County Sheriff's Office Case #: 73-000427",
