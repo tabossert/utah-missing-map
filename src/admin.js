@@ -335,10 +335,12 @@ async function refreshCases() {
 }
 
 function renderPicker() {
-  const q = $('marker-search').value.trim().toLowerCase();
-  const items = people
-    .filter((p) => !q || `${p.name} ${p.year ?? ''}`.toLowerCase().includes(q))
-    .slice(0, 200);
+  const search = $('marker-search');
+  const q = search.value.trim().toLowerCase();
+  // Counted from the loaded set, not hardcoded, so a refresh that pulls new
+  // cases off the live map is reflected here too.
+  search.placeholder = `Search ${people.length} people…`;
+  const items = people.filter((p) => !q || `${p.name} ${p.year ?? ''}`.toLowerCase().includes(q));
   $('marker-list').replaceChildren(
     ...items.map((p) => {
       const li = document.createElement('li');
