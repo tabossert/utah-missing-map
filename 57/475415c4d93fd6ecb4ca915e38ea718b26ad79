@@ -1,0 +1,23 @@
+admin.html
+  s_2a469e65c4bac1::t_1a50979b96eca7 96
+src/admin.js
+  s_2a469e65c4bac1::t_dc9463419a10cd 338-343
+package.json
+  s_2a469e65c4bac1::t_e681b65684594b 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "57475415c4d93fd6ecb4ca915e38ea718b26ad79",
+  "prompts": {},
+  "sessions": {
+    "s_2a469e65c4bac1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "600758c3-9597-49fa-87e2-c5bc05171f40",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Trevor Bossert <alanboss@gmail.com>"
+    }
+  }
+}
