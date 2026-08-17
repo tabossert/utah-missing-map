@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-17T14:21:25.425Z",
-  "count": 251,
+  "generatedAt": "2026-08-17T22:18:33.278Z",
+  "count": 252,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -4094,6 +4094,22 @@
       "caseNumber": null,
       "links": [],
       "tipHotline": "833-DPS-SAFE (833-377-7233)"
+    },
+    {
+      "id": "john-doe-salt-lake-county-1934",
+      "name": "John Doe - Salt Lake County",
+      "year": 1934,
+      "category": "Unidentified Males",
+      "type": "Unidentified",
+      "gender": "Male",
+      "lat": 40.7356014,
+      "lng": -111.7674093,
+      "locationLabel": "Location found",
+      "photos": [],
+      "narrative": "",
+      "caseNumber": null,
+      "links": [],
+      "tipHotline": null
     },
     {
       "id": "baby-john-doe-1934",
