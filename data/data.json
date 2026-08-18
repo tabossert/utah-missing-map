@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T22:18:33.278Z",
+  "generatedAt": "2026-08-18T03:39:40.318Z",
   "count": 252,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
@@ -4096,22 +4096,6 @@
       "tipHotline": "833-DPS-SAFE (833-377-7233)"
     },
     {
-      "id": "john-doe-salt-lake-county-1934",
-      "name": "John Doe - Salt Lake County",
-      "year": 1934,
-      "category": "Unidentified Males",
-      "type": "Unidentified",
-      "gender": "Male",
-      "lat": 40.7356014,
-      "lng": -111.7674093,
-      "locationLabel": "Location found",
-      "photos": [],
-      "narrative": "",
-      "caseNumber": null,
-      "links": [],
-      "tipHotline": null
-    },
-    {
       "id": "baby-john-doe-1934",
       "name": "Baby John Doe",
       "year": 1934,
@@ -4128,6 +4112,39 @@
         }
       ],
       "narrative": "Found August 26th, 1934, buried in a box in a field near Thirteenth East and Social Ave in Union; location on map is approximate. He was badly decomposed and may have been dead up to 8 weeks.",
+      "caseNumber": null,
+      "links": [],
+      "tipHotline": "833-DPS-SAFE (833-377-7233)"
+    },
+    {
+      "id": "john-doe-salt-lake-county-1934",
+      "name": "John Doe - Salt Lake County",
+      "year": 1934,
+      "category": "Unidentified Males",
+      "type": "Unidentified",
+      "gender": "Male",
+      "lat": 40.7356014,
+      "lng": -111.7674093,
+      "locationLabel": "Location found",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/john-doe-salt-lake-county-1934/0.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-salt-lake-county-1934/1.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-salt-lake-county-1934/2.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/john-doe-salt-lake-county-1934/3.jpg"
+        }
+      ],
+      "narrative": "Found November 12, 1934, by hikers lying in a small gulley about a half mile south and two and a half miles east of St. Mary’s of the Wasatch Academy; location on map is approximate. The body was that of a white man about 55 to 60 years old, 5’8” tall with reddish brown hair. He had expensive dental work and wore expensive clothing. He wore a grey tweed overcoat, a grey or powder blue suit, silk knit underwear, a tan shirt, size 8 tan shoes, a green felt hat, and a 34 inch belt with a silver belt buckle. He was buried in the Salt Lake City Cemetery.",
       "caseNumber": null,
       "links": [],
       "tipHotline": "833-DPS-SAFE (833-377-7233)"
