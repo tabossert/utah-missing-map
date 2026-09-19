@@ -1,4 +1,5 @@
 // Leaflet map: soft CARTO basemap, category-colored pins, clustering.
+import { CONFIG } from './config.js';
 const L = globalThis.L;
 
 export const CATEGORY_STYLES = {
@@ -35,8 +36,8 @@ export function markGlyph(category) {
 }
 
 const TILE_URLS = {
-  light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-  dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+  light: `https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=${CONFIG.cartoApiKey}`,
+  dark: `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=${CONFIG.cartoApiKey}`,
 };
 
 let map;
