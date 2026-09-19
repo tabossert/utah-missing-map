@@ -1,0 +1,26 @@
+src/map.js
+  s_0a74073649ce9f::t_a1bb2ec4d3e072 2
+  s_0a74073649ce9f::t_4896ef0ffbe858 39-40
+package.json
+  s_0a74073649ce9f::t_acf99907d0ef7c 3
+src/config.js
+  s_0a74073649ce9f::t_0ee8b7e62907a9 7
+src/admin.js
+  s_0a74073649ce9f::t_4f10ee97e7cc6e 534-535
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "5cd3df57d9adb204ff775c9084f87d03fac13398",
+  "prompts": {},
+  "sessions": {
+    "s_0a74073649ce9f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d5ccb04c-0fd7-45ed-89c8-a7c0a00630e3",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Trevor Bossert <trevor@unstructured.io>"
+    }
+  }
+}
