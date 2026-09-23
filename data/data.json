@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T03:39:40.318Z",
+  "generatedAt": "2026-09-23T18:09:53.557Z",
   "count": 252,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
@@ -4090,10 +4090,19 @@
           "local": "images/john-doe-davis-county-1934/0.jpg"
         }
       ],
-      "narrative": "Found August 7th, 1934, the day after the wreck of a Denver & Rio Grande Western Railroad train near the West Kaysville station, about a mile west of Kaysville. Locaction on map is approximate. He had been riding the mostly empty train southbound to Salt Lake City with about 20 other transients when the accident occurred.\nJohn Doe was badly managled and the only description give was that of a white male, between 18 to 25 years old. A scrap of paper in his pocket read \"Bar Joe Elwood\" on one side and \"Junction City, Ore., William E. Miller\" on the other. He was never identified. He was buried on August 9th, 1934 in the Bountiful Cemetery.",
-      "caseNumber": null,
-      "links": [],
-      "tipHotline": "833-DPS-SAFE (833-377-7233)"
+      "narrative": "Found August 7th, 1934, the day after the wreck of a Denver & Rio Grande Western Railroad train near the West Kaysville station, about a mile west of Kaysville. Locaction on map is approximate. He had been riding the mostly empty train southbound to Salt Lake City with about 20 other transients when the accident occurred.\nJohn Doe was badly managled and the only description give was that of a white male, between 18 to 25 years old. A scrap of paper in his pocket read \"Bar Joe Elwood\" on one side and \"Junction City, Ore., William E. Miller\" on the other. He was never identified. He was buried on August 9th, 1934 in the Bountiful Cemetery.\n\nDavis County Sheriff's Office Case #: D26-03190",
+      "caseNumber": "D26-03190",
+      "links": [
+        {
+          "label": "Utah BCI Cold Cases",
+          "url": "https://bci.utah.gov/coldcases/john-doe-davis-county-2/"
+        },
+        {
+          "label": "NamUs",
+          "url": "https://www.namus.gov/UnidentifiedPersons/Case#/160954"
+        }
+      ],
+      "tipHotline": null
     },
     {
       "id": "baby-john-doe-1934",
@@ -4181,10 +4190,19 @@
           "local": "images/john-doe-1935/4.jpg"
         }
       ],
-      "narrative": "On October 15, 1935, a surveying crew found the body of an unidentified man hanging from a rocky ledge just across the Weber-Box Elder County line in the hills east of Utah Hot Springs; location on map is approximate. The man had been dead for about a day. He was described as white, between 30 to 40 years old, 6’1” tall with dark brown hair. A shopkeeper in Ogden remembered selling the man several clothing items he was found wearing. He was buried in the Brigham City Cemetery.",
-      "caseNumber": null,
-      "links": [],
-      "tipHotline": "833-DPS-SAFE (833-377-7233)"
+      "narrative": "On October 15, 1935, a surveying crew found the body of an unidentified man hanging from a rocky ledge just across the Weber-Box Elder County line in the hills east of Utah Hot Springs; location on map is approximate. The man had been dead for about a day. He was described as white, between 30 to 40 years old, 6’1” tall with dark brown hair. A shopkeeper in Ogden remembered selling the man several clothing items he was found wearing. He was buried in the Brigham City Cemetery.\n\nBox Elder County Sheriff's Office Case #: 35-000000",
+      "caseNumber": "35-000000",
+      "links": [
+        {
+          "label": "Utah BCI Cold Cases",
+          "url": "https://bci.utah.gov/coldcases/john-doe-box-elder-coso/"
+        },
+        {
+          "label": "NamUs",
+          "url": "https://www.namus.gov/UnidentifiedPersons/Case#/162117/"
+        }
+      ],
+      "tipHotline": null
     },
     {
       "id": "john-doe-salt-lake-city-1936",
@@ -4326,10 +4344,19 @@
           "local": "images/john-doe-box-elder-1939/0.jpg"
         }
       ],
-      "narrative": "Found January 19, 1939 by a sheepherder in a desert wash about 26 miles southwest of Kelton, Box Elder County; location on map is approximate. The remains were that of a man about 55 to 70 years old and 5'10' tall. He wore a brown coat and pants with a striped overall jacket. His shoes were badly worn. His pockets contains several highly colored rocks, 25 cents, a wrapper from a pound of butter and Jones saloon check. It was estimated he had been dead since February or March of 1938.",
-      "caseNumber": null,
-      "links": [],
-      "tipHotline": "833-DPS-SAFE (833-377-7233)"
+      "narrative": "Found January 19, 1939 by a sheepherder in a desert wash about 26 miles southwest of Kelton, Box Elder County; location on map is approximate. The remains were that of a man about 55 to 70 years old and 5'10' tall. He wore a brown coat and pants with a striped overall jacket. His shoes were badly worn. His pockets contains several highly colored rocks, 25 cents, a wrapper from a pound of butter and Jones saloon check. It was estimated he had been dead since February or March of 1938.\n\nBox Elder County Sheriff's Office Case #: 39-000000",
+      "caseNumber": "39-000000",
+      "links": [
+        {
+          "label": "Utah BCI Cold Cases",
+          "url": "https://bci.utah.gov/coldcases/john-doe-box-elder-county-2/"
+        },
+        {
+          "label": "NamUs",
+          "url": "https://www.namus.gov/UnidentifiedPersons/Case#/160949/"
+        }
+      ],
+      "tipHotline": null
     },
     {
       "id": "john-doe-davis-county-1939",
@@ -4359,10 +4386,19 @@
           "local": "images/john-doe-davis-county-1939/3.jpg"
         }
       ],
-      "narrative": "Found August 21st, 1939, on Hwy 91 at the Farmington Junction after being struck by a vehicle while standing on the side of the road hitchhiking. He was killed instantly (though his face was recognizable). The hitchhiker was standing on the edge of the road, trying to get a ride southward.\nThe man was estimated to be 25 to 30 years old, about 5’ 9” tall, weighed between 170 and 180 lbs, had red close-cropped hair, light blue eyes, and a tattoo on his left forearm.\nHe was found wearing a gray checkered cap, two pairs of trousers: the outer pair was in army style being held up with a piece of rope, the inner pair was dark blue with a light blue stripe, and a grayish blue coat. His pockets contained a “number of trinkets” but no identification. He had 15 broken buttons, a pair of buck-skin gloves, an extra pair of socks, and a clipping from a Portland, Oregon newspaper dated Aug 12th.\nFingerprints were taken and sent to the FBI in Washington DC. They found no match. The man was never identified and was buried on August 30, 1939, in the Bountiful City Cemetery.",
-      "caseNumber": null,
-      "links": [],
-      "tipHotline": "833-DPS-SAFE (833-377-7233)"
+      "narrative": "Found August 21st, 1939, on Hwy 91 at the Farmington Junction after being struck by a vehicle while standing on the side of the road hitchhiking. He was killed instantly (though his face was recognizable). The hitchhiker was standing on the edge of the road, trying to get a ride southward.\nThe man was estimated to be 25 to 30 years old, about 5’ 9” tall, weighed between 170 and 180 lbs, had red close-cropped hair, light blue eyes, and a tattoo on his left forearm.\nHe was found wearing a gray checkered cap, two pairs of trousers: the outer pair was in army style being held up with a piece of rope, the inner pair was dark blue with a light blue stripe, and a grayish blue coat. His pockets contained a “number of trinkets” but no identification. He had 15 broken buttons, a pair of buck-skin gloves, an extra pair of socks, and a clipping from a Portland, Oregon newspaper dated Aug 12th.\nFingerprints were taken and sent to the FBI in Washington DC. They found no match. The man was never identified and was buried on August 30, 1939, in the Bountiful City Cemetery.\n\nDavis County Sheriff's Office Case #: D26-03191",
+      "caseNumber": "D26-03191",
+      "links": [
+        {
+          "label": "Utah BCI Cold Cases",
+          "url": "https://bci.utah.gov/coldcases/john-doe-davis-county-3/"
+        },
+        {
+          "label": "NamUs",
+          "url": "https://www.namus.gov/UnidentifiedPersons/Case#/162174/"
+        }
+      ],
+      "tipHotline": null
     },
     {
       "id": "john-doe-1940",
@@ -4935,10 +4971,19 @@
           "local": "images/john-doe-1958/3.jpg"
         }
       ],
-      "narrative": "Found later afternoon June 23, 1958, by a railroad worker along the Southern Pacific Railroad right-of-way about 10 miles east of Lucin; location on map is approximate.  He laid in a barren area and had died from injuries sustained from an apparent fall or jump from a westbound train. He was about 30 to 35 years old with sandy to red hair in a crew cut. He stook about 6 feet tall and weighed between 175 to 200 pounds. He wore a light jacket, size 33-34\" denim pants, and blue canvas shoes. He was buried in the Brigham City Cemetery.",
-      "caseNumber": null,
-      "links": [],
-      "tipHotline": "833-DPS-SAFE (833-377-7233)"
+      "narrative": "Found later afternoon June 23, 1958, by a railroad worker along the Southern Pacific Railroad right-of-way about 10 miles east of Lucin; location on map is approximate.  He laid in a barren area and had died from injuries sustained from an apparent fall or jump from a westbound train. He was about 30 to 35 years old with sandy to red hair in a crew cut. He stook about 6 feet tall and weighed between 175 to 200 pounds. He wore a light jacket, size 33-34\" denim pants, and blue canvas shoes. He was buried in the Brigham City Cemetery.\n\nBox Elder County Sheriff's Office Case #: 58-000000",
+      "caseNumber": "58-000000",
+      "links": [
+        {
+          "label": "Utah BCI Cold Cases",
+          "url": "https://bci.utah.gov/coldcases/john-doe-box-elder-coso-2/"
+        },
+        {
+          "label": "NamUs",
+          "url": "https://www.namus.gov/UnidentifiedPersons/Case#/162151/"
+        }
+      ],
+      "tipHotline": null
     },
     {
       "id": "john-doe-salt-lake-1959",
