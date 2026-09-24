@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-24T05:45:23.646Z",
-  "count": 253,
+  "generatedAt": "2026-09-24T22:56:04.962Z",
+  "count": 254,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -4075,6 +4075,38 @@
       "tipHotline": "833-DPS-SAFE (833-377-7233)"
     },
     {
+      "id": "john-doe-salt-lake-city-1934",
+      "name": "John Doe - Salt Lake City",
+      "year": 1934,
+      "category": "Unidentified Males",
+      "type": "Unidentified",
+      "gender": "Male",
+      "lat": 40.7405319,
+      "lng": -111.9393535,
+      "locationLabel": "Location found",
+      "photos": [],
+      "narrative": "",
+      "caseNumber": null,
+      "links": [],
+      "tipHotline": null
+    },
+    {
+      "id": "john-doe-salt-lake-city-1934-2",
+      "name": "John Doe - Salt Lake City",
+      "year": 1934,
+      "category": "Unidentified Males",
+      "type": "Unidentified",
+      "gender": "Male",
+      "lat": 40.7691949,
+      "lng": -111.918666,
+      "locationLabel": "Location found",
+      "photos": [],
+      "narrative": "Found July 15, 1934 shortly after 1 a.m. by railroad workers along the Western Pacific railroad tracks between 9th and 10th West and First South in Salt Lake City. The man had slipped from the grab irons and fell beneath the wheels although his face was still recognizable. He was described as aged 19 to 21 with dark hair, even features, and sound teeth. His photographs and fingerprints were taken and distributed for identification including to the FBI. Two men who were on the train said the spoke to the young man when he asked them for a sandwich. He said he was from Kansas City and was of Greek descent. The man was never identified and was buried in the Salt Lake City Cemetery.",
+      "caseNumber": null,
+      "links": [],
+      "tipHotline": "833-DPS-SAFE (833-377-7233)"
+    },
+    {
       "id": "john-doe-davis-county-1934",
       "name": "John Doe - Davis County",
       "year": 1934,
@@ -4103,22 +4135,6 @@
         }
       ],
       "tipHotline": null
-    },
-    {
-      "id": "john-doe-salt-lake-city-1934",
-      "name": "John Doe - Salt Lake City",
-      "year": 1934,
-      "category": "Unidentified Males",
-      "type": "Unidentified",
-      "gender": "Male",
-      "lat": 40.7691949,
-      "lng": -111.918666,
-      "locationLabel": "Location found",
-      "photos": [],
-      "narrative": "Found July 15, 1934 shortly after 1 a.m. by railroad workers along the Western Pacific railroad tracks between 9th and 10th West and First South in Salt Lake City. The man had slipped from the grab irons and fell beneath the wheels although his face was still recognizable. He was described as aged 19 to 21 with dark hair, even features, and sound teeth. His photographs and fingerprints were taken and distributed for identification including to the FBI. Two men who were on the train said the spoke to the young man when he asked them for a sandwich. He said he was from Kansas City and was of Greek descent. The man was never identified and was buried in the Salt Lake City Cemetery.",
-      "caseNumber": null,
-      "links": [],
-      "tipHotline": "833-DPS-SAFE (833-377-7233)"
     },
     {
       "id": "baby-john-doe-1934",
