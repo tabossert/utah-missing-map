@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-28T23:48:19.843Z",
-  "count": 256,
+  "generatedAt": "2026-10-29T03:55:14.114Z",
+  "count": 255,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -9051,40 +9051,6 @@
         {
           "label": "NamUs",
           "url": "https://www.namus.gov/MissingPersons/Case#/137324/"
-        }
-      ],
-      "tipHotline": null
-    },
-    {
-      "id": "aaliyah-amira-hebeishy-2024",
-      "name": "Aaliyah Amira Hebeishy",
-      "year": 2024,
-      "category": "Missing Females",
-      "type": "Missing",
-      "gender": "Female",
-      "lat": 41.1398658,
-      "lng": -112.0308126,
-      "locationLabel": "Last known location",
-      "photos": [
-        {
-          "src": null,
-          "local": "images/aaliyah-amira-hebeishy-2024/0.jpg"
-        },
-        {
-          "src": null,
-          "local": "images/aaliyah-amira-hebeishy-2024/1.jpg"
-        },
-        {
-          "src": null,
-          "local": "images/aaliyah-amira-hebeishy-2024/2.jpg"
-        }
-      ],
-      "narrative": "Last seen August 5, 2024 in Sunset; exact location unknown/not released. She may have travelled through Idaho to Portland, Oregon. She took no cell phone or electronics with her.\n\nSunset Police Department Case #: S24-08078",
-      "caseNumber": "S24-08078",
-      "links": [
-        {
-          "label": "NamUs",
-          "url": "https://www.namus.gov/MissingPersons/Case#/127466/"
         }
       ],
       "tipHotline": null
