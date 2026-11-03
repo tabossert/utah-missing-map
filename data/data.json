@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-29T03:55:14.114Z",
-  "count": 255,
+  "generatedAt": "2026-11-03T15:43:22.548Z",
+  "count": 254,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -9051,44 +9051,6 @@
         {
           "label": "NamUs",
           "url": "https://www.namus.gov/MissingPersons/Case#/137324/"
-        }
-      ],
-      "tipHotline": null
-    },
-    {
-      "id": "kylie-olivia-arellano-2025",
-      "name": "Kylie Olivia Arellano",
-      "year": 2025,
-      "category": "Missing Females",
-      "type": "Missing",
-      "gender": "Female",
-      "lat": 41.946878,
-      "lng": -111.3935397,
-      "locationLabel": "Last known location",
-      "photos": [
-        {
-          "src": null,
-          "local": "images/kylie-olivia-arellano-2025/0.jpg"
-        },
-        {
-          "src": null,
-          "local": "images/kylie-olivia-arellano-2025/1.jpg"
-        },
-        {
-          "src": null,
-          "local": "images/kylie-olivia-arellano-2025/2.jpg"
-        },
-        {
-          "src": null,
-          "local": "images/kylie-olivia-arellano-2025/3.jpg"
-        }
-      ],
-      "narrative": "Last seen May 30, 2025, walking toward Logan Canyon in Garden City; exact location unknown/not released. Kylie purchased several items including a suitcase from a local thrift store before she disappeared.\n\nRich County Sheriff's Office Case #: 25-R308",
-      "caseNumber": "25-R308",
-      "links": [
-        {
-          "label": "NamUs",
-          "url": "https://www.namus.gov/MissingPersons/Case#/149276/"
         }
       ],
       "tipHotline": null
