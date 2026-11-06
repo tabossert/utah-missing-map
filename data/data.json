@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-03T21:26:29.568Z",
-  "count": 254,
+  "generatedAt": "2026-11-06T15:33:07.395Z",
+  "count": 255,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -4564,6 +4564,22 @@
       "caseNumber": null,
       "links": [],
       "tipHotline": "833-DPS-SAFE (833-377-7233)"
+    },
+    {
+      "id": "john-doe-1942",
+      "name": "John Doe",
+      "year": 1942,
+      "category": "Unidentified Males",
+      "type": "Unidentified",
+      "gender": "Male",
+      "lat": 41.5510494,
+      "lng": -112.0361214,
+      "locationLabel": "Location found",
+      "photos": [],
+      "narrative": "Found August 3, 1942 by railroad workers alongside the Union Pacific railroad tracks about 2 to 3 miles north of Brigham City. Location is approximate. He had apparently fallen from a train but had not been run over. He appeared to be about 65 years old, about 5’ 5” tall, 145 pounds with a close-cropped grey mustache. He was dressed in work clothing and carried a burlap sack with extra clothing and some small food items. He was tentatively identified through fingerprints as a man picked up in Salt Lake City as a vagrant named Jean Medheron or Jean Matron. He was never positively identified, and his remains were sent to the University of Utah.",
+      "caseNumber": null,
+      "links": [],
+      "tipHotline": null
     },
     {
       "id": "john-doe-1943",
