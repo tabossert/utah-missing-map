@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-06T15:33:07.395Z",
-  "count": 255,
+  "generatedAt": "2026-11-13T20:14:07.680Z",
+  "count": 257,
   "source": "https://www.google.com/maps/d/kml?mid=1oSzJorsXgSsXs6oWVNIJh3FgU2-xgWdU&forcekml=1",
   "people": [
     {
@@ -3991,6 +3991,35 @@
       "tipHotline": null
     },
     {
+      "id": "patrick-j-trier-2026",
+      "name": "Patrick J Trier",
+      "year": 2026,
+      "category": "Missing Males",
+      "type": "Missing",
+      "gender": "Male",
+      "lat": 38.9577407,
+      "lng": -111.859925,
+      "locationLabel": "Last known location",
+      "photos": [
+        {
+          "src": null,
+          "local": "images/patrick-j-trier-2026/0.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/patrick-j-trier-2026/1.jpg"
+        },
+        {
+          "src": null,
+          "local": "images/patrick-j-trier-2026/2.jpg"
+        }
+      ],
+      "narrative": "Last seen August 16, 2026, in Salina; exact location unknown/not released. His vehicle was located the next day at the Horseshoe Canyon trailhead of Canyonlands National Park.\n\nPortland Police Bureau Case #: 26-245778\nNamUs: www.namus.gov/MissingPersons/Case#/162980/",
+      "caseNumber": "26-245778",
+      "links": [],
+      "tipHotline": null
+    },
+    {
       "id": "john-doe-1912",
       "name": "John Doe",
       "year": 1912,
@@ -4105,6 +4134,22 @@
       "caseNumber": null,
       "links": [],
       "tipHotline": "833-DPS-SAFE (833-377-7233)"
+    },
+    {
+      "id": "john-doe-1933",
+      "name": "John Doe",
+      "year": 1933,
+      "category": "Unidentified Males",
+      "type": "Unidentified",
+      "gender": "Male",
+      "lat": 40.7684291,
+      "lng": -111.9144043,
+      "locationLabel": "Location found",
+      "photos": [],
+      "narrative": "",
+      "caseNumber": null,
+      "links": [],
+      "tipHotline": null
     },
     {
       "id": "john-doe-salt-lake-city-1934",
